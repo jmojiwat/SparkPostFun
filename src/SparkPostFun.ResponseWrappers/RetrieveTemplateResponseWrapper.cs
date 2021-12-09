@@ -22,5 +22,4 @@ namespace SparkPostFun.ResponseWrappers
         public IList<Error> Errors { get; init; } = new List<Error>();
 
     }
-
 }
