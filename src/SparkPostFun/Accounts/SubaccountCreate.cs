@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace SparkPostFun.Sending
+namespace SparkPostFun.Accounts
 {
     public record SubaccountCreate
     {

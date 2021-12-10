@@ -1,6 +1,6 @@
 ﻿using LanguageExt;
 
-namespace SparkPostFun.Sending
+namespace SparkPostFun.Accounts
 {
     public static class SubaccountExtensions
     {

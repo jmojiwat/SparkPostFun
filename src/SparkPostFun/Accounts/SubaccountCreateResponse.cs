@@ -1,4 +1,4 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Accounts
 {
     public record SubaccountCreateResponse
     {

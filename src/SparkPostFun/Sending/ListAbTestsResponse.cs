@@ -1,6 +1,6 @@
 ﻿namespace SparkPostFun.Sending
 {
-    public record ListAbTestResponse
+    public record ListAbTestsResponse
     {
         public IList<ListAbTestResponseResult> Results { get; init; } = new List<ListAbTestResponseResult>();
     }

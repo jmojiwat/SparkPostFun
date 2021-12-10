@@ -182,7 +182,7 @@ namespace SparkPostFun.Tests.Serialization
                        "  ]                                                                 " +
                        "}                                                                   ";
 
-            var response = JsonSerializer.Deserialize<ListAbTestResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+            var response = JsonSerializer.Deserialize<ListAbTestsResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
             response.Results.Count.Should().Be(2);
         }

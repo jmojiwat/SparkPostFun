@@ -54,6 +54,7 @@ namespace SparkPostFun.Sending
 
         public static Task<Either<ErrorResponse, PreviewTemplateResponse>> PreviewTemplate(this Client @this, string id, PreviewTemplate request)
         {
+            throw new NotImplementedException();
             var requestUrl = $"/api/{@this.Version}/templates/{id}/preview";
             return @this.Put(requestUrl, request)
                 .MapAsync(ToResponse<PreviewTemplateResponse>);
@@ -61,6 +62,7 @@ namespace SparkPostFun.Sending
 
         public static Task<Either<ErrorResponse, PreviewTemplateResponse>> PreviewTemplate(this Client @this, string id, PreviewTemplate request, bool draft)
         {
+            throw new NotImplementedException();
             var requestUrl = $"/api/{@this.Version}/templates/{id}/preview?draft={draft}";
             return @this.Put(requestUrl, request)
                 .MapAsync(ToResponse<PreviewTemplateResponse>);
@@ -95,6 +97,7 @@ namespace SparkPostFun.Sending
 
         public static Task<Either<ErrorResponse, PreviewInlineTemplateResponse>> PreviewInlineTemplate(this Client @this, PreviewInlineTemplate request)
         {
+            throw new NotImplementedException();
             var requestUrl = $"/api/{@this.Version}/utils/content-previewer";
             return @this.Post(requestUrl, request)
                 .MapAsync(ToResponse<PreviewInlineTemplateResponse>);

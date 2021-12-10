@@ -15,6 +15,8 @@
     <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
     <PackageReference Include="FluentAssertions" Version="6.2.0" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.13.0" />
+    <PackageReference Include="FluentAssertions.LanguageExt" Version="0.2.0" />
+    <PackageReference Include="LanguageExt.Core" Version="4.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
@@ -35,12 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SparkPostFun\SparkPostFun.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="FluentAssertions.LanguageExt">
-      <HintPath>..\..\..\FluentAssertions.LanguageExt\src\FluentAssertions.LanguageExt\bin\Release\net6.0\FluentAssertions.LanguageExt.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

@@ -44,16 +44,16 @@ namespace SparkPostFun.Sending
             return @this.Delete(requestUrl);
         }
 
-        public static Task<Either<ErrorResponse, ListAbTestResponse>> ListAbTests(this Client @this)
+        public static Task<Either<ErrorResponse, ListAbTestsResponse>> ListAbTests(this Client @this)
         {
             var requestUrl = $"/api/{@this.Version}/ab-test";
-            return @this.Get<ListAbTestResponse>(requestUrl);
+            return @this.Get<ListAbTestsResponse>(requestUrl);
         }
 
-        public static Task<Either<ErrorResponse, ListAbTestResponse>> ListAbTests(this Client @this, AbTestingStatus status)
+        public static Task<Either<ErrorResponse, ListAbTestsResponse>> ListAbTests(this Client @this, AbTestingStatus status)
         {
             var requestUrl = $"/api/{@this.Version}/ab-test?status={status}";
-            return @this.Get<ListAbTestResponse>(requestUrl);
+            return @this.Get<ListAbTestsResponse>(requestUrl);
         }
 
         public static Task<Either<ErrorResponse, CreateAbTestDraftResponse>> CreateAbTestDraft(this Client @this, CreateAbTestDraft request)

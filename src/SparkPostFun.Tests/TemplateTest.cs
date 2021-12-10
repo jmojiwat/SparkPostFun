@@ -7,42 +7,40 @@ using SparkPostFun.Sending;
 using Xunit;
 using static System.Reflection.Assembly;
 
-namespace SparkPostFun.Tests
+namespace SparkPostFun.Tests;
+
+public class TemplateTest
 {
-    public class TemplateTest
+    [Theory, TemplateAutoData]
+    public async Task Retrieve_returns_expected_result(Client client)
     {
-        [Theory, TemplateAutoData]
-        public async Task Retrieve_returns_expected_result(Client client)
+        var response = await client.RetrieveTemplate("my-first-email");
+
+        response.Should().BeRight();
+
+    }
+
+    private class TemplateAutoDataAttribute : AutoDataAttribute
+    {
+        public TemplateAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
         {
-            var response = await client.RetrieveTemplate("my-first-email");
-
-            response.Should().BeRight();
-
         }
+    }
 
-        private class TemplateAutoDataAttribute : AutoDataAttribute
+    private class Customization : ICustomization
+    {
+        public void Customize(IFixture fixture)
         {
-            public TemplateAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+            fixture.Register(() =>
             {
-            }
+                var configuration = new ConfigurationBuilder()
+                    .AddUserSecrets(GetExecutingAssembly())
+                    .Build();
+
+                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                return new Client(apiKey);
+            });
         }
-
-        private class Customization : ICustomization
-        {
-            public void Customize(IFixture fixture)
-            {
-                fixture.Register(() =>
-                {
-                    var configuration = new ConfigurationBuilder()
-                        .AddUserSecrets(GetExecutingAssembly())
-                        .Build();
-
-                    var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                    return new Client(apiKey);
-                });
-            }
-        }
-
     }
 
 }
