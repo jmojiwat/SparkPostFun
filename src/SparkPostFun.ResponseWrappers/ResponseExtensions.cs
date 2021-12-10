@@ -7,284 +7,227 @@ namespace SparkPostFun.ResponseWrappers;
 
 public static class ResponseExtensions
 {
-    public static async Task<CreateSendingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateSendingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateSendingDomainSuccess,
-                CreateSendingDomainFail);
-    }
+    public static async Task<CreateSendingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateSendingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateSendingDomainSuccess,
+            CreateSendingDomainFail);
 
-    public static async Task<CreateIpPoolResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateIpPoolResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateIpPoolSuccess,
-                CreateIpPoolFail);
-    }
+    public static async Task<DataPrivacyResponseWrapper> Wrap(Task<Either<DataPrivacyErrorResponse, AddDataPrivacyResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            AddDataPrivacySuccess,
+            AddDataPrivacyFail);
 
-    public static async Task<RetrieveIpPoolResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveIpPoolResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveIpPoolSuccess,
-                RetrieveIpPoolFail);
-    }
+    public static async Task<CreateSubaccountResponseWrapper> Wrap(Task<Either<SubaccountErrorResponse, CreateSubaccountResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateSubaccountSuccess,
+            CreateSubaccountFail);
 
-    public static async Task<UpdateIpPoolResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateIpPoolResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateIpPoolSuccess,
-                UpdateIpPoolFail);
-    }
+    public static async Task<RetrieveSubaccountResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSubaccountResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSubaccountSuccess,
+            RetrieveSubaccountFail);
 
-    public static async Task<ListIpPoolsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListIpPoolsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListIpPoolsSuccess,
-                ListIpPoolsFail);
-    }
+    public static async Task<UpdateSubaccountResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateSubaccountResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateSubaccountSuccess,
+            UpdateSubaccountFail);
 
-    public static async Task<RetrieveSendingIpResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveSendingIpResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveSendingIpSuccess,
-                RetrieveSendingIpFail);
-    }
+    public static async Task<ListSubaccountsResponseWrapper> Wrap(Task<Either<SubaccountErrorResponse, ListSubaccountsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListSubaccountsSuccess,
+            ListSubaccountsFail);
 
-    public static async Task<UpdateSendingIpResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateSendingIpResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateSendingIpSuccess,
-                UpdateSendingIpFail);
-    }
+    public static async Task<RetrieveSubaccountsSummaryResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSubaccountsSummaryResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSubaccountsSummarySuccess,
+            RetrieveSubaccountsSummaryFail);
 
-    public static async Task<ListSendingIpsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListSendingIpsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListSendingIpsSuccess,
-                ListSendingIpsFail);
-    }
+    public static async Task<CreateIpPoolResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateIpPoolResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateIpPoolSuccess,
+            CreateIpPoolFail);
 
-    public static async Task<BulkCreateOrUpdateSuppressionsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, BulkCreateOrUpdateSuppressionsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                BulkCreateOrUpdateSuppressionsSuccess,
-                BulkCreateOrUpdateSuppressionsFail);
-    }
+    public static async Task<RetrieveIpPoolResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveIpPoolResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveIpPoolSuccess,
+            RetrieveIpPoolFail);
 
-    public static async Task<CreateOrUpdateSuppressionResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateOrUpdateSuppressionResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateOrUpdateSuppressionSuccess,
-                CreateOrUpdateSuppressionFail);
-    }
+    public static async Task<UpdateIpPoolResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateIpPoolResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateIpPoolSuccess,
+            UpdateIpPoolFail);
 
-    public static async Task<RetrieveSuppressionResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveSuppressionResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveSuppressionSuccess,
-                RetrieveSuppressionFail);
-    }
+    public static async Task<ListIpPoolsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListIpPoolsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListIpPoolsSuccess,
+            ListIpPoolsFail);
 
-    public static async Task<SearchSuppressionsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, SearchSuppressionsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                SearchSuppressionsSuccess,
-                SearchSuppressionsFail);
-    }
+    public static async Task<RetrieveSendingIpResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSendingIpResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSendingIpSuccess,
+            RetrieveSendingIpFail);
 
-    public static async Task<RetrieveSuppressionSummaryResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveSuppressionSummaryResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveSuppressionSummarySuccess,
-                RetrieveSuppressionSummaryFail);
-    }
+    public static async Task<UpdateSendingIpResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateSendingIpResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateSendingIpSuccess,
+            UpdateSendingIpFail);
 
-    public static async Task<EmailAddressValidationResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, EmailAddressValidationResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                EmailAddressValidationSuccess,
-                EmailAddressValidationFail);
-    }
+    public static async Task<ListSendingIpsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListSendingIpsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListSendingIpsSuccess,
+            ListSendingIpsFail);
 
-    public static async Task<CreateTemplateResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateTemplateResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateTemplateSuccess,
-                CreateTemplateFail);
-    }
+    public static async Task<BulkCreateOrUpdateSuppressionsResponseWrapper> Wrap(Task<Either<ErrorResponse, BulkCreateOrUpdateSuppressionsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            BulkCreateOrUpdateSuppressionsSuccess,
+            BulkCreateOrUpdateSuppressionsFail);
 
-    public static async Task<CreateSnippetResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateSnippetResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateSnippetSuccess,
-                CreateSnippetFail);
-    }
+    public static async Task<CreateOrUpdateSuppressionResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateOrUpdateSuppressionResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateOrUpdateSuppressionSuccess,
+            CreateOrUpdateSuppressionFail);
 
-    public static async Task<RetrieveSnippetResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveSnippetResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveSnippetSuccess,
-                RetrieveSnippetFail);
-    }
+    public static async Task<RetrieveSuppressionResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSuppressionResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSuppressionSuccess,
+            RetrieveSuppressionFail);
 
-    public static async Task<ListSnippetsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListSnippetsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListSnippetsSuccess,
-                ListSnippetsFail);
-    }
+    public static async Task<SearchSuppressionsResponseWrapper> Wrap(Task<Either<ErrorResponse, SearchSuppressionsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            SearchSuppressionsSuccess,
+            SearchSuppressionsFail);
 
-    public static async Task<CreateRecipientListResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateRecipientListResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateRecipientListSuccess,
-                CreateRecipientListFail);
-    }
+    public static async Task<RetrieveSuppressionSummaryResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSuppressionSummaryResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSuppressionSummarySuccess,
+            RetrieveSuppressionSummaryFail);
 
-    public static async Task<RetrieveRecipientListResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveRecipientListResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveRecipientListSuccess,
-                RetrieveRecipientListFail);
-    }
+    public static async Task<EmailAddressValidationResponseWrapper> Wrap(Task<Either<ErrorResponse, EmailAddressValidationResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            EmailAddressValidationSuccess,
+            EmailAddressValidationFail);
 
-    public static async Task<UpdateRecipientListResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateRecipientListResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateRecipientListSuccess,
-                UpdateRecipientListFail);
-    }
+    public static async Task<CreateTemplateResponseWrapper> Wrap(Task<Either<TemplateErrorResponse, CreateTemplateResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateTemplateSuccess,
+            CreateTemplateFail);
 
-    public static async Task<ListRecipientListsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListRecipientListsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListRecipientListsSuccess,
-                ListRecipientListsFail);
-    }
+    public static async Task<CreateSnippetResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateSnippetResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateSnippetSuccess,
+            CreateSnippetFail);
 
-    public static async Task<ListSendingDomainsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListSendingDomainsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListSendingDomainsSuccess,
-                ListSendingDomainsFail);
-    }
+    public static async Task<RetrieveSnippetResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSnippetResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSnippetSuccess,
+            RetrieveSnippetFail);
 
-    public static async Task<RetrieveSendingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveSendingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveSendingDomainSuccess,
-                RetrieveSendingDomainFail);
-    }
+    public static async Task<ListSnippetsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListSnippetsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListSnippetsSuccess,
+            ListSnippetsFail);
 
-    public static async Task<UpdateSendingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateSendingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateSendingDomainSuccess,
-                UpdateSendingDomainFail);
-    }
+    public static async Task<CreateRecipientListResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateRecipientListResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateRecipientListSuccess,
+            CreateRecipientListFail);
 
-    public static async Task<VerifySendingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, VerifySendingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                VerifySendingDomainSuccess,
-                VerifySendingDomainFail);
-    }
+    public static async Task<RetrieveRecipientListResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveRecipientListResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveRecipientListSuccess,
+            RetrieveRecipientListFail);
 
-    public static async Task<CreateTrackingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateTrackingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateTrackingDomainSuccess,
-                CreateTrackingDomainFail);
-    }
+    public static async Task<UpdateRecipientListResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateRecipientListResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateRecipientListSuccess,
+            UpdateRecipientListFail);
 
-    public static async Task<ListTrackingDomainsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListTrackingDomainsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListTrackingDomainsSuccess,
-                ListTrackingDomainsFail);
-    }
+    public static async Task<ListRecipientListsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListRecipientListsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListRecipientListsSuccess,
+            ListRecipientListsFail);
 
-    public static async Task<ListTemplatesResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListTemplatesResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListTemplatesSuccess,
-                ListTemplatesFail);
-    }
+    public static async Task<ListSendingDomainsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListSendingDomainsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListSendingDomainsSuccess,
+            ListSendingDomainsFail);
 
-    public static async Task<RetrieveTrackingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveTrackingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveTrackingDomainSuccess,
-                RetrieveTrackingDomainFail);
-    }
+    public static async Task<RetrieveSendingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveSendingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveSendingDomainSuccess,
+            RetrieveSendingDomainFail);
 
-    public static async Task<UpdateTrackingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateTrackingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateTrackingDomainSuccess,
-                UpdateTrackingDomainFail);
-    }
+    public static async Task<UpdateSendingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateSendingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateSendingDomainSuccess,
+            UpdateSendingDomainFail);
+
+    public static async Task<VerifySendingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, VerifySendingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            VerifySendingDomainSuccess,
+            VerifySendingDomainFail);
+
+    public static async Task<CreateTrackingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateTrackingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateTrackingDomainSuccess,
+            CreateTrackingDomainFail);
+
+    public static async Task<ListTrackingDomainsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListTrackingDomainsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListTrackingDomainsSuccess,
+            ListTrackingDomainsFail);
+
+    public static async Task<ListTemplatesResponseWrapper> Wrap(Task<Either<ErrorResponse, ListTemplatesResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListTemplatesSuccess,
+            ListTemplatesFail);
+
+    public static async Task<RetrieveTrackingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveTrackingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveTrackingDomainSuccess,
+            RetrieveTrackingDomainFail);
+
+    public static async Task<UpdateTrackingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateTrackingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateTrackingDomainSuccess,
+            UpdateTrackingDomainFail);
 
     public static async Task<PreviewTemplateResponseWrapper> Wrap(
         Task<Either<ErrorResponse, PreviewTemplateResponse>> response)
@@ -306,121 +249,101 @@ public static class ResponseExtensions
                 PreviewInlineTemplateFail);
     }
 
-    public static async Task<VerifyTrackingDomainResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, VerifyTrackingDomainResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                VerifyTrackingDomainSuccess,
-                VerifyTrackingDomainFail);
-    }
+    public static async Task<VerifyTrackingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, VerifyTrackingDomainResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            VerifyTrackingDomainSuccess,
+            VerifyTrackingDomainFail);
 
-    public static async Task<CreateTransmissionResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateTransmissionResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateTransmissionSuccess,
-                CreateTransmissionFail);
-    }
+    public static async Task<CreateTransmissionResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateTransmissionResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateTransmissionSuccess,
+            CreateTransmissionFail);
 
-    public static async Task<RetrieveAccountResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveAccountResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveAccountSuccess,
-                RetrieveAccountFail);
-    }
+    public static async Task<RetrieveAccountResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveAccountResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveAccountSuccess,
+            RetrieveAccountFail);
 
-    public static async Task<UnitResponseWrapper> Wrap(Task<Either<ErrorResponse, Unit>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UnitSuccess,
-                UnitFail);
-    }
+    public static async Task<UpdateAccountResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateAccountResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateAccountSuccess,
+            UpdateAccountFail);
 
-    public static async Task<CreateAbTestResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateAbTestResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateAbTestSuccess,
-                CreateAbTestFail);
-    }
+    public static async Task<UnitResponseWrapper> Wrap(Task<Either<ErrorResponse, Unit>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UnitSuccess,
+            UnitFail);
 
-    public static async Task<RetrieveAbTestResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveAbTestResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveAbTestSuccess,
-                RetrieveAbTestFail);
-    }
+    public static async Task<CreateAbTestResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateAbTestResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateAbTestSuccess,
+            CreateAbTestFail);
 
-    public static async Task<UpdateAbTestResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateAbTestResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateAbTestSuccess,
-                UpdateAbTestFail);
-    }
+    public static async Task<RetrieveAbTestResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveAbTestResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveAbTestSuccess,
+            RetrieveAbTestFail);
 
-    public static async Task<ListAbTestsResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ListAbTestsResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ListAbTestsSuccess,
-                ListAbTestsFail);
-    }
+    public static async Task<UpdateAbTestResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateAbTestResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateAbTestSuccess,
+            UpdateAbTestFail);
 
-    public static async Task<CreateAbTestDraftResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, CreateAbTestDraftResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                CreateAbTestDraftSuccess,
-                CreateAbTestDraftFail);
-    }
+    public static async Task<ListAbTestsResponseWrapper> Wrap(Task<Either<ErrorResponse, ListAbTestsResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ListAbTestsSuccess,
+            ListAbTestsFail);
 
-    public static async Task<RetrieveAbTestDraftResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveAbTestDraftResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveAbTestDraftSuccess,
-                RetrieveAbTestDraftFail);
-    }
+    public static async Task<CreateAbTestDraftResponseWrapper> Wrap(Task<Either<ErrorResponse, CreateAbTestDraftResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            CreateAbTestDraftSuccess,
+            CreateAbTestDraftFail);
 
-    public static async Task<UpdateAbTestDraftResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, UpdateAbTestDraftResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                UpdateAbTestDraftSuccess,
-                UpdateAbTestDraftFail);
-    }
+    public static async Task<RetrieveAbTestDraftResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveAbTestDraftResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveAbTestDraftSuccess,
+            RetrieveAbTestDraftFail);
 
-    public static async Task<ScheduleAbTestDraftResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, ScheduleAbTestDraftResponse>> response)
-    {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                ScheduleAbTestDraftSuccess,
-                ScheduleAbTestDraftFail);
-    }
+    public static async Task<UpdateAbTestDraftResponseWrapper> Wrap(Task<Either<ErrorResponse, UpdateAbTestDraftResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            UpdateAbTestDraftSuccess,
+            UpdateAbTestDraftFail);
 
-    public static async Task<RetrieveTemplateResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, RetrieveTemplateResponse>> response)
+    public static async Task<ScheduleAbTestDraftResponseWrapper> Wrap(Task<Either<ErrorResponse, ScheduleAbTestDraftResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            ScheduleAbTestDraftSuccess,
+            ScheduleAbTestDraftFail);
+
+    public static async Task<RetrieveTemplateResponseWrapper> Wrap(Task<Either<ErrorResponse, RetrieveTemplateResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            RetrieveTemplateSuccess,
+            RetrieveTemplateFail);
+
+    private static DataPrivacyResponseWrapper AddDataPrivacyFail(DataPrivacyErrorResponse response) => new()
     {
-        return (await response.ConfigureAwait(false))
-            .Match(
-                RetrieveTemplateSuccess,
-                RetrieveTemplateFail);
-    }
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static DataPrivacyResponseWrapper AddDataPrivacySuccess(AddDataPrivacyResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
 
     private static BulkCreateOrUpdateSuppressionsResponseWrapper BulkCreateOrUpdateSuppressionsFail(ErrorResponse response) => new()
     {
@@ -489,8 +412,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static CreateRecipientListResponseWrapper
-        CreateRecipientListSuccess(CreateRecipientListResponse response) => new()
+    private static CreateRecipientListResponseWrapper CreateRecipientListSuccess(CreateRecipientListResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -502,8 +424,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static CreateSendingDomainResponseWrapper
-        CreateSendingDomainSuccess(CreateSendingDomainResponse response) => new()
+    private static CreateSendingDomainResponseWrapper CreateSendingDomainSuccess(CreateSendingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -515,21 +436,31 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static CreateSnippetResponseWrapper
-        CreateSnippetSuccess(CreateSnippetResponse response) => new()
+    private static CreateSnippetResponseWrapper CreateSnippetSuccess(CreateSnippetResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
     };
 
-    private static CreateTemplateResponseWrapper CreateTemplateFail(ErrorResponse response) => new()
+    private static CreateSubaccountResponseWrapper CreateSubaccountFail(SubaccountErrorResponse response) => new()
     {
         StatusCode = response.StatusCode,
         Errors = response.Errors
     };
 
-    private static CreateTemplateResponseWrapper
-        CreateTemplateSuccess(CreateTemplateResponse response) => new()
+    private static CreateSubaccountResponseWrapper CreateSubaccountSuccess(CreateSubaccountResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
+
+    private static CreateTemplateResponseWrapper CreateTemplateFail(TemplateErrorResponse response) => new()
+    {
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static CreateTemplateResponseWrapper CreateTemplateSuccess(CreateTemplateResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -541,8 +472,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static CreateTrackingDomainResponseWrapper
-        CreateTrackingDomainSuccess(CreateTrackingDomainResponse response) => new()
+    private static CreateTrackingDomainResponseWrapper CreateTrackingDomainSuccess(CreateTrackingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -598,8 +528,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static ListIpPoolsResponseWrapper
-        ListIpPoolsSuccess(ListIpPoolsResponse response) => new()
+    private static ListIpPoolsResponseWrapper ListIpPoolsSuccess(ListIpPoolsResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -611,8 +540,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static ListRecipientListsResponseWrapper
-        ListRecipientListsSuccess(ListRecipientListsResponse response) => new()
+    private static ListRecipientListsResponseWrapper ListRecipientListsSuccess(ListRecipientListsResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -649,8 +577,19 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static ListSnippetsResponseWrapper
-        ListSnippetsSuccess(ListSnippetsResponse response) => new()
+    private static ListSnippetsResponseWrapper ListSnippetsSuccess(ListSnippetsResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
+
+    private static ListSubaccountsResponseWrapper ListSubaccountsFail(SubaccountErrorResponse response) => new()
+    {
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static ListSubaccountsResponseWrapper ListSubaccountsSuccess(ListSubaccountsResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -675,8 +614,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static ListTrackingDomainsResponseWrapper
-        ListTrackingDomainsSuccess(ListTrackingDomainsResponse response) =>
+    private static ListTrackingDomainsResponseWrapper ListTrackingDomainsSuccess(ListTrackingDomainsResponse response) =>
         new()
         {
             Results = response.Results,
@@ -749,8 +687,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static RetrieveIpPoolResponseWrapper
-        RetrieveIpPoolSuccess(RetrieveIpPoolResponse response) => new()
+    private static RetrieveIpPoolResponseWrapper RetrieveIpPoolSuccess(RetrieveIpPoolResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -762,8 +699,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static RetrieveRecipientListResponseWrapper
-        RetrieveRecipientListSuccess(RetrieveRecipientListResponse response) => new()
+    private static RetrieveRecipientListResponseWrapper RetrieveRecipientListSuccess(RetrieveRecipientListResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -775,8 +711,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static RetrieveSendingDomainResponseWrapper RetrieveSendingDomainSuccess(
-        RetrieveSendingDomainResponse response) => new()
+    private static RetrieveSendingDomainResponseWrapper RetrieveSendingDomainSuccess(RetrieveSendingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -800,8 +735,31 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static RetrieveSnippetResponseWrapper
-        RetrieveSnippetSuccess(RetrieveSnippetResponse response) => new()
+    private static RetrieveSnippetResponseWrapper RetrieveSnippetSuccess(RetrieveSnippetResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
+
+    private static RetrieveSubaccountResponseWrapper RetrieveSubaccountFail(ErrorResponse response) => new()
+    {
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static RetrieveSubaccountsSummaryResponseWrapper RetrieveSubaccountsSummaryFail(ErrorResponse response) => new()
+    {
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static RetrieveSubaccountsSummaryResponseWrapper RetrieveSubaccountsSummarySuccess(RetrieveSubaccountsSummaryResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
+
+    private static RetrieveSubaccountResponseWrapper RetrieveSubaccountSuccess(RetrieveSubaccountResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -816,6 +774,8 @@ public static class ResponseExtensions
     private static RetrieveSuppressionResponseWrapper RetrieveSuppressionSuccess(RetrieveSuppressionResponse response) => new()
     {
         Results = response.Results,
+        Links = response.Links,
+        TotalCount = response.TotalCount,
         StatusCode = HttpStatusCode.OK
     };
 
@@ -877,6 +837,8 @@ public static class ResponseExtensions
     private static SearchSuppressionsResponseWrapper SearchSuppressionsSuccess(SearchSuppressionsResponse response) => new()
     {
         Results = response.Results,
+        Links = response.Links,
+        TotalCount = response.TotalCount,
         StatusCode = HttpStatusCode.OK
     };
 
@@ -915,14 +877,25 @@ public static class ResponseExtensions
         StatusCode = HttpStatusCode.OK
     };
 
+    private static UpdateAccountResponseWrapper UpdateAccountFail(ErrorResponse response) => new()
+    {
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static UpdateAccountResponseWrapper UpdateAccountSuccess(UpdateAccountResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
+
     private static UpdateIpPoolResponseWrapper UpdateIpPoolFail(ErrorResponse response) => new()
     {
         StatusCode = response.StatusCode,
         Errors = response.Errors
     };
 
-    private static UpdateIpPoolResponseWrapper
-        UpdateIpPoolSuccess(UpdateIpPoolResponse response) => new()
+    private static UpdateIpPoolResponseWrapper UpdateIpPoolSuccess(UpdateIpPoolResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -934,8 +907,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static UpdateRecipientListResponseWrapper
-        UpdateRecipientListSuccess(UpdateRecipientListResponse response) => new()
+    private static UpdateRecipientListResponseWrapper UpdateRecipientListSuccess(UpdateRecipientListResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -947,8 +919,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static UpdateSendingDomainResponseWrapper
-        UpdateSendingDomainSuccess(UpdateSendingDomainResponse response) => new()
+    private static UpdateSendingDomainResponseWrapper UpdateSendingDomainSuccess(UpdateSendingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -966,14 +937,25 @@ public static class ResponseExtensions
         StatusCode = HttpStatusCode.OK
     };
 
+    private static UpdateSubaccountResponseWrapper UpdateSubaccountFail(ErrorResponse response) => new()
+    {
+        StatusCode = response.StatusCode,
+        Errors = response.Errors
+    };
+
+    private static UpdateSubaccountResponseWrapper UpdateSubaccountSuccess(UpdateSubaccountResponse response) => new()
+    {
+        Results = response.Results,
+        StatusCode = HttpStatusCode.OK
+    };
+
     private static UpdateTrackingDomainResponseWrapper UpdateTrackingDomainFail(ErrorResponse response) => new()
     {
         StatusCode = response.StatusCode,
         Errors = response.Errors
     };
 
-    private static UpdateTrackingDomainResponseWrapper
-        UpdateTrackingDomainSuccess(UpdateTrackingDomainResponse response) => new()
+    private static UpdateTrackingDomainResponseWrapper UpdateTrackingDomainSuccess(UpdateTrackingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -985,8 +967,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static VerifySendingDomainResponseWrapper
-        VerifySendingDomainSuccess(VerifySendingDomainResponse response) => new()
+    private static VerifySendingDomainResponseWrapper VerifySendingDomainSuccess(VerifySendingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK
@@ -998,8 +979,7 @@ public static class ResponseExtensions
         Errors = response.Errors
     };
 
-    private static VerifyTrackingDomainResponseWrapper
-        VerifyTrackingDomainSuccess(VerifyTrackingDomainResponse response) => new()
+    private static VerifyTrackingDomainResponseWrapper VerifyTrackingDomainSuccess(VerifyTrackingDomainResponse response) => new()
     {
         Results = response.Results,
         StatusCode = HttpStatusCode.OK

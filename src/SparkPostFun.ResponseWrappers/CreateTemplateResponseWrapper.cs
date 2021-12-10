@@ -7,5 +7,6 @@ public record CreateTemplateResponseWrapper
 {
     public CreateTemplateResponseResult Results { get; init; } = new();
     public HttpStatusCode StatusCode { get; init; }
-    public IList<Error> Errors { get; init; } = new List<Error>();
+    public IList<TemplateError> Errors { get; init; } = new List<TemplateError>();
+
 }
