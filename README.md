@@ -12,8 +12,6 @@ PM> Install-Package SparkPostFun
 All client calls returns ```Task<Either<TError, TResponse>>```.
 
 ```cs
-...
-
 var content = new StoredTemplateContent
 {
     TemplateId = "black_friday",
@@ -50,7 +48,6 @@ response.Match(
 However, there are extension method helpers that can wrap the client return type if you prefer a more idiomatic approach.
 
 ```cs
-...
 var response = await ResponseExtensions.Wrap(client.CreateTransmission(transmission));
 
 if(response.StatusCode == HttpStatusCode.OK) {
