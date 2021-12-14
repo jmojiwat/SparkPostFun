@@ -47,7 +47,7 @@ response.Match(
   fail => ...);
 ```
 
-However, there are extension method helpers that can wrap the client return type if you prefer.
+However, there are extension method helpers that can wrap the client return type if you prefer a more idiomatic approach.
 
 ```cs
 ...
