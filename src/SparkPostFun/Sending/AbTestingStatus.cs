@@ -1,11 +1,12 @@
-﻿namespace SparkPostFun.Sending
+﻿using System.Text.Json.Serialization;
+
+namespace SparkPostFun.Sending;
+
+public enum AbTestingStatus
 {
-    public enum AbTestingStatus
-    {
-        draft,
-        scheduled,
-        running,
-        cancelled,
-        completed
-    }
+    Draft,
+    Scheduled,
+    Running,
+    Cancelled,
+    Completed
 }

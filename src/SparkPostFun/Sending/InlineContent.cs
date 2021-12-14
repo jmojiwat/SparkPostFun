@@ -1,6 +1,6 @@
 ﻿namespace SparkPostFun.Sending
 {
-    public record TransmissionInlineContent
+    public record InlineContent
     {
         public SenderAddress From { get; init; }
         public string Subject { get; init; }

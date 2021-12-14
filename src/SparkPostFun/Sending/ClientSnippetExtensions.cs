@@ -12,6 +12,18 @@ namespace SparkPostFun.Sending
                 .MapAsync(ToResponse<CreateSnippetResponse>);
         }
 
+        public static Task<Either<ErrorResponse, Unit>> DeleteSnippet(this Client @this, string id)
+        {
+            var requestUrl = $"/api/labs/snippets/{id}";
+            return @this.Delete(requestUrl);
+        }
+
+        public static Task<Either<ErrorResponse, ListSnippetsResponse>> ListSnippets(this Client @this)
+        {
+            var requestUrl = "/api/labs/snippets";
+            return @this.Get<ListSnippetsResponse>(requestUrl);
+        }
+
         public static Task<Either<ErrorResponse, RetrieveSnippetResponse>> RetrieveSnippet(this Client @this, string id)
         {
             var requestUrl = $"/api/labs/snippets/{id}";
@@ -23,18 +35,6 @@ namespace SparkPostFun.Sending
             var requestUrl = $"/api/labs/snippets/{id}";
             return @this.Put(requestUrl, request)
                 .MapAsync(ToResponse<Unit>);
-        }
-
-        public static Task<Either<ErrorResponse, Unit>> DeleteSnippet(this Client @this, string id)
-        {
-            var requestUrl = $"/api/labs/snippets/{id}";
-            return @this.Delete(requestUrl);
-        }
-
-        public static Task<Either<ErrorResponse, ListSnippetsResponse>> ListSnippets(this Client @this)
-        {
-            var requestUrl = "/api/labs/snippets";
-            return @this.Get<ListSnippetsResponse>(requestUrl);
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     public enum CnameStatus
     {
-        unverified,
-        pending,
-        invalid,
-        valid
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
     }
 }

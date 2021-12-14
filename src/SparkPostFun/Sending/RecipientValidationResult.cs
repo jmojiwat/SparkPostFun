@@ -2,10 +2,10 @@
 {
     public enum RecipientValidationResult
     {
-        valid,
-        neutral,
-        risky,
-        undeliverable,
-        typo
+        Valid,
+        Neutral,
+        Risky,
+        Undeliverable,
+        Typo
     }
 }

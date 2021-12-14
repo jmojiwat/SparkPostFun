@@ -12,12 +12,11 @@ namespace SparkPostFun.Tests;
 public class TemplateTest
 {
     [Theory, TemplateAutoData]
-    public async Task Retrieve_returns_expected_result(Client client)
+    public async Task ListTemplates_returns_expected_result(Client client)
     {
-        var response = await client.RetrieveTemplate("my-first-email");
+        var response = await client.ListTemplates();
 
         response.Should().BeRight();
-
     }
 
     private class TemplateAutoDataAttribute : AutoDataAttribute

@@ -13,15 +13,14 @@ namespace SparkPostFun.Tests;
 
 public class SnippetTest
 {
-    [Theory(Skip = "Did not define any snippet"), SnippetAutoData]
-    public async Task List_returns_expected_result(Client client)
+    [Theory, SnippetAutoData]
+    public async Task ListSnippets_returns_expected_result(Client client)
     {
         var response = await client.ListSnippets();
 
-        using var scope = new AssertionScope();
-        response.Should().BeRight(s => s.Results.Should().BeEmpty());
+        response.Should().BeRight();
     }
-
+    
     private class SnippetAutoDataAttribute : AutoDataAttribute
     {
         public SnippetAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
@@ -44,5 +43,4 @@ public class SnippetTest
             });
         }
     }
-
 }

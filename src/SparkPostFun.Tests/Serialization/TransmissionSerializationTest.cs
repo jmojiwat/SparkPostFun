@@ -71,22 +71,30 @@ public class TransmissionSerializationTest
     [Fact]
     public void DocumentationExample2_returns_expected_result()
     {
-        var transmission = TransmissionExtensions.CreateTransmission()
-            .WithContent(new TransmissionInlineContent
-            {
-                From = new SenderAddress { Name = "Our Store", Email = "deals@example.com" },
-                Subject = "Big Christmas savings!",
-                Text = "Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{user_type}}\n {{sender}}",
-                Html = "<p>Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p><p>{{sender}}</p>"
-            })
-            .WithStoredRecipientList(new StoredRecipientList { ListId = "christmas_sales_2013" });
+        var content = new InlineContent
+        {
+            From = new SenderAddress { Name = "Our Store", Email = "deals@example.com" },
+            Subject = "Big Christmas savings!",
+            Text = "Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{user_type}}\n {{sender}}",
+            Html = "<p>Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p><p>{{sender}}</p>"
+        };
 
+        var storedRecipientList = new StoredRecipientList { ListId = "christmas_sales_2013" };
+        
+        var transmission = TransmissionExtensions.CreateTransmission()
+            .WithContent(content)
+            .WithStoredRecipientList(storedRecipientList);
 
         var json = JsonSerializer.Serialize(transmission,
             JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        json.Should().Contain("list_id");
-        json.Should().Contain("christmas_sales_2013");
+        using var scope = new AssertionScope();
+        json.Should().Contain("\"list_id\": \"christmas_sales_2013\"");
+        json.Should().Contain("\"name\": \"Our Store\"");
+        json.Should().Contain("\"email\": \"deals@example.com\"");
+        json.Should().Contain("\"subject\": \"Big Christmas savings!\"");
+//        json.Should().Contain("\"text\": \"Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{user_type}}\n {{sender}}\"");
+//        json.Should().Contain("\"html\": \"<p>Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p><p>{{sender}}</p>\"");
     }
 
     [Fact]
@@ -238,7 +246,7 @@ public class TransmissionSerializationTest
         };
 
         var transmission = TransmissionExtensions.CreateTransmission()
-            .WithContent(new TransmissionInlineContent
+            .WithContent(new InlineContent
             {
                 From = new SenderAddress
                 {
@@ -280,7 +288,7 @@ public class TransmissionSerializationTest
         };
 
         var transmission = TransmissionExtensions.CreateTransmission()
-            .WithContent(new TransmissionInlineContent
+            .WithContent(new InlineContent
             {
                 From = new SenderAddress
                 {

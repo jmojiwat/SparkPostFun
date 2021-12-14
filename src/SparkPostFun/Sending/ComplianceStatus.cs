@@ -2,8 +2,8 @@
 {
     public enum ComplianceStatus
     {
-        pending,
-        valid,
-        blocked
+        Pending,
+        Valid,
+        Blocked
     }
 }

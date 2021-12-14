@@ -12,9 +12,10 @@ namespace SparkPostFun.Tests;
 public class AccountTest
 {
     [Theory, AccountAutoData]
-    public async Task RetrieveAccountInformation_returns_expected_result(Client client)
+    public async Task RetrieveAccount_returns_expected_result(Client client)
     {
-        var result = await client.RetrieveAccount();
+        var result = await client.RetrieveAccount("usage");
+        
         result.Should().BeRight();
     }
 

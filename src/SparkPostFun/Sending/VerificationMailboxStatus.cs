@@ -2,9 +2,9 @@
 {
     public enum VerificationMailboxStatus
     {
-        unverified,
-        pending,
-        invalid,
-        valid
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
     }
 }

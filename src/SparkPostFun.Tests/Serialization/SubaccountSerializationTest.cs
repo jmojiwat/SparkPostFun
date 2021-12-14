@@ -17,7 +17,7 @@ namespace SparkPostFun.Tests.Serialization
             {
                 Id = 123,
                 Name = "Joes Garage",
-                Status = SubaccountStatus.active,
+                Status = SubaccountStatus.Active,
                 ComplianceStatus = "active",
                 IpPool = "assigned_ip_pool",
                 Options = new SubaccountOptions
@@ -83,7 +83,7 @@ namespace SparkPostFun.Tests.Serialization
 
             response.Results.Id.Should().Be(123);
             response.Results.Name.Should().Be("Joes Garage");
-            response.Results.Status.Should().Be(SubaccountStatus.active);
+            response.Results.Status.Should().Be(SubaccountStatus.Active);
             response.Results.ComplianceStatus.Should().Be("active");
             response.Results.IpPool.Should().Be("assigned_ip_pool");
             response.Results.Options.Deliverability.Should().Be(false);
@@ -143,7 +143,7 @@ namespace SparkPostFun.Tests.Serialization
 
             response.Results.First().Id.Should().Be(123);
             response.Results.First().Name.Should().Be("Joe's Garage");
-            response.Results.First().Status.Should().Be(SubaccountStatus.active);
+            response.Results.First().Status.Should().Be(SubaccountStatus.Active);
             response.Results.First().Options.Deliverability.Should().Be(true);
         }
 

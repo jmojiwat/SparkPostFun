@@ -4,9 +4,9 @@ namespace SparkPostFun.Sending
 {
     public record TemplateContent
     {
-        public string Html { get; init; } = null;
-        public string Text { get; init; } = null;
-        public string AmpHtml { get; init; } = null;
+        public string Html { get; init; }
+        public string Text { get; init; }
+        public string AmpHtml { get; init; }
         public string Subject { get; init; }
         public SenderAddress From { get; init; }
         public string ReplyTo { get; init; }

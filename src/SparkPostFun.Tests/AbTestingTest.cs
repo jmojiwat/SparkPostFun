@@ -1,4 +1,7 @@
 ﻿using System.Threading.Tasks;
+using AutoFixture;
+using AutoFixture.Xunit2;
+using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
 using SparkPostFun.Sending;
 using Xunit;
@@ -8,17 +11,36 @@ namespace SparkPostFun.Tests
 {
     public class AbTestingTest
     {
-        [Fact]
-        public async Task Retrieve_returns_expected_result()
+        [Theory, AbTestingAutoData]
+        public async Task ListAbTests_returns_expected_result(Client client)
         {
-            var configuration = new ConfigurationBuilder()
-                .AddUserSecrets(GetExecutingAssembly())
-                .Build();
-            var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var client = new Client(apiKey);
+            var response = await client.ListAbTests();
 
-            var response = await client.RetrieveTemplate("my-first-email");
-
+            response.Should().BeRight();
         }
+
+        private class AbTestingAutoDataAttribute : AutoDataAttribute
+        {
+            public AbTestingAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+            {
+            }
+        }
+
+        private class Customization : ICustomization
+        {
+            public void Customize(IFixture fixture)
+            {
+                fixture.Register(() =>
+                {
+                    var configuration = new ConfigurationBuilder()
+                        .AddUserSecrets(GetExecutingAssembly())
+                        .Build();
+
+                    var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                    return new Client(apiKey);
+                });
+            }
+        }
+
     }
 }

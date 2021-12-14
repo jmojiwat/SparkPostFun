@@ -13,7 +13,8 @@ namespace SparkPostFun.Sending
                 .MapAsync(ToResponse<CreateTransmissionResponse>);
         }
 
-        public static Task<Either<ErrorResponse, CreateTransmissionResponse>> CreateTransmission(this Client client, CreateTransmission request, int maximumRecipientErrors)
+        public static Task<Either<ErrorResponse, CreateTransmissionResponse>> CreateTransmission(this Client client, CreateTransmission request,
+            int maximumRecipientErrors)
         {
             var requestUrl = $"/api/{client.Version}/transmissions/?{maximumRecipientErrors}";
             return client.Post(requestUrl, request)

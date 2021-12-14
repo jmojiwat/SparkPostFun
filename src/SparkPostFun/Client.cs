@@ -50,9 +50,27 @@ namespace SparkPostFun
             return httpClient.PutAsJsonAsync(requestUri, request, JsonSerializerOptions, CancellationToken.None);
         }
 
+        public Task<HttpResponseMessage> PutWithSubaccount<TRequest>(string requestUri, TRequest request, int subaccountId)
+        {
+            var content = JsonSerializer.Serialize(request, JsonSerializerOptions);
+            using var requestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
+            requestMessage.Content = new StringContent(content);
+            
+            requestMessage.Headers.Add("X-MSYS-SUBACCOUNT", subaccountId.ToString());
+            return httpClient.SendAsync(requestMessage, CancellationToken.None);
+        }
+
         public async Task<Either<ErrorResponse, TResponse>> Get<TResponse>(string requestUri)
         {
             var message = await httpClient.GetAsync(requestUri, CancellationToken.None);
+            return await ToResponse<TResponse>(message);
+        }
+
+        public async Task<Either<ErrorResponse, TResponse>> GetWithSubaccount<TResponse>(string requestUri, int subaccountId)
+        {
+            using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            requestMessage.Headers.Add("X-MSYS-SUBACCOUNT", subaccountId.ToString());
+            var message = await httpClient.SendAsync(requestMessage, CancellationToken.None);
             return await ToResponse<TResponse>(message);
         }
 

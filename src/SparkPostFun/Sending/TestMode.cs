@@ -2,7 +2,7 @@
 {
     public enum TestMode
     {
-        bayesian,
-        learning
+        Bayesian,
+        Learning
     }
 }

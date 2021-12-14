@@ -13,19 +13,19 @@ namespace SparkPostFun.Sending
             @this with { CampaignId = campaignId };
 
         public static CreateTransmission
-            WithContent(this CreateTransmission @this, TransmissionInlineContent content) =>
+            WithContent(this CreateTransmission @this, InlineContent content) =>
             @this with { Content = content };
 
         public static CreateTransmission
-            WithContent(this CreateTransmission @this, TransmissionTemplateContent content) =>
+            WithContent(this CreateTransmission @this, StoredTemplateContent content) =>
             @this with { Content = content };
 
         public static CreateTransmission
-            WithContent(this CreateTransmission @this, TransmissionAbTestContent content) =>
+            WithContent(this CreateTransmission @this, AbTestContent content) =>
             @this with { Content = content };
 
         public static CreateTransmission
-            WithContent(this CreateTransmission @this, TransmissionRfc822Content content) =>
+            WithContent(this CreateTransmission @this, Rfc822TemplateContent content) =>
             @this with { Content = content };
 
         public static CreateTransmission WithDescription(this CreateTransmission @this, string description) =>
@@ -67,7 +67,7 @@ namespace SparkPostFun.Sending
 
                 switch (transmission.Content)
                 {
-                    case TransmissionInlineContent content when !string.IsNullOrEmpty(ccHeader):
+                    case InlineContent content when !string.IsNullOrEmpty(ccHeader):
                     {
                         if (content.Headers.ContainsKey("cc"))
                         {

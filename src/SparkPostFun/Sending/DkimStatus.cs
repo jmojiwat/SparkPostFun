@@ -2,9 +2,9 @@
 {
     public enum DkimStatus
     {
-        unverified,
-        pending,
-        invalid,
-        valid
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
     }
 }

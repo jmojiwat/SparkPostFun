@@ -12,10 +12,10 @@ namespace SparkPostFun.Tests;
 
 public class TrackingDomainTest
 {
-    [Theory(Skip = "Didn't configure tracking domain"), TrackingDomainAutoData]
+    [Theory, TrackingDomainAutoData]
     public async Task RetrieveAccountInformation_returns_expected_result(Client client)
     {
-        var result = await client.RetrieveTrackingDomain("example.domain.com");
+        var result = await client.ListTrackingDomains();
         result.Should().BeRight();
     }
 

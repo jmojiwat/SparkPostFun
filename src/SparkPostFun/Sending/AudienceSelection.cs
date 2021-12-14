@@ -2,7 +2,7 @@
 {
     public enum AudienceSelection
     {
-        percent,
-        sampleSize
+        Percent,
+        SampleSize
     }
 }

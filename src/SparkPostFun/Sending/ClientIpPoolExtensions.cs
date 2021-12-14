@@ -12,6 +12,18 @@ namespace SparkPostFun.Sending
                 .MapAsync(ToResponse<CreateIpPoolResponse>);
         }
 
+        public static Task<Either<ErrorResponse, Unit>> DeleteIpPool(this Client @this, string id)
+        {
+            var requestUrl = $"/api/{@this.Version}/ip-pools/{id}";
+            return @this.Delete(requestUrl);
+        }
+
+        public static Task<Either<ErrorResponse, ListIpPoolsResponse>> ListIpPools(this Client @this)
+        {
+            var requestUrl = $"/api/{@this.Version}/ip-pools";
+            return @this.Get<ListIpPoolsResponse>(requestUrl);
+        }
+
         public static Task<Either<ErrorResponse, RetrieveIpPoolResponse>> RetrieveIpPool(this Client @this, string id)
         {
             var requestUrl = $"/api/{@this.Version}/ip-pools/{id}";
@@ -23,20 +35,6 @@ namespace SparkPostFun.Sending
             var requestUrl = $"/api/{@this.Version}/ip-pools/{id}";
             return @this.Put(requestUrl, request)
                 .MapAsync(ToResponse<UpdateIpPoolResponse>);
-        }
-
-        public static Task<Either<ErrorResponse, Unit>> DeleteIpPool(this Client @this, string id)
-        {
-            var requestUrl = $"/api/{@this.Version}/ip-pools/{id}";
-            return @this.Delete(requestUrl);
-
-        }
-
-        public static Task<Either<ErrorResponse, ListIpPoolsResponse>> ListIpPools(this Client @this)
-        {
-            var requestUrl = $"/api/{@this.Version}/ip-pools";
-            return @this.Get<ListIpPoolsResponse>(requestUrl);
-
         }
     }
 }

@@ -229,25 +229,17 @@ public static class ResponseExtensions
             UpdateTrackingDomainSuccess,
             UpdateTrackingDomainFail);
 
-    public static async Task<PreviewTemplateResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, PreviewTemplateResponse>> response)
-    {
-        throw new NotImplementedException();
-        return (await response.ConfigureAwait(false))
-            .Match(
-                PreviewTemplateSuccess,
-                PreviewTemplateFail);
-    }
+    public static async Task<PreviewTemplateResponseWrapper> Wrap(Task<Either<ErrorResponse, PreviewTemplateResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            PreviewTemplateSuccess,
+            PreviewTemplateFail);
 
-    public static async Task<PreviewInlineTemplateResponseWrapper> Wrap(
-        Task<Either<ErrorResponse, PreviewInlineTemplateResponse>> response)
-    {
-        throw new NotImplementedException();
-        return (await response.ConfigureAwait(false))
-            .Match(
-                PreviewInlineTemplateSuccess,
-                PreviewInlineTemplateFail);
-    }
+    public static async Task<PreviewInlineTemplateResponseWrapper> Wrap(Task<Either<ErrorResponse, PreviewInlineTemplateResponse>> response) =>
+        (await response.ConfigureAwait(false))
+        .Match(
+            PreviewInlineTemplateSuccess,
+            PreviewInlineTemplateFail);
 
     public static async Task<VerifyTrackingDomainResponseWrapper> Wrap(Task<Either<ErrorResponse, VerifyTrackingDomainResponse>> response) =>
         (await response.ConfigureAwait(false))

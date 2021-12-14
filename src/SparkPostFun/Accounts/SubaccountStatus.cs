@@ -1,9 +1,10 @@
-﻿namespace SparkPostFun.Accounts
+﻿using System.Text.Json.Serialization;
+
+namespace SparkPostFun.Accounts;
+
+public enum SubaccountStatus
 {
-    public enum SubaccountStatus
-    {
-        active,
-        suspended,
-        terminated
-    }
+    Active,
+    Suspended,
+    Terminated
 }

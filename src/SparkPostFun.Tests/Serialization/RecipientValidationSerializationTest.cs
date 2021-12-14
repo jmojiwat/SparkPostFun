@@ -24,7 +24,7 @@ namespace SparkPostFun.Tests.Serialization
 
             var response = JsonSerializer.Deserialize<EmailAddressValidationResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-            response.Results.Result.Should().Be(RecipientValidationResult.valid);
+            response.Results.Result.Should().Be(RecipientValidationResult.Valid);
         }
     }
 }

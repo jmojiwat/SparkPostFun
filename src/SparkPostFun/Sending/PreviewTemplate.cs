@@ -1,9 +1,6 @@
-﻿using System.Collections.Specialized;
+﻿namespace SparkPostFun.Sending;
 
-namespace SparkPostFun.Sending
+public record PreviewTemplate
 {
-    public record PreviewTemplate
-    {
-        public NameValueCollection SubstitutionData { get; init; }
-    }
+    public IDictionary<string, object> SubstitutionData { get; init; } = new Dictionary<string,object>();
 }

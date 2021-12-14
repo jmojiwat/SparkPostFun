@@ -2,9 +2,9 @@
 {
     public enum MxStatus
     {
-        unverified,
-        pending,
-        invalid,
-        valid
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
     }
 }
