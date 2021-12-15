@@ -20,55 +20,61 @@ namespace SparkPostFun.Sending
         }
 
         public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListSendingDomains(this Client @this) =>
-            ListSendingDomains(@this, null, null, null, null, null, null, null, null);
-
-        public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListSendingDomains(this Client @this, bool? ownershipVerified,
-            DkimStatus? dkimStatus, CnameStatus? cnameStatus, MxStatus? mxStatus, AbuseAtStatus? abuseAtStatus, PostmasterAtStatus? postmasterAtStatus,
-            ComplianceStatus? complianceStatus, bool? isDefaultBounceDomain)
+            ListSendingDomains(@this, new SendingDomainsFilter());
+        
+        public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListSendingDomains(this Client @this, SendingDomainsFilter filter)
         {
-            var nameValue = new NameValueCollection();
-            if (ownershipVerified != null)
-            {
-                nameValue.Add("ownership_verified", ownershipVerified.ToString());
-            }
+            var queryString = ToQueryString(filter);
 
-            if (dkimStatus != null)
-            {
-                nameValue.Add("dkim_status", dkimStatus.ToString());
-            }
-
-            if (cnameStatus != null)
-            {
-                nameValue.Add("cname_status", cnameStatus.ToString());
-            }
-
-            if (mxStatus != null)
-            {
-                nameValue.Add("mx_status", mxStatus.ToString());
-            }
-
-            if (abuseAtStatus != null)
-            {
-                nameValue.Add("abuse_at_status", abuseAtStatus.ToString());
-            }
-
-            if (postmasterAtStatus != null)
-            {
-                nameValue.Add("postmaster_at_status", postmasterAtStatus.ToString());
-            }
-
-            if (complianceStatus != null)
-            {
-                nameValue.Add("compliance_status", complianceStatus.ToString());
-            }
-
-            if (isDefaultBounceDomain != null)
-            {
-                nameValue.Add("is_default_bounce_domain", isDefaultBounceDomain.ToString());
-            }
-
-            var requestUrl = $"/api/{@this.Version}/sending-domains?{nameValue}";
+            var requestUrl = $"/api/{@this.Version}/sending-domains?{queryString}";
             return @this.Get<ListSendingDomainsResponse>(requestUrl);
+
+        }
+
+        private static string ToQueryString(SendingDomainsFilter filter)
+        {
+            var queryString = new NameValueCollection();
+            if (filter.OwnershipVerified != null)
+            {
+                queryString.Add("ownership_verified", filter.OwnershipVerified.ToString());
+            }
+
+            if (filter.DkimStatus != null)
+            {
+                queryString.Add("dkim_status", filter.DkimStatus.ToString());
+            }
+
+            if (filter.CnameStatus != null)
+            {
+                queryString.Add("cname_status", filter.CnameStatus.ToString());
+            }
+
+            if (filter.MxStatus != null)
+            {
+                queryString.Add("mx_status", filter.MxStatus.ToString());
+            }
+
+            if (filter.AbuseAtStatus != null)
+            {
+                queryString.Add("abuse_at_status", filter.AbuseAtStatus.ToString());
+            }
+
+            if (filter.PostmasterAtStatus != null)
+            {
+                queryString.Add("postmaster_at_status", filter.PostmasterAtStatus.ToString());
+            }
+
+            if (filter.ComplianceStatus != null)
+            {
+                queryString.Add("compliance_status", filter.ComplianceStatus.ToString());
+            }
+
+            if (filter.IsDefaultBounceDomain != null)
+            {
+                queryString.Add("is_default_bounce_domain", filter.IsDefaultBounceDomain.ToString());
+            }
+
+            return queryString.ToString();
         }
 
         public static Task<Either<ErrorResponse, RetrieveSendingDomainResponse>> RetrieveSendingDomain(this Client @this, string domain)

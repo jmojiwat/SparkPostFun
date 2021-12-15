@@ -4,7 +4,6 @@ using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
-using SparkPostFun.Analytics;
 using SparkPostFun.Sending;
 using Xunit;
 
