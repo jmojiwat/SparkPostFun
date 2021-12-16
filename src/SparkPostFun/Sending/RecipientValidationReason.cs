@@ -2,8 +2,8 @@
 {
     public enum RecipientValidationReason
     {
-        invalid_syntax,
-        invalid_domain,
-        invalid_recipient
+        InvalidSyntax,
+        InvalidDomain,
+        InvalidRecipient
     }
 }

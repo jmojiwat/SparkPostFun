@@ -8,7 +8,7 @@ namespace SparkPostFun.Receiving
         public string Id { get; init; }
         public string Name { get; init; }
         public string Target { get; init; }
-        public AuthenticationType AuthenticationType { get; init; } = AuthenticationType.none;
+        public AuthenticationType AuthenticationType { get; init; } = AuthenticationType.None;
         public AuthenticationRequestDetails AuthenticationRequestDetails { get; init; }
         [JsonPropertyName("auth_token")]
         public string AuthenticationToken { get; init; }

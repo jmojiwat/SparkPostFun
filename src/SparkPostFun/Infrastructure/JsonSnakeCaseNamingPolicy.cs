@@ -2,7 +2,7 @@
 
 namespace SparkPostFun.Infrastructure
 {
-    public class SnakeCaseNamingPolicy : JsonNamingPolicy
+    public class JsonSnakeCaseNamingPolicy : JsonNamingPolicy
     {
         public override string ConvertName(string name) => name.SnakeCase();
     }

@@ -1,4 +1,7 @@
-﻿namespace SparkPostFun.Sending
+﻿using System.Text.Json.Serialization;
+using SparkPostFun.Infrastructure;
+
+namespace SparkPostFun.Sending
 {
     public record ListAbTestResponseResult
     {
@@ -6,6 +9,7 @@
         public string Name { get; init; }
         public AbTestingTemplate DefaultTemplate { get; init; }
         public IList<AbTestingTemplate> Variants { get; init; } = new List<AbTestingTemplate>();
+        [JsonConverter(typeof(JsonPascalCaseConverter<Metric>))]
         public Metric Metric { get; init; }
         public AudienceSelection AudienceSelection { get; init; }
         public TestMode TestMode { get; init; }

@@ -27,8 +27,220 @@ public static class ClientMetricsExtensions
         var requestUrl = $"/api/{@this.Version}/metrics/deliverability?{queryString}";
         return @this.Get<DiscoverabilityLinksResponse>(requestUrl);
     }
+
+    // todo: complete implementation
+    public static Task<Either<ErrorResponse, MetricsByRecipientDomainResponse>> MetricsByRecipientDomain(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsByRecipientDomain(@this, from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByRecipientDomainResponse>> MetricsByRecipientDomain(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/domain?{queryString}";
+        return @this.Get<MetricsByRecipientDomainResponse>(requestUrl);
+    }
     
-    // todo: implement Metrics Aggregations methods: MetricsByRecipientDomain, MetricsBySendingIp, MetricsByIpPool...
+    public static Task<Either<ErrorResponse, MetricsBySendingIpResponse>> MetricsBySendingIp(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsBySendingIp(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsBySendingIpResponse>> MetricsBySendingIp(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/sending-ip?{queryString}";
+        return @this.Get<MetricsBySendingIpResponse>(requestUrl);
+    }
+
+    public static Task<Either<ErrorResponse, MetricsByIpPoolResponse>> MetricsByIpPool(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsByIpPool(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByIpPoolResponse>> MetricsByIpPool(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/ip-pool?{queryString}";
+        return @this.Get<MetricsByIpPoolResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsBySendingDomainResponse>> MetricsBySendingDomain(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsBySendingDomain(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsBySendingDomainResponse>> MetricsBySendingDomain(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/sending-domain?{queryString}";
+        return @this.Get<MetricsBySendingDomainResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsBySubaccountResponse>> MetricsBySubaccount(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsBySubaccount(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsBySubaccountResponse>> MetricsBySubaccount(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/subaccount?{queryString}";
+        return @this.Get<MetricsBySubaccountResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsByCampaignResponse>> MetricsByCampaign(this Client @this, DateTime from, IList<Metric> metrics, string sample) => 
+        MetricsByCampaign(@this, @from, metrics, sample, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByCampaignResponse>> MetricsByCampaign(this Client @this, DateTime from, IList<Metric> metrics, string sample, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, sample, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/campaign?{queryString}";
+        return @this.Get<MetricsByCampaignResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsByTemplateResponse>> MetricsByTemplate(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsByTemplate(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByTemplateResponse>> MetricsByTemplate(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/template?{queryString}";
+        return @this.Get<MetricsByTemplateResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsBySubjectCampaignResponse>> MetricsBySubjectCampaign(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsBySubjectCampaign(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsBySubjectCampaignResponse>> MetricsBySubjectCampaign(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/subject-campaign?{queryString}";
+        return @this.Get<MetricsBySubjectCampaignResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsByWatchedDomainResponse>> MetricsByWatchedDomain(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsByWatchedDomain(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByWatchedDomainResponse>> MetricsByWatchedDomain(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/watched-domain?{queryString}";
+        return @this.Get<MetricsByWatchedDomainResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsByMailboxProviderResponse>> MetricsByMailboxProvider(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsByMailboxProvider(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByMailboxProviderResponse>> MetricsByMailboxProvider(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/mailbox-provider?{queryString}";
+        return @this.Get<MetricsByMailboxProviderResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, MetricsByMailboxProviderRegionResponse>> MetricsByMailboxProviderRegion(this Client @this, DateTime from, IList<Metric> metrics) => 
+        MetricsByMailboxProviderRegion(@this, @from, metrics, new AggregateMetricsFilter());
+
+    public static Task<Either<ErrorResponse, MetricsByMailboxProviderRegionResponse>> MetricsByMailboxProviderRegion(this Client @this, DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/mailbox-provider-region?{queryString}";
+        return @this.Get<MetricsByMailboxProviderRegionResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, TimeSeriesMetricsResponse>> TimeSeriesMetrics(this Client @this, DateTime from, IList<Metric> metrics) => 
+        TimeSeriesMetrics(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, TimeSeriesMetricsResponse>> TimeSeriesMetrics(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/time-series?{queryString}";
+        return @this.Get<TimeSeriesMetricsResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, BounceReasonMetricsResponse>> BounceReasonMetrics(this Client @this, DateTime from, IList<Metric> metrics) => 
+        BounceReasonMetrics(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, BounceReasonMetricsResponse>> BounceReasonMetrics(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/bounce-reason?{queryString}";
+        return @this.Get<BounceReasonMetricsResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, BounceReasonMetricsByDomainResponse>> BounceReasonMetricsByDomain(this Client @this, DateTime from, IList<Metric> metrics) => 
+        BounceReasonMetricsByDomain(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, BounceReasonMetricsByDomainResponse>> BounceReasonMetricsByDomain(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/bounce-reason/domain?{queryString}";
+        return @this.Get<BounceReasonMetricsByDomainResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, BounceClassificationMetricsResponse>> BounceClasificationMetrics(this Client @this, DateTime from, IList<Metric> metrics) => 
+        BounceClasificationMetrics(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, BounceClassificationMetricsResponse>> BounceClasificationMetrics(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/bounce-classification?{queryString}";
+        return @this.Get<BounceClassificationMetricsResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, RejectionReasonMetricsResponse>> RejectionReasonMetrics(this Client @this, DateTime from, IList<Metric> metrics) => 
+        RejectionReasonMetrics(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, RejectionReasonMetricsResponse>> RejectionReasonMetrics(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/rejection-reason?{queryString}";
+        return @this.Get<RejectionReasonMetricsResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, RejectionReasonMetricsByDomainResponse>> RejectionReasonMetricsByDomain(this Client @this, DateTime from, IList<Metric> metrics) => 
+        RejectionReasonMetricsByDomain(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, RejectionReasonMetricsByDomainResponse>> RejectionReasonMetricsByDomain(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/rejection-reason/domain?{queryString}";
+        return @this.Get<RejectionReasonMetricsByDomainResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, DelayReasonMetricsResponse>> DelayReasonMetrics(this Client @this, DateTime from, IList<Metric> metrics) => 
+        DelayReasonMetrics(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, DelayReasonMetricsResponse>> DelayReasonMetrics(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/delay-reason?{queryString}";
+        return @this.Get<DelayReasonMetricsResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, DelayReasonMetricsByDomainResponse>> DelayReasonMetricsByDomain(this Client @this, DateTime from, IList<Metric> metrics) => 
+        DelayReasonMetricsByDomain(@this, @from, metrics, new MetricsSummaryFilter());
+
+    public static Task<Either<ErrorResponse, DelayReasonMetricsByDomainResponse>> DelayReasonMetricsByDomain(this Client @this, DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/delay-reason/domain?{queryString}";
+        return @this.Get<DelayReasonMetricsByDomainResponse>(requestUrl);
+    }
+    public static Task<Either<ErrorResponse, EngagementDetailsResponse>> EngagementDetails(this Client @this, DateTime from, IList<Metric> metrics) => 
+        EngagementDetails(@this, @from, metrics, new EngagementDetailsFilter());
+
+    public static Task<Either<ErrorResponse, EngagementDetailsResponse>> EngagementDetails(this Client @this, DateTime from, IList<Metric> metrics, EngagementDetailsFilter filter)
+    {
+        var queryString = ToQueryString(from, metrics, filter);
+
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/link-name?{queryString}";
+        return @this.Get<EngagementDetailsResponse>(requestUrl);
+    }
+
+    public static Task<Either<ErrorResponse, DeliveriesByAttemptResponse>> DeliveriesByAttempt(this Client @this, DateTime from) => 
+        DeliveriesByAttempt(@this, from, new DeliveriesByAttemptFilter());
+
+    public static Task<Either<ErrorResponse, DeliveriesByAttemptResponse>> DeliveriesByAttempt(this Client @this, DateTime from, DeliveriesByAttemptFilter filter)
+    {
+        var queryString = ToQueryString(from, filter);
+        var requestUrl = $"/api/{@this.Version}/metrics/deliverability/attempt?{queryString}";
+        return @this.Get<DeliveriesByAttemptResponse>(requestUrl);
+    }
     
     public static Task<Either<ErrorResponse, IpPoolsMetricsResponse>> IpPoolsMetrics(this Client @this)
     {
@@ -276,6 +488,225 @@ public static class ClientMetricsExtensions
             queryString.Add("precision", filter.Precision.ToString());
         }
         queryString.Add("timezone", filter.Timezone);
+        
+        return queryString.ToString();
+    }
+    private static string ToQueryString(DateTime from, DeliveriesByAttemptFilter filter)
+    {
+        var queryString = new NameValueCollection
+        {
+            { "from", from.ToString("s")}  
+        };
+
+        if(filter.To != null)
+        {
+            queryString.Add("to", filter.To?.ToString("s"));
+        }
+        if(filter.Delimiter != null)
+        {
+            queryString.Add("delimiter", filter.Delimiter);
+        }
+        if(filter.QueryFilters != null)
+        {
+            queryString.Add("query_filters", filter.QueryFilters);
+        }
+        if(filter.Domains != null)
+        {
+            queryString.Add("domains", string.Concat(',', filter.Domains));
+        }
+        if(filter.Campaigns != null)
+        {
+            queryString.Add("campaigns", string.Concat(',', filter.Campaigns));
+        }
+        if(filter.MailboxProviders != null)
+        {
+            queryString.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+        }
+        if(filter.MailboxProviderRegions != null)
+        {
+            queryString.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+        }
+        if(filter.Templates != null)
+        {
+            queryString.Add("templates", string.Concat(',', filter.Templates));
+        }
+        if(filter.SendingIps != null)
+        {
+            queryString.Add("sending_ips", string.Concat(',', filter.SendingIps));
+        }
+        if(filter.IpPools != null)
+        {
+            queryString.Add("ip_pools", string.Concat(',', filter.IpPools));
+        }
+        if(filter.SendingDomains != null)
+        {
+            queryString.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+        }
+        if(filter.Bindings != null)
+        {
+            queryString.Add("bindings", string.Concat(',', filter.Bindings));
+        }
+        if(filter.BindingGroups != null)
+        {
+            queryString.Add("binding_groups", string.Concat(',', filter.BindingGroups));
+        }
+        if(filter.Subaccounts != null)
+        {
+            queryString.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+        }
+        queryString.Add("timezone", filter.Timezone);
+        
+        return queryString.ToString();
+    }
+
+    private static string ToQueryString(DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
+    {
+        var nameValueCollection = new NameValueCollection
+        {
+            { "from", from.ToString("s")},  
+            { "metrics", string.Concat(',', metrics)}  
+        };
+
+        return ToQueryString(nameValueCollection, filter);
+    }
+    
+    // ReSharper disable once CognitiveComplexity
+    private static string ToQueryString(NameValueCollection nameValueCollection, AggregateMetricsFilter filter)
+    {
+        if(filter.To != null)
+        {
+            nameValueCollection.Add("to", filter.To?.ToString("s"));
+        }
+        if(filter.Delimiter != null)
+        {
+            nameValueCollection.Add("delimiter", filter.Delimiter);
+        }
+        if(filter.QueryFilters != null)
+        {
+            nameValueCollection.Add("query_filters", filter.QueryFilters);
+        }
+        if(filter.Domains != null)
+        {
+            nameValueCollection.Add("domains", string.Concat(',', filter.Domains));
+        }
+        if(filter.Campaigns != null)
+        {
+            nameValueCollection.Add("campaigns", string.Concat(',', filter.Campaigns));
+        }
+        if(filter.SubjectCampaigns != null)
+        {
+            nameValueCollection.Add("subject_campaigns", string.Concat(',', filter.SubjectCampaigns));
+        }
+        if(filter.MailboxProviders != null)
+        {
+            nameValueCollection.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+        }
+        if(filter.MailboxProviderRegions != null)
+        {
+            nameValueCollection.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+        }
+        if(filter.Templates != null)
+        {
+            nameValueCollection.Add("templates", string.Concat(',', filter.Templates));
+        }
+        if(filter.SendingIps != null)
+        {
+            nameValueCollection.Add("sending_ips", string.Concat(',', filter.SendingIps));
+        }
+        if(filter.IpPools != null)
+        {
+            nameValueCollection.Add("ip_pools", string.Concat(',', filter.IpPools));
+        }
+        if(filter.SendingDomains != null)
+        {
+            nameValueCollection.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+        }
+        if(filter.Subaccounts != null)
+        {
+            nameValueCollection.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+        }
+        if(filter.Domains != null)
+        {
+            nameValueCollection.Add("domains", string.Concat(',', filter.Domains));
+        }
+        if(filter.Precision != null)
+        {
+            nameValueCollection.Add("precision", filter.Precision.ToString());
+        }
+        nameValueCollection.Add("timezone", filter.Timezone);
+
+        if(filter.Limit != null)
+        {
+            nameValueCollection.Add("limit", filter.Limit.ToString());
+        }
+        if(filter.OrderBy != null)
+        {
+            nameValueCollection.Add("order_by", filter.OrderBy.ToString());
+        }
+        
+        return nameValueCollection.ToString();
+    }
+    private static string ToQueryString(DateTime from, IList<Metric> metrics, string sample, AggregateMetricsFilter filter)
+    {
+        var nameValueCollection = new NameValueCollection
+        {
+            { "from", from.ToString("s")},  
+            { "metrics", string.Concat(',', metrics)},  
+            { "sample", sample }  
+        };
+        
+        return ToQueryString(nameValueCollection, filter);
+    }
+    private static string ToQueryString(DateTime from, IList<Metric> metrics, EngagementDetailsFilter filter)
+    {
+        var queryString = new NameValueCollection
+        {
+            { "from", from.ToString("s")},  
+            { "metrics", string.Concat(',', metrics)}  
+        };
+
+        if(filter.To != null)
+        {
+            queryString.Add("to", filter.To?.ToString("s"));
+        }
+        if(filter.Delimiter != null)
+        {
+            queryString.Add("delimiter", filter.Delimiter);
+        }
+        if(filter.QueryFilters != null)
+        {
+            queryString.Add("query_filters", filter.QueryFilters);
+        }
+        queryString.Add("timezone", filter.Timezone);
+        
+        if(filter.Campaigns != null)
+        {
+            queryString.Add("campaigns", string.Concat(',', filter.Campaigns));
+        }
+        if(filter.MailboxProviders != null)
+        {
+            queryString.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+        }
+        if(filter.MailboxProviderRegions != null)
+        {
+            queryString.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+        }
+        if(filter.Templates != null)
+        {
+            queryString.Add("templates", string.Concat(',', filter.Templates));
+        }
+        if(filter.SendingDomains != null)
+        {
+            queryString.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+        }
+        if(filter.Subaccounts != null)
+        {
+            queryString.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+        }
+        if(filter.Limit != null)
+        {
+            queryString.Add("limit", filter.Limit.ToString());
+        }
         
         return queryString.ToString();
     }

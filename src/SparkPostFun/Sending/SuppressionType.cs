@@ -2,7 +2,7 @@
 {
     public enum SuppressionType
     {
-        transactional,
-        non_transactional
+        Transactional,
+        NonTransactional
     }
 }

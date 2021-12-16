@@ -1,8 +1,12 @@
-﻿namespace SparkPostFun.Sending
+﻿using System.Text.Json.Serialization;
+using SparkPostFun.Infrastructure;
+
+namespace SparkPostFun.Sending
 {
     public record RetrieveSuppressionResponseResult
     {
         public string Recipient { get; init; }
+        [JsonConverter(typeof(JsonPascalCaseConverter<SuppressionType>))]
         public SuppressionType Type { get; init; }
         public string Source { get; init; }
         public string Description { get; init; }

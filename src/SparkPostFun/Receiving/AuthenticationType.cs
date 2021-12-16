@@ -2,7 +2,7 @@
 {
     public enum AuthenticationType
     {
-        none,
-        oauth2
+        None,
+        Oauth2
     }
 }

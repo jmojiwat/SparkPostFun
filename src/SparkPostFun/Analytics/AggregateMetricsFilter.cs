@@ -1,6 +1,6 @@
 namespace SparkPostFun.Analytics;
 
-public record MetricsSummaryFilter
+public record AggregateMetricsFilter
 {
     public DateTime? To { get; init; }
     public string? Delimiter { get; init; }
@@ -16,5 +16,8 @@ public record MetricsSummaryFilter
     public IList<string> SendingDomains { get; init; } = new List<string>();
     public IList<string> Subaccounts { get; init; } = new List<string>();
     public MetricsSummaryPrecision? Precision { get; init; } = MetricsSummaryPrecision.OneMinute;
+    public IList<Metric> Metrics { get; init; } = new List<Metric>();
     public string Timezone { get; init; } = "UTC";
+    public int? Limit { get; init; }
+    public Metric? OrderBy { get; init; }
 }

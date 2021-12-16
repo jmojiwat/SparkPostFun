@@ -1,6 +1,46 @@
 namespace SparkPostFun.Analytics;
 
-public class Metric
+public enum Metric
+{
+    CountInjected,
+    CountBounce,
+    CountRejected,
+    CountDelivered,
+    CountDelieveredFirst,
+    CountDeliveredSubsequent,
+    TotalDeliveryTimeFirst,
+    TotalDeliveryTimeSubsequent,
+    TotalMessageVolume,
+    CountPolicyRejection,
+    CountGenerationRejection,
+    CountGenerationFailed,
+    CountInbandBounce,
+    CountOutofbandBounce,
+    CountSoftBounce,
+    CountHardBounce,
+    CountBlockBounce,
+    CountAdminBounce,
+    CountUndeterminedBounce,
+    CountDelayed,
+    CountDelayedFirst,
+    CountRendered,
+    CountUniqueRendered,
+    CountUniqueConfirmedOpened,
+    CountClicked,
+    CountUniqueClicked,
+    CountTargeted,
+    CountSent,
+    CountAccepted,
+    CountSpamComplaint,
+    CountInboxPanel,
+    CountSpamPanel,
+    CountInboxSeed,
+    CountSpamSeed,
+    CountMovedToInbox,
+    CountMovedToSpam,
+}
+
+/*public class Metric
 {
     private readonly string value;
 
@@ -61,4 +101,4 @@ public class Metric
     public static Metric CountMovedToSpam = new Metric("count_moved_to_spam");
 
     public override string ToString() => value;
-}
+}*/

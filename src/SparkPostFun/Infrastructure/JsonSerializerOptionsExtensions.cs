@@ -5,12 +5,17 @@ namespace SparkPostFun.Infrastructure
 {
     public static class JsonSerializerOptionsExtensions
     {
-        public static JsonSerializerOptions DefaultJsonSerializerOptions() => new JsonSerializerOptions()
+        public static JsonSerializerOptions DefaultJsonSerializerOptions()
         {
-            PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            WriteIndented = true,
-            Converters = { new JsonStringEnumConverter() }
-        };
+            var jsonSnakeCaseNamingPolicy = new JsonSnakeCaseNamingPolicy();
+            return new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = jsonSnakeCaseNamingPolicy,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                WriteIndented = true,
+                Converters = { new JsonStringEnumConverter(jsonSnakeCaseNamingPolicy) }, 
+                
+            };
+        }
     }
 }

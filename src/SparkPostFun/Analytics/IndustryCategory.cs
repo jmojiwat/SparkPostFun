@@ -4,7 +4,7 @@ public enum IndustryCategory
 {
     All, 
     Automotive, 
-    B2B, 
+    B2b, 
     Cpg, 
     Entertainment, 
     Finance, 

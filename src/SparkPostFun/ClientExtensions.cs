@@ -41,8 +41,6 @@ namespace SparkPostFun
                 .Apply(Right);
         }
 
-
-
         internal static Task<Either<TError, TResponse>> ToResponse<TError, TResponse>(HttpResponseMessage message) where TError : BaseErrorResponse =>
             message.IsSuccessStatusCode
                 ? ToValidResponse<TError, TResponse>(message)

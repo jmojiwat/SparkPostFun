@@ -18,13 +18,13 @@ namespace SparkPostFun.Tests.Serialization
                 {
                     new() { 
                         Recipient = "rcpt_10@example.com", 
-                        Type = SuppressionType.transactional, 
+                        Type = SuppressionType.Transactional, 
                         Description = "User requested to not receive any transactional emails."
                     },
                     new()
                     {
                         Recipient = "rcpt_20@example.com",
-                        Type = SuppressionType.non_transactional,
+                        Type = SuppressionType.NonTransactional,
                         Description = "User requested to not receive any non-transactional emails."
                     },
                 }
