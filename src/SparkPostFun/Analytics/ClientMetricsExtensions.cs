@@ -206,6 +206,7 @@ public static class ClientMetricsExtensions
         return queryString.ToString();
     }
     
+    // ReSharper disable once CognitiveComplexity
     private static string ToQueryString(DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
     {
         var queryString = new NameValueCollection
@@ -279,20 +280,3 @@ public static class ClientMetricsExtensions
         return queryString.ToString();
     }
 }
-
-/*
-public DateTime To { get; init; }
-public string Delimiter { get; init; }
-public string QueryFilters { get; init; }
-public IList<string> Domains { get; init; } = new List<string>();
-public IList<string> Campaigns { get; init; } = new List<string>();
-public IList<string> SubjectCampaigns { get; init; } = new List<string>();
-public IList<string> MailboxProviders { get; init; } = new List<string>();
-public IList<string> MailboxProviderRegions { get; init; } = new List<string>();
-public IList<string> Templates { get; init; } = new List<string>();
-public IList<string> SendingIps { get; init; } = new List<string>();
-public IList<string> IpPools { get; init; } = new List<string>();
-public IList<string> SendingDomains { get; init; } = new List<string>();
-public IList<string> Subaccounts { get; init; } = new List<string>();
-public MetricsSummaryPrecision Precision { get; init; } = MetricsSummaryPrecision.OneMinute;
-*/
