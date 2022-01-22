@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record BulkCreateOrUpdateSuppressions
 {
-    public record BulkCreateOrUpdateSuppressions
-    {
-        public IList<CreateOrUpdateSuppression> Recipients { get; init; } = new List<CreateOrUpdateSuppression>();
-    }
+    public IList<CreateOrUpdateSuppression> Recipients { get; init; } = new List<CreateOrUpdateSuppression>();
 }

@@ -1,11 +1,10 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 
-namespace SparkPostFun
+namespace SparkPostFun;
+
+public abstract record BaseErrorResponse
 {
-    public abstract record BaseErrorResponse
-    {
-        [JsonIgnore]
-        public HttpStatusCode StatusCode { get; init; }
-    }
+    [JsonIgnore]
+    public HttpStatusCode StatusCode { get; init; }
 }

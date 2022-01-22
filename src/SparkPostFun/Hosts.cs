@@ -1,8 +1,7 @@
-﻿namespace SparkPostFun
+﻿namespace SparkPostFun;
+
+public static class Hosts
 {
-    public static class Hosts
-    {
-        public static string Host = "api.sparkpost.com";
-        public static string EuHost = "api.eu.sparkpost.com";
-    }
+    public const string Host = "api.sparkpost.com";
+    public const string EuHost = "api.eu.sparkpost.com";
 }

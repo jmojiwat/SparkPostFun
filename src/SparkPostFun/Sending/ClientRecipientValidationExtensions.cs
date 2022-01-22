@@ -1,13 +1,12 @@
 ﻿using LanguageExt;
 
-namespace SparkPostFun.Sending
+namespace SparkPostFun.Sending;
+
+public static class ClientRecipientValidationExtensions
 {
-    public static class ClientRecipientValidationExtensions
+    public static Task<Either<ErrorResponse, EmailAddressValidationResponse>> EmailAddressValidation(this Client @this, string address)
     {
-        public static Task<Either<ErrorResponse, EmailAddressValidationResponse>> EmailAddressValidation(this Client @this, string address)
-        {
-            var requestUrl = $"/api/{@this.Version}/recipient-validation/single/{address}";
-            return @this.Get<EmailAddressValidationResponse>(requestUrl);
-        }
+        var requestUrl = $"/api/{@this.Version}/recipient-validation/single/{address}";
+        return @this.Get<EmailAddressValidationResponse>(requestUrl);
     }
 }

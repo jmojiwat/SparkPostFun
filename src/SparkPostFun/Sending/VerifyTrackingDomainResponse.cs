@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record VerifyTrackingDomainResponse
 {
-    public record VerifyTrackingDomainResponse
-    {
-        public VerifyTrackingDomainResponseResult Results { get; init; } = new();
-    }
+    public VerifyTrackingDomainResponseResult Results { get; init; } = new();
 }

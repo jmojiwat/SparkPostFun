@@ -1,6 +1,5 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public static class RecipientValidationExtensions
 {
-    public static class RecipientValidationExtensions
-    {
-    }
 }

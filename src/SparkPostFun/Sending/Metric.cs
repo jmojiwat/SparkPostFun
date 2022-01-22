@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace SparkPostFun.Sending;
 
-namespace SparkPostFun.Sending
+public enum Metric
 {
-    public enum Metric
-    {
-        CountUniqueClicked,
-        CountUniqueConfirmedOpened
-    }
+    CountUniqueClicked,
+    CountUniqueConfirmedOpened
 }

@@ -1,11 +1,10 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record UpdatePublishedTemplate
 {
-    public record UpdatePublishedTemplate
-    {
-        public string Name { get; init; }
-        public string Description { get; init; }
-        public TemplateContent? Content { get; init; }
-        public TemplateOptions? Options { get; init; }
-        public bool? SharedWithSubaccounts { get; init; }
-    }
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public TemplateContent Content { get; init; }
+    public TemplateOptions Options { get; init; }
+    public bool? SharedWithSubaccounts { get; init; }
 }

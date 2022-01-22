@@ -1,8 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record StoredTemplateContent(string TemplateId)
 {
-    public record StoredTemplateContent
-    {
-        public string TemplateId { get; init; }
-        public bool UseDraftTemplate { get; init; } = false;
-    }
+    public bool UseDraftTemplate { get; init; } = false;
 }

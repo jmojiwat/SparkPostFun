@@ -1,6 +1,3 @@
 ﻿namespace SparkPostFun.Sending;
 
-public record AbTestContent
-{
-    public string AbTestId { get; init; }
-}
+public record AbTestContent(string AbTestId);

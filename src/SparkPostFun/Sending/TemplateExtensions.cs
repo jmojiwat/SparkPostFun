@@ -1,6 +1,5 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public static class TemplateExtensions
 {
-    public static class TemplateExtensions
-    {
-    }
 }

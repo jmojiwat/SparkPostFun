@@ -1,8 +1,7 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum SuppressionType
 {
-    public enum SuppressionType
-    {
-        Transactional,
-        NonTransactional
-    }
+    Transactional,
+    NonTransactional
 }

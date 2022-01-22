@@ -1,8 +1,7 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum AudienceSelection
 {
-    public enum AudienceSelection
-    {
-        Percent,
-        SampleSize
-    }
+    Percent,
+    SampleSize
 }

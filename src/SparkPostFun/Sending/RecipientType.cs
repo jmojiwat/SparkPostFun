@@ -1,9 +1,8 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum RecipientType
 {
-    public enum RecipientType
-    {
-        To,
-        Cc,
-        Bcc
-    }
+    To,
+    Cc,
+    Bcc
 }

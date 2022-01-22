@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public class CreateSnippetResponseResult
 {
-    public class CreateSnippetResponseResult
-    {
-        public string Id { get; init; }
-    }
+    public string Id { get; init; }
 }

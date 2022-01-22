@@ -1,16 +1,17 @@
 ﻿using System.Text.Json.Serialization;
 using SparkPostFun.Infrastructure;
 
-namespace SparkPostFun.Sending
+namespace SparkPostFun.Sending;
+
+public record RetrieveSuppressionResponseResult
 {
-    public record RetrieveSuppressionResponseResult
-    {
-        public string Recipient { get; init; }
-        [JsonConverter(typeof(JsonPascalCaseConverter<SuppressionType>))]
-        public SuppressionType Type { get; init; }
-        public string Source { get; init; }
-        public string Description { get; init; }
-        public DateTimeOffset Created { get; init; }
-        public DateTimeOffset Updated { get; init; }
-    }
+    public string Recipient { get; init; }
+
+    [JsonConverter(typeof(JsonPascalCaseConverter<SuppressionType>))]
+    public SuppressionType Type { get; init; }
+
+    public string Source { get; init; }
+    public string Description { get; init; }
+    public DateTimeOffset Created { get; init; }
+    public DateTimeOffset Updated { get; init; }
 }

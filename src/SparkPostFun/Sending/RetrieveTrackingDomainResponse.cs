@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record RetrieveTrackingDomainResponse
 {
-    public record RetrieveTrackingDomainResponse
-    {
-        public RetrieveTrackingDomainResponseResult Results { get; init; } = new();
-    }
+    public RetrieveTrackingDomainResponseResult Results { get; init; } = new();
 }

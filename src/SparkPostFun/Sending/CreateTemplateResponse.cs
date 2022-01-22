@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record CreateTemplateResponse
 {
-    public record CreateTemplateResponse
-    {
-        public CreateTemplateResponseResult Results { get; init; } = new();
-    }
+    public CreateTemplateResponseResult Results { get; init; } = new();
 }

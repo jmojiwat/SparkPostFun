@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record DeleteSuppression
 {
-    public record DeleteSuppression
-    {
-        public string Type => "transactional";
-    }
+    public string Type => "transactional";
 }

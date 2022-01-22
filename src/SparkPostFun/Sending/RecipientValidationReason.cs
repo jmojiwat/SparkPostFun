@@ -1,9 +1,8 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum RecipientValidationReason
 {
-    public enum RecipientValidationReason
-    {
-        InvalidSyntax,
-        InvalidDomain,
-        InvalidRecipient
-    }
+    InvalidSyntax,
+    InvalidDomain,
+    InvalidRecipient
 }

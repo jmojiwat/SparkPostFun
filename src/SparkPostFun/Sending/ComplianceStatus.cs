@@ -1,9 +1,8 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum ComplianceStatus
 {
-    public enum ComplianceStatus
-    {
-        Pending,
-        Valid,
-        Blocked
-    }
+    Pending,
+    Valid,
+    Blocked
 }

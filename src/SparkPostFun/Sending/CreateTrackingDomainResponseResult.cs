@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record CreateTrackingDomainResponseResult
 {
-    public record CreateTrackingDomainResponseResult
-    {
-        public string Domain { get; init; }
-    }
+    public string Domain { get; init; }
 }

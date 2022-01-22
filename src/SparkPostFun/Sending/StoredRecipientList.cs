@@ -1,7 +1,3 @@
-﻿namespace SparkPostFun.Sending
-{
-    public record StoredRecipientList : IRecipients
-    {
-        public string ListId { get; init; }
-    }
-}
+﻿namespace SparkPostFun.Sending;
+
+public record StoredRecipientList(string ListId);

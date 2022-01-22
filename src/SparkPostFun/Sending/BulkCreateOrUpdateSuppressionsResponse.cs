@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record BulkCreateOrUpdateSuppressionsResponse
 {
-    public record BulkCreateOrUpdateSuppressionsResponse
-    {
-        public BulkCreateOrUpdateSuppressionsResponseResult Results { get; init; } = new();
-    }
+    public BulkCreateOrUpdateSuppressionsResponseResult Results { get; init; } = new();
 }

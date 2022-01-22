@@ -1,8 +1,7 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record InlineContentAddress
 {
-    public record InlineContentAddress
-    {
-        public string Email { get; init; }
-        public string Name { get; init; }
-    }
+    public string Email { get; init; }
+    public string Name { get; init; }
 }

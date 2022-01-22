@@ -1,11 +1,10 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum RecipientValidationResult
 {
-    public enum RecipientValidationResult
-    {
-        Valid,
-        Neutral,
-        Risky,
-        Undeliverable,
-        Typo
-    }
+    Valid,
+    Neutral,
+    Risky,
+    Undeliverable,
+    Typo
 }

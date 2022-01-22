@@ -1,12 +1,11 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record UpdateIpPoolResponseResult
 {
-    public record UpdateIpPoolResponseResult
-    {
-        public string Id { get; init; }
-        public string Name { get; init; }
-        public string SigningDomain { get; init; }
-        public string FblSigningDomain { get; init; }
-        public IList<RetrieveSendingIpResponse> Ips { get; init; } = new List<RetrieveSendingIpResponse>();
-        public string AutoWarmupOverflowPool { get; init; }
-    }
+    public string Id { get; init; }
+    public string Name { get; init; }
+    public string SigningDomain { get; init; }
+    public string FblSigningDomain { get; init; }
+    public IList<RetrieveSendingIpResponse> Ips { get; init; } = new List<RetrieveSendingIpResponse>();
+    public string AutoWarmupOverflowPool { get; init; }
 }

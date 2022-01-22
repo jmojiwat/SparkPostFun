@@ -1,9 +1,8 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record VerifyTrackingDomainResponseResult
 {
-    public record VerifyTrackingDomainResponseResult
-    {
-        public bool Verified { get; init; }
-        public CnameStatus CnameStatus { get; init; }
-        public ComplianceStatus ComplianceStatus { get; init; }
-    }
+    public bool Verified { get; init; }
+    public CnameStatus CnameStatus { get; init; }
+    public ComplianceStatus ComplianceStatus { get; init; }
 }

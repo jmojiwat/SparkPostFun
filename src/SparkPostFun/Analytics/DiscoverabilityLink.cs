@@ -1,6 +1,6 @@
 namespace SparkPostFun.Analytics;
 
-public record Link
+public record DiscoverabilityLink
 {
     public string Href { get; init; }
     public string Rel { get; init; }

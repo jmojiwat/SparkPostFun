@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record ListTrackingDomainsResponse
 {
-    public record ListTrackingDomainsResponse
-    {
-        public IList<ListTrackingDomainsResponseResult> Results { get; init; } = new List<ListTrackingDomainsResponseResult>();
-    }
+    public IList<ListTrackingDomainsResponseResult> Results { get; init; } = new List<ListTrackingDomainsResponseResult>();
 }

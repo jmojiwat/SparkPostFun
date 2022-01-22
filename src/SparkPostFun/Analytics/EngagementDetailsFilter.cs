@@ -3,8 +3,8 @@ namespace SparkPostFun.Analytics;
 public record EngagementDetailsFilter
 {
     public DateTime? To { get; init; }
-    public string? Delimiter { get; init; }
-    public string? QueryFilters { get; init; }
+    public string Delimiter { get; init; }
+    public string QueryFilters { get; init; }
     public string Timezone { get; init; } = "UTC";
     public IList<Metric> Metrics { get; init; } = new List<Metric>();
     public IList<string> Campaigns { get; init; } = new List<string>();

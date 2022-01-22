@@ -3,8 +3,8 @@ namespace SparkPostFun.Analytics;
 public record DeliveriesByAttemptFilter
 {
     public DateTime? To { get; init; }
-    public string? Delimiter { get; init; }
-    public string? QueryFilters { get; init; }
+    public string Delimiter { get; init; }
+    public string QueryFilters { get; init; }
     public IList<string> Domains { get; init; } = new List<string>();
     public IList<string> Campaigns { get; init; } = new List<string>();
     public IList<string> MailboxProviders { get; init; } = new List<string>();

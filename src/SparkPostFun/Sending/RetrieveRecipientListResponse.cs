@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record RetrieveRecipientListResponse
 {
-    public record RetrieveRecipientListResponse
-    {
-        public RetrieveRecipientListResponseResult Results { get; init; }
-    }
+    public RetrieveRecipientListResponseResult Results { get; init; }
 }

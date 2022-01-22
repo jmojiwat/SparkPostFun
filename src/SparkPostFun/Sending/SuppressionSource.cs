@@ -1,12 +1,11 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum SuppressionSource
 {
-    public enum SuppressionSource
-    {
-        SpamComplaint,
-        ListUnsubscribe,
-        BounceRule,
-        UnsubscribeLink,
-        ManuallyAdded,
-        Compliance
-    }
+    SpamComplaint,
+    ListUnsubscribe,
+    BounceRule,
+    UnsubscribeLink,
+    ManuallyAdded,
+    Compliance
 }

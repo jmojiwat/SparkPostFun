@@ -3,8 +3,8 @@ namespace SparkPostFun.Analytics;
 public record AggregateMetricsFilter
 {
     public DateTime? To { get; init; }
-    public string? Delimiter { get; init; }
-    public string? QueryFilters { get; init; }
+    public string Delimiter { get; init; }
+    public string QueryFilters { get; init; }
     public IList<string> Domains { get; init; } = new List<string>();
     public IList<string> Campaigns { get; init; } = new List<string>();
     public IList<string> SubjectCampaigns { get; init; } = new List<string>();
@@ -15,7 +15,7 @@ public record AggregateMetricsFilter
     public IList<string> IpPools { get; init; } = new List<string>();
     public IList<string> SendingDomains { get; init; } = new List<string>();
     public IList<string> Subaccounts { get; init; } = new List<string>();
-    public MetricsSummaryPrecision? Precision { get; init; } = MetricsSummaryPrecision.OneMinute;
+    public MetricsSummaryPrecision Precision { get; init; } = MetricsSummaryPrecision.OneMinute;
     public IList<Metric> Metrics { get; init; } = new List<Metric>();
     public string Timezone { get; init; } = "UTC";
     public int? Limit { get; init; }

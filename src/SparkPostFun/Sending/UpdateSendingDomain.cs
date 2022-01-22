@@ -1,10 +1,9 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record UpdateSendingDomain
 {
-    public record UpdateSendingDomain
-    {
-        public string TrakingDomain { get; init; }
-        public UpdateDkim Dkim { get; init; }
-        public bool? SharedWithSubaccounts { get; init; }
-        public bool? IsDefaultBounceDomain { get; init; }
-    }
+    public string TrakingDomain { get; init; }
+    public UpdateDkim Dkim { get; init; }
+    public bool? SharedWithSubaccounts { get; init; }
+    public bool? IsDefaultBounceDomain { get; init; }
 }

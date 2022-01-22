@@ -2,13 +2,12 @@
 using System.Text.Json.Serialization;
 using SparkPostFun.Sending;
 
-namespace SparkPostFun
+namespace SparkPostFun;
+
+public record ErrorResponse
 {
-    public record ErrorResponse
-    {
-        [JsonIgnore]
-        public HttpStatusCode StatusCode { get; init; }
+    [JsonIgnore]
+    public HttpStatusCode StatusCode { get; init; }
         
-        public IList<Error> Errors { get; init; } = new List<Error>();
-    }
+    public IList<Error> Errors { get; init; } = new List<Error>();
 }

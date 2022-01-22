@@ -1,10 +1,9 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum CnameStatus
 {
-    public enum CnameStatus
-    {
-        Unverified,
-        Pending,
-        Invalid,
-        Valid
-    }
+    Unverified,
+    Pending,
+    Invalid,
+    Valid
 }

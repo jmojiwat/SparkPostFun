@@ -1,10 +1,8 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record SendingDomain(string Domain)
 {
-    public record SendingDomain
-    {
-        public string Domain { get; init; }
-        public string TrackingDomain { get; init; }
-        public SendingDomainStatus Status { get; init; }
-        public Dkim Dkim { get; init; }
-    }
+    public string TrackingDomain { get; init; }
+    public SendingDomainStatus Status { get; init; }
+    public Dkim Dkim { get; init; }
 }

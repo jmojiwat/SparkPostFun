@@ -1,9 +1,3 @@
-﻿namespace SparkPostFun.Sending
-{
-    public record InlineImage
-    {
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Data { get; set; }
-    }
-}
+﻿namespace SparkPostFun.Sending;
+
+public record InlineImage(string Name, string Type, string Data);

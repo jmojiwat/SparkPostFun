@@ -1,10 +1,9 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public enum MxStatus
 {
-    public enum MxStatus
-    {
-        Unverified,
-        Pending,
-        Invalid,
-        Valid
-    }
+    Unverified,
+    Pending,
+    Invalid,
+    Valid
 }

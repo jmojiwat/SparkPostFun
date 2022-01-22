@@ -6,5 +6,5 @@ public record Error
     public string Code { get; init; }
     public string Description { get; init; }
     public string Part { get; init; }
-    public int Line { get; init; }
+    public int? Line { get; init; }
 }

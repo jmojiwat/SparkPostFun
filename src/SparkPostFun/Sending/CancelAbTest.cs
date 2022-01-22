@@ -1,6 +1,3 @@
-﻿namespace SparkPostFun.Sending
-{
-    public record CancelAbTest
-    {
-    }
-}
+﻿namespace SparkPostFun.Sending;
+
+public record CancelAbTest;

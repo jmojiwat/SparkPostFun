@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record ListSnippetsResponse
 {
-    public record ListSnippetsResponse
-    {
-        public IList<ListSnippetsResponseResult> Results { get; init; }
-    }
+    public IList<ListSnippetsResponseResult> Results { get; init; }
 }

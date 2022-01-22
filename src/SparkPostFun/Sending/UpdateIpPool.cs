@@ -1,10 +1,8 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record UpdateIpPool(string Name)
 {
-    public record UpdateIpPool
-    {
-        public string Name { get; init; }
-        public string SigningDomain { get; init; }
-        public string FblSigningDomain { get; init; }
-        public string AutoWarmupOverflowPool { get; init; }
-    }
+    public string SigningDomain { get; init; }
+    public string FblSigningDomain { get; init; }
+    public string AutoWarmupOverflowPool { get; init; }
 }

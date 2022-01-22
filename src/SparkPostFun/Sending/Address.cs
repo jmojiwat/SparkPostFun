@@ -1,9 +1,11 @@
-﻿namespace SparkPostFun.Sending
+﻿using System.Text.Json.Serialization;
+
+namespace SparkPostFun.Sending;
+
+public record Address(string Email)
 {
-    public record Address
-    {
-        public string Email { get; init; }
-        public string Name { get; init; }
-        public string HeaderTo { get; internal init; }
-    }
+    public string Name { get; init; }
+    
+    [JsonInclude]
+    public string HeaderTo { get; internal init; }
 }

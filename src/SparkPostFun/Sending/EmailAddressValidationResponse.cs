@@ -1,7 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿namespace SparkPostFun.Sending;
+
+public record EmailAddressValidationResponse
 {
-    public record EmailAddressValidationResponse
-    {
-        public EmailAddressValidationResponseResult Results { get; init; } = new();
-    }
+    public EmailAddressValidationResponseResult Results { get; init; } = new();
 }

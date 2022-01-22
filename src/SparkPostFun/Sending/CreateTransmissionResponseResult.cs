@@ -1,13 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SparkPostFun.Sending
+namespace SparkPostFun.Sending;
+
+public record CreateTransmissionResponseResult
 {
-    public record CreateTransmissionResponseResult
-    {
-        [JsonPropertyName("rcpt_to_errors")]
-        public IList<RecipientToError> RecipientToErrors { get; init; }
-        public int TotalRejectedRecipients { get; init; }
-        public int TotalAcceptedRecipients { get; init; }
-        public string Id { get; init; }
-    }
+    [JsonPropertyName("rcpt_to_errors")] public IList<RecipientToError> RecipientToErrors { get; init; }
+
+    public int TotalRejectedRecipients { get; init; }
+    public int TotalAcceptedRecipients { get; init; }
+    public string Id { get; init; }
 }
