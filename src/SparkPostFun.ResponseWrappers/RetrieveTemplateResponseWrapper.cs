@@ -1,14 +1,13 @@
 ﻿using System.Net;
 using SparkPostFun.Sending;
 
-namespace SparkPostFun.ResponseWrappers
+namespace SparkPostFun.ResponseWrappers;
+
+public record RetrieveTemplateResponseWrapper
 {
-    public record RetrieveTemplateResponseWrapper
-    {
-        public RetrieveTemplateResponseResult Results { get; init; } = new();
+    public RetrieveTemplateResponseResult Results { get; init; } = new();
 
-        public HttpStatusCode StatusCode { get; init; }
-        public IList<Error> Errors { get; init; } = new List<Error>();
+    public HttpStatusCode StatusCode { get; init; }
+    public IList<Error> Errors { get; init; } = new List<Error>();
 
-    }
 }

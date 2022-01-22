@@ -12,14 +12,13 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void DocumentationExample1_returns_expected_result()
         {
+            const string name = "my_image.jpeg";
+            const string type = "image/jpeg";
+            const string data = "VGhpcyBkb2Vzbid0IGxvb2sgbGlrZSBhIGpwZWcgdG8gbWUh";
+
             var images = new List<InlineImage>
             {
-                new()
-                {
-                    Name = "my_image.jpeg",
-                    Type = "image/jpeg",
-                    Data = "VGhpcyBkb2Vzbid0IGxvb2sgbGlrZSBhIGpwZWcgdG8gbWUh",
-                }
+                new(name, type, data)
             };
 
             var json = JsonSerializer.Serialize(images, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());

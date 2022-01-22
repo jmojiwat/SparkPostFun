@@ -13,7 +13,7 @@ public class MetricsSerializationTest
     [Fact]
     public void AdvancedQueryJsonSchema_response_returns_expected_result()
     {
-        var json = "{                                                                                   " +
+        const string json = "{                                                                                   " +
                    "      \"results\": {                                                                " +
                    "          \"$schema\": \"http://json-schema.org/draft-07/schema\",                  " +
                    "          \"$id\": \"root\",                                                        " +
@@ -46,7 +46,7 @@ public class MetricsSerializationTest
     [Fact]
     public void DiscoverabilityLinks_response_returns_expected_result()
     {
-        var json = "{                                                                 " +
+        const string json = "{                                                                 " +
                    "    \"results\": {},                                              " +
                    "    \"links\": [                                                  " +
                    "        {                                                         " +
@@ -115,7 +115,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsSummary_response_returns_expected_result()
     {
-        var json = "{                                                   " +
+        const string json = "{                                                   " +
                    "  \"results\": [                                    " +
                    "    {                                               " +
                    "      \"count_targeted\": 34432,                    " +
@@ -145,7 +145,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByRecipientDomain_response_returns_expected_result()
     {
-        var json = "{                                " +
+        const string json = "{                                " +
                    "  \"results\": [                 " +
                    "    {                            " +
                    "      \"domain\": \"aol.com\",   " +
@@ -175,7 +175,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsBySendingIp_response_returns_expected_result()
     {
-        var json = "{                                       " +
+        const string json = "{                                       " +
                    "  \"results\": [                        " +
                    "    {                                   " +
                    "      \"sending_ip\": \"sending-ip-0\", " +
@@ -204,7 +204,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByIpPool_response_returns_expected_result()
     {
-        var json = "{                                 " +
+        const string json = "{                                 " +
                    "  \"results\": [                  " +
                    "    {                             " +
                    "      \"ip_pool\": \"ip-pool-0\", " +
@@ -233,7 +233,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsBySendingDomain_response_returns_expected_result()
     {
-        var json = "{                                             " +
+        const string json = "{                                             " +
                    "  \"results\": [                              " +
                    "    {                                         " +
                    "      \"count_targeted\": 34432,              " +
@@ -280,7 +280,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsBySubaccount_response_returns_expected_result()
     {
-        var json = "{                                " +
+        const string json = "{                                " +
                    "  \"results\": [                 " +
                    "    {                            " +
                    "      \"count_targeted\": 34432, " +
@@ -327,7 +327,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByCampaign_response_returns_expected_result()
     {
-        var json = "{                                      " +
+        const string json = "{                                      " +
                    "  \"results\": [                       " +
                    "    {                                  " +
                    "      \"campaign_id\": \"campaign-0\", " +
@@ -360,7 +360,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByTemplate_response_returns_expected_result()
     {
-        var json = "{                                      " +
+        const string json = "{                                      " +
                    "  \"results\": [                       " +
                    "    {                                  " +
                    "      \"template_id\": \"template-0\", " +
@@ -393,7 +393,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsBySubjectCampaign_response_returns_expected_result()
     {
-        var json = "{                                                                 " +
+        const string json = "{                                                                 " +
                    "  \"results\": [                                                  " +
                    "    {                                                             " +
                    "      \"count_inbox_panel\": 564,                                 " +
@@ -432,7 +432,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByWatchedDomain_response_returns_expected_result()
     {
-        var json = "{                                        " +
+        const string json = "{                                        " +
                    "  \"results\": [                         " +
                    "    {                                    " +
                    "      \"watched_domain\": \"aol.com\",   " +
@@ -465,7 +465,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByMailboxProvider_response_returns_expected_result()
     {
-        var json = "{                                                        " +
+        const string json = "{                                                        " +
                    "  \"results\": [                                         " +
                    "    {                                                    " +
                    "      \"count_injected\": 109849,                        " +
@@ -519,7 +519,7 @@ public class MetricsSerializationTest
     [Fact]
     public void MetricsByMailboxProviderRegion_response_returns_expected_result()
     {
-        var json = "{                                                             " +
+        const string json = "{                                                             " +
                    "  \"results\": [                                              " +
                    "    {                                                         " +
                    "      \"count_injected\": 109849,                             " +
@@ -573,7 +573,7 @@ public class MetricsSerializationTest
     [Fact]
     public void TimeSeriesMetrics_response_returns_expected_result()
     {
-        var json = "{                                                      " +
+        const string json = "{                                                      " +
                    "  \"results\": [                                       " +
                    "    {                                                  " +
                    "      \"count_accepted\": 217489,                      " +
@@ -663,7 +663,7 @@ public class MetricsSerializationTest
         [Fact]
     public void BounceReasonMetrics_response_returns_expected_result()
     {
-        var json = "{                                                                                  " +
+        const string json = "{                                                                                  " +
                    "  \"results\": [                                                                   " +
                    "    {                                                                              " +
                    "      \"reason\": \"Some Fake Reason\",                                            " +
@@ -708,7 +708,7 @@ public class MetricsSerializationTest
         [Fact]
     public void BounceReasonMetricsByDomain_response_returns_expected_result()
     {
-        var json = "{                                                                                  " +
+        const string json = "{                                                                                  " +
                    "  \"results\": [                                                                   " +
                    "    {                                                                              " +
                    "      \"reason\": \"Some Fake Reason\",                                            " +
@@ -756,7 +756,7 @@ public class MetricsSerializationTest
         [Fact]
     public void BounceClassificationMetrics_response_returns_expected_result()
     {
-        var json = "{                                                                                   " +
+        const string json = "{                                                                                   " +
                    "  \"results\": [                                                                    " +
                    "    {                                                                               " +
                    "      \"bounce_class_name\": \"Undetermined\",                                      " +
@@ -795,7 +795,7 @@ public class MetricsSerializationTest
         [Fact]
     public void RejectionReasonMetrics_response_returns_expected_result()
     {
-        var json = "{                                                  " +
+        const string json = "{                                                  " +
                    "  \"results\": [                                   " +
                    "    {                                              " +
                    "      \"reason\": \"520 rejection message\",       " +
@@ -825,7 +825,7 @@ public class MetricsSerializationTest
     [Fact]
     public void RejectionReasonMetricsByDomain_response_returns_expected_result()
     {
-        var json = "{                                                  " +
+        const string json = "{                                                  " +
                    "  \"results\": [                                   " +
                    "    {                                              " +
                    "      \"reason\": \"520 rejection message\",       " +
@@ -858,7 +858,7 @@ public class MetricsSerializationTest
     [Fact]
     public void DelayReasonMetrics_response_returns_expected_result()
     {
-        var json = "{                                               " +
+        const string json = "{                                               " +
                    "  \"results\": [                                " +
                    "    {                                           " +
                    "      \"reason\": \"400 fake tempfail reason\", " +
@@ -885,7 +885,7 @@ public class MetricsSerializationTest
     [Fact]
     public void DelayReasonMetricsByDomain_response_returns_expected_result()
     {
-        var json = "{                                               " +
+        const string json = "{                                               " +
                    "  \"results\": [                                " +
                    "    {                                           " +
                    "      \"reason\": \"400 fake tempfail reason\", " +
@@ -915,7 +915,7 @@ public class MetricsSerializationTest
     [Fact]
     public void EngagementDetails_response_returns_expected_result()
     {
-        var json = "{                                         " +
+        const string json = "{                                         " +
                    "  \"results\": [                          " +
                    "    {                                     " +
                    "      \"link_name\": \"top banner link\", " +
@@ -942,7 +942,7 @@ public class MetricsSerializationTest
     [Fact]
     public void DeliveriesByAttempt_response_returns_expected_result()
     {
-        var json = "{                              " +
+        const string json = "{                              " +
                    "  \"results\": [               " +
                    "    {                          " +
                    "      \"attempt\": \"1\",      " +

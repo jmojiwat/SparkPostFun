@@ -12,14 +12,12 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void DocumentationExample1_returns_expected_result()
         {
+            const string name = "billing.pdf";
+            const string type = "application/pdf";
+            const string data = "Q29uZ3JhdHVsYXRpb25zLCB5b3UgY2FuIGJhc2U2NCBkZWNvZGUh";
             var attachments = new List<Attachment>
             {
-                new()
-                {
-                    Name = "billing.pdf",
-                    Type = "application/pdf",
-                    Data = "Q29uZ3JhdHVsYXRpb25zLCB5b3UgY2FuIGJhc2U2NCBkZWNvZGUh",
-                }
+                new(name, type, data)
             };
 
             var json = JsonSerializer.Serialize(attachments,

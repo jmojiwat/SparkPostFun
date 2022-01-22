@@ -5,6 +5,7 @@ using SparkPostFun.Infrastructure;
 using SparkPostFun.Receiving;
 using SparkPostFun.Sending;
 using Xunit;
+using AuthenticationType = SparkPostFun.Receiving.AuthenticationType;
 using Metric = SparkPostFun.Sending.Metric;
 
 namespace SparkPostFun.Tests.Serialization;
