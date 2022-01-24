@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Text.Json;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using SparkPostFun.Infrastructure;
 using SparkPostFun.Sending;
 using Xunit;
@@ -9,6 +10,30 @@ namespace SparkPostFun.Tests.Serialization;
 
 public class TrackingDomainSerializationTest
 {
+    [Fact]
+    public void CreateTrackingDomain_request_returns_expected_result()
+    {
+        var request = new CreateTrackingDomain("example.domain.com")
+        {
+            Secure = true
+        };
+        
+        var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected
+            {
+              "domain": "example.domain.com",
+              "secure": true
+            }
+        */
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("domain").GetString().Should().Be("example.domain.com");
+        obj.GetProperty("secure").GetBoolean().Should().BeTrue();
+    }
+
+
     [Fact]
     public void CreateTrackingDomain_response_returns_expected_result()
     {
@@ -62,6 +87,31 @@ public class TrackingDomainSerializationTest
         response.Results.Status.Verified.Should().Be(false);
     }
 
+    [Fact]
+    public void UpdateTrackingDomain_request_returns_expected_result()
+    {
+        var request = new UpdateTrackingDomain
+        {
+            Secure = true,
+            Default = true
+        };
+        
+        var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected
+            {
+              "secure": true,
+              "default": true
+            }
+        */
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("secure").GetBoolean().Should().BeTrue();
+        obj.GetProperty("default").GetBoolean().Should().BeTrue();
+    }
+
+    
     [Fact]
     public void UpdateTrackingDomain_response_returns_expected_result()
     {

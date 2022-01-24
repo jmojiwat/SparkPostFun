@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using FluentAssertions;
@@ -58,12 +59,35 @@ public class TransmissionSerializationTest
 
         var json = JsonSerializer.Serialize(transmission,
             JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
         using var scope = new AssertionScope();
-        json.Should().Contain("\"user_type\": \"students\"");
-        json.Should().Contain("\"education_level\": \"college\"");
-        json.Should().Contain("\"sender\": \"Big Store Team\"");
-        json.Should().Contain("\"holiday_name\": \"Christmas\"");
+        obj.GetProperty("options").GetProperty("click_tracking").GetBoolean().Should().BeFalse();
+        obj.GetProperty("options").GetProperty("transactional").GetBoolean().Should().BeTrue();
+        obj.GetProperty("options").GetProperty("ip_pool").GetString().Should().Be("my_ip_pool");
+        obj.GetProperty("options").GetProperty("inline_css").GetBoolean().Should().BeTrue();
+        
+        obj.GetProperty("description").GetString().Should().Be("Christmas Campaign Email");
+        obj.GetProperty("campaign_id").GetString().Should().Be("christmas_campaign");
+
+        obj.GetProperty("metadata").GetProperty("user_type").GetString().Should().Be("students");
+        obj.GetProperty("metadata").GetProperty("education_level").GetString().Should().Be("college");
+
+        obj.GetProperty("substitution_data").GetProperty("sender").GetString().Should().Be("Big Store Team");
+        obj.GetProperty("substitution_data").GetProperty("holiday_name").GetString().Should().Be("Christmas");
+        
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("wilma@flintstone.com");
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("name").GetString().Should().Be("Wilma Flintstone");
+        obj.GetProperty("recipients")[0].GetProperty("tags")[0].GetString().Should().Be("prehistoric");
+
+        obj.GetProperty("recipients")[0].GetProperty("metadata").GetProperty("age").GetString().Should().Be("24");
+        obj.GetProperty("recipients")[0].GetProperty("metadata").GetProperty("place").GetString().Should().Be("Bedrock");
+
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("customer_type").GetString().Should().Be("Platinum");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("year").GetString().Should().Be("Freshman");
+
+        obj.GetProperty("content").ValueKind.Should().Be(JsonValueKind.Object);
     }
 
     [Fact]
@@ -84,15 +108,118 @@ public class TransmissionSerializationTest
         var json = JsonSerializer.Serialize(transmission,
             JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
         using var scope = new AssertionScope();
-        json.Should().Contain("\"list_id\": \"christmas_sales_2013\"");
-        json.Should().Contain("\"name\": \"Our Store\"");
-        json.Should().Contain("\"email\": \"deals@example.com\"");
-        json.Should().Contain("\"subject\": \"Big Christmas savings!\"");
-//        json.Should().Contain("\"text\": \"Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{user_type}}\n {{sender}}\"");
-//        json.Should().Contain("\"html\": \"<p>Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p><p>{{sender}}</p>\"");
+        obj.GetProperty("recipients").GetProperty("list_id").GetString().Should().Be("christmas_sales_2013");
+        
+        obj.GetProperty("content").GetProperty("from").GetProperty("name").GetString().Should().Be("Our Store");
+        obj.GetProperty("content").GetProperty("from").GetProperty("email").GetString().Should().Be("deals@example.com");
+        obj.GetProperty("content").GetProperty("subject").GetString().Should().Be("Big Christmas savings!");
+        obj.GetProperty("content").GetProperty("text").GetString().Should().Be("Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{user_type}}\n {{sender}}");
+        obj.GetProperty("content").GetProperty("html").GetString().Should().Be("<p>Hi {{name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p><p>{{sender}}</p>");
     }
 
+    [Fact]
+    public void SendInlineContent_request_returns_expected_result()
+    {
+        var recipient = new Recipient(new Address("wilma@flintstone.com") { Name = "Wilma Flintstone" })
+        {
+            SubstitutionData = new Dictionary<string, object>
+            {
+                { "customer_type", "Platinum" }
+            }
+        };
+        var sender = new SenderAddress("fred@flintstone.com") { Name = "Fred Flintstone" };
+        var content = new InlineContent(sender, "Big Christmas savings!")
+        {
+            ReplyTo = "Christmas Sales <sales@flintstone.com>",
+            Headers = new Dictionary<string, string>
+            {
+                { "X-Customer-Campaign-ID", "christmas_campaign" }
+            },
+            Html = "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get a {{discount}}% discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p>" 
+        };
+        
+        var request = TransmissionExtensions.CreateTransmission(recipient, content)
+            .WithOptions(new TransmissionOptions
+            {
+                OpenTracking = true,
+                ClickTracking = true
+            })
+            .WithMetadata(new Dictionary<string, object>
+            {
+                { "user_type", "students" },
+                { "education_level", "college" }
+            })
+            .WithSubstitutionData(new Dictionary<string, object>
+            {
+                { "discount", "25" }
+            });
+        
+        var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /*
+        {
+            "options": {
+                "open_tracking": true,
+                "click_tracking": true
+            },
+            "metadata": {
+                "user_type": "students",
+                "education_level": "college"
+            },
+            "substitution_data": {
+                "discount": "25"
+            },
+            "recipients": [
+            {
+                "address": {
+                    "email": "wilma@flintstone.com",
+                    "name": "Wilma Flintstone"
+                },
+                "substitution_data": {
+                    "customer_type": "Platinum",
+                }
+            }
+            ],
+            "content": {
+                "from": {
+                    "name": "Fred Flintstone",
+                    "email": "fred@flintstone.com"
+                },
+                "subject": "Big Christmas savings!",
+                "reply_to": "Christmas Sales <sales@flintstone.com>",
+                "headers": {
+                    "X-Customer-Campaign-ID": "christmas_campaign"
+                },
+                "html": "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get a {{discount}}% discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p>"
+            }
+        }
+        */
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("options").GetProperty("open_tracking").GetBoolean().Should().BeTrue();
+        obj.GetProperty("options").GetProperty("click_tracking").GetBoolean().Should().BeTrue();
+
+        obj.GetProperty("metadata").GetProperty("user_type").GetString().Should().Be("students");
+        obj.GetProperty("metadata").GetProperty("education_level").GetString().Should().Be("college");
+
+        obj.GetProperty("substitution_data").GetProperty("discount").GetString().Should().Be("25");
+        
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("wilma@flintstone.com");
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("name").GetString().Should().Be("Wilma Flintstone");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("customer_type").GetString().Should().Be("Platinum");
+        
+        obj.GetProperty("content").GetProperty("from").GetProperty("name").GetString().Should().Be("Fred Flintstone");
+        obj.GetProperty("content").GetProperty("from").GetProperty("email").GetString().Should().Be("fred@flintstone.com");
+        
+        obj.GetProperty("content").GetProperty("subject").GetString().Should().Be("Big Christmas savings!");
+        obj.GetProperty("content").GetProperty("reply_to").GetString().Should().Be("Christmas Sales <sales@flintstone.com>");
+        obj.GetProperty("content").GetProperty("headers").GetProperty("X-Customer-Campaign-ID").GetString().Should().Be("christmas_campaign");
+        obj.GetProperty("content").GetProperty("html").GetString().Should().Be("<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get a {{discount}}% discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p>");
+    }
+    
     [Fact]
     public void SendInlineContent_response_returns_expected_result()
     {
@@ -112,6 +239,63 @@ public class TransmissionSerializationTest
         response.Results.Id.Should().Be("11668787484950529");
     }
 
+    [Fact]
+    public void SendTemplateContent_request_returns_expected_result()
+    {
+        var recipient = new Recipient(new Address("wilma@flintstone.com") { Name = "Wilma Flintstone" })
+        {
+            SubstitutionData = new Dictionary<string, object>
+            {
+                { "first_name", "Wilma" },
+                { "last_name", "Flintstone" }
+            }
+        };
+        var content = new StoredTemplateContent("black_friday") { UseDraftTemplate = true };
+        var transmission = TransmissionExtensions.CreateTransmission(recipient, content)
+            .WithSubstitutionData(new Dictionary<string, object>
+            {
+                { "discount", "25%" }
+            });
+        
+        var json = JsonSerializer.Serialize(transmission, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected:
+        {
+            "content": {
+                "template_id": "black_friday",
+                "use_draft_template": true
+            },
+            "substitution_data": {
+                "discount": "25%"
+            },
+            "recipients": [
+            {
+                "address": {
+                    "email": "wilma@flintstone.com",
+                    "name": "Wilma Flintstone"
+                },
+                "substitution_data": {
+                    "first_name": "Wilma",
+                    "last_name": "Flintstone"
+                }
+            }
+            ]
+        }        
+        */
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("content").GetProperty("template_id").GetString().Should().Be("black_friday");
+        obj.GetProperty("content").GetProperty("use_draft_template").GetBoolean().Should().BeTrue();
+
+        obj.GetProperty("substitution_data").GetProperty("discount").GetString().Should().Be("25%");
+        
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("wilma@flintstone.com");
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("name").GetString().Should().Be("Wilma Flintstone");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("first_name").GetString().Should().Be("Wilma");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("last_name").GetString().Should().Be("Flintstone");
+    }
+    
     [Fact]
     public void SendTemplateContent_response_returns_expected_result()
     {
@@ -148,7 +332,73 @@ public class TransmissionSerializationTest
         response.Results.TotalAcceptedRecipients.Should().Be(1);
         response.Results.Id.Should().Be("11668787484950530");
     }
+    
+    [Fact]
+    public void SendTemplateContent_error_response_returns_expected_result()
+    {
+        const string json = "{                                                                      " +
+                            "  \"errors\": [                                                        " +
+                            "    {                                                                  " +
+                            "      \"message\": \"Subresource not found\",                          " +
+                            "      \"description\": \"template 'christmas_offer' does not exist\",  " +
+                            "      \"code\": \"1603\"                                               " +
+                            "    }                                                                  " +
+                            "  ]                                                                    " +
+                            "}                                                                      ";
+        
+        var response = JsonSerializer.Deserialize<ErrorResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
+        using var scope = new AssertionScope();
+        response!.Errors.First().Message.Should().Be("Subresource not found");
+        response!.Errors.First().Description.Should().Be("template 'christmas_offer' does not exist");
+        response!.Errors.First().Code.Should().Be("1603");
+    }
+
+    [Fact]
+    public void SendAbTestContent_request_returns_expected_result()
+    {
+        var content = new AbTestContent("password_reset");
+        var recipient = new Recipient(new Address("wilma@flintstone.com") { Name = "Wilma Flintstone" })
+        {
+            SubstitutionData = new Dictionary<string, object>
+            {
+                { "first_name", "Wilma" },
+                { "last_name", "Flintstone" }
+            }
+        };
+        var transmission = TransmissionExtensions.CreateTransmission(recipient, content);
+        
+        var json = JsonSerializer.Serialize(transmission, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected:
+        {
+            "content": {
+                "ab_test_id": "password_reset"
+            },
+            "recipients": [
+            {
+                "address": {
+                    "email": "wilma@flintstone.com",
+                    "name": "Wilma Flintstone"
+                },
+                "substitution_data": {
+                    "first_name": "Wilma",
+                    "last_name": "Flintstone"
+                }
+            }
+            ]
+        }        
+        */
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("content").GetProperty("ab_test_id").GetString().Should().Be("password_reset");
+
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("wilma@flintstone.com");
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("name").GetString().Should().Be("Wilma Flintstone");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("first_name").GetString().Should().Be("Wilma");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("last_name").GetString().Should().Be("Flintstone");
+    }
+    
     [Fact]
     public void SendAbTestContent_response_returns_expected_result()
     {
@@ -166,6 +416,62 @@ public class TransmissionSerializationTest
         response!.Results.TotalRejectedRecipients.Should().Be(0);
         response.Results.TotalAcceptedRecipients.Should().Be(1);
         response.Results.Id.Should().Be("11668787493850529");
+    }
+    
+    [Fact]
+    public void SendRfc822Content_request_returns_expected_result()
+    {
+        var recipient = new Recipient(new Address("wilma@flintstone.com") { Name = "Wilma Flintstone" })
+        {
+            SubstitutionData = new Dictionary<string, object>
+            {
+                { "first_name", "Wilma" },
+                { "customer_type", "Platinum" },
+                { "year", "Freshman" }
+            }
+        };
+        var content = new Rfc822TemplateContent
+        {
+            EmailRfc822 = "Content-Type: text/plain\r\nTo: \"{{address.name}}\" <{{address.email}}>\r\n\r\n Hi {{first_name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}\r\n" 
+        };
+        var transmission = TransmissionExtensions.CreateTransmission(recipient, content)
+            .WithDescription("Christmas Campaign Email");
+        
+        var json = JsonSerializer.Serialize(transmission, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected
+        {
+            "description": "Christmas Campaign Email",
+            "recipients": [
+            {
+                "address": {
+                    "email": "wilma@flintstone.com",
+                    "name": "Wilma Flintstone"
+                },
+                "substitution_data": {
+                    "first_name": "Wilma",
+                    "customer_type": "Platinum",
+                    "year": "Freshman"
+                }
+            }
+            ],
+            "content": {
+                "email_rfc822": "Content-Type: text/plain\r\nTo: \"{{address.name}}\" <{{address.email}}>\r\n\r\n Hi {{first_name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}\r\n"
+            }
+        }
+        */
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("description").GetString().Should().Be("Christmas Campaign Email");
+
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("wilma@flintstone.com");
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("name").GetString().Should().Be("Wilma Flintstone");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("first_name").GetString().Should().Be("Wilma");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("customer_type").GetString().Should().Be("Platinum");
+        obj.GetProperty("recipients")[0].GetProperty("substitution_data").GetProperty("year").GetString().Should().Be("Freshman");
+        
+        obj.GetProperty("content").GetProperty("email_rfc822").GetString().Should().Be("Content-Type: text/plain\r\nTo: \"{{address.name}}\" <{{address.email}}>\r\n\r\n Hi {{first_name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}\r\n");
     }
 
     [Fact]
@@ -188,6 +494,47 @@ public class TransmissionSerializationTest
     }
 
     [Fact]
+    public void ScheduleTransmission_request_returns_expected_result()
+    {
+        var recipient = new StoredRecipientList("all_subscribers");
+        var content = new StoredTemplateContent("fall_deals");
+        var transmission = TransmissionExtensions.CreateTransmission(recipient, content)
+            .WithName("Fall Sale")
+            .WithCampaignId("fall")
+            .WithOptions(new TransmissionOptions
+            {
+                StartTime = new DateTimeOffset(2018, 9, 11, 8, 0, 0, TimeSpan.FromHours(-4))
+            });
+        
+        var json = JsonSerializer.Serialize(transmission, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected:
+        {
+            "name": "Fall Sale",
+            "campaign_id": "fall",
+            "options": {
+                "start_time": "2018-09-11T08:00:00-04:00"
+            },
+            "recipients": {
+                "list_id": "all_subscribers"
+            },
+            "content": {
+                "template_id": "fall_deals"
+            }
+        }        
+        */
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("name").GetString().Should().Be("Fall Sale");
+        obj.GetProperty("campaign_id").GetString().Should().Be("fall");
+
+        obj.GetProperty("options").GetProperty("start_time").GetDateTimeOffset().Should().Be(new DateTimeOffset(2018, 9, 11, 8, 0, 0, TimeSpan.FromHours(-4)));
+        
+        obj.GetProperty("recipients").GetProperty("list_id").GetString().Should().Be("all_subscribers");
+        obj.GetProperty("content").GetProperty("template_id").GetString().Should().Be("fall_deals");
+    }
+    
+    [Fact]
     public void ScheduleTransmission_response_returns_expected_result()
     {
         const string json = "{                                        " +
@@ -207,68 +554,94 @@ public class TransmissionSerializationTest
     }
 
     [Fact]
-    public void ParseTransmission_with_cc_request_returns_expected_result()
+    public void HandleCcAndBccRecipients_with_cc_returns_expected_result()
     {
         var recipients = new List<Recipient>
         {
-            new(new Address("to1@gmail.com") { Name = "To Gmail" }),
-            new(new Address("to2@gmail.com") { Name = "To Gmail" }),
-            new(new Address("cc1@gmail.com") { Name = "Cc Gmail" }) { Type = RecipientType.Cc },
-            new(new Address("cc2@gmail.com") { Name = "Cc Gmail" }) { Type = RecipientType.Cc }
+            new(new Address("to@thisperson.com")),
+            new(new Address("cc@thatperson.com")) { Type = RecipientType.Cc }
         };
-
-        var sender = new SenderAddress("from@gmail.com") { Name = "From Gmail" };
-        var content = new InlineContent(sender, string.Empty);
+        var content = new InlineContent("you@fromyou.com", "To and CC")
+        {
+            Text = "This mail was sent to to@thisperson.com while CCing cc@thatperson.com."
+        };
         var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
-
-        var parsedTransmission = TransmissionExtensions.ParseTransmission(transmission);
-
-        var json = JsonSerializer.Serialize(parsedTransmission,
+        var handledTransmission = TransmissionExtensions.HandleCcAndBccRecipients(transmission);
+        var json = JsonSerializer.Serialize(handledTransmission,
             JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
         
         var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-
+        
         using var scope = new AssertionScope();
-        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("to1@gmail.com");
-        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("name").GetString().Should().Be("To Gmail");
-        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("email").GetString().Should().Be("to2@gmail.com");
-        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("name").GetString().Should().Be("To Gmail");
-        obj.GetProperty("recipients")[2].GetProperty("address").GetProperty("email").GetString().Should().Be("cc1@gmail.com");
-        obj.GetProperty("recipients")[2].GetProperty("address").GetProperty("name").GetString().Should().Be("Cc Gmail");
-        obj.GetProperty("recipients")[2].GetProperty("address").GetProperty("header_to").GetString().Should().Be("to1@gmail.com");
-        obj.GetProperty("recipients")[3].GetProperty("address").GetProperty("email").GetString().Should().Be("cc2@gmail.com");
-        obj.GetProperty("recipients")[3].GetProperty("address").GetProperty("name").GetString().Should().Be("Cc Gmail");
-        obj.GetProperty("recipients")[3].GetProperty("address").GetProperty("header_to").GetString().Should().Be("to1@gmail.com");
-        
-        obj.GetProperty("content").GetProperty("from").GetProperty("email").GetString().Should().Be("from@gmail.com");
-        obj.GetProperty("content").GetProperty("from").GetProperty("name").GetString().Should().Be("From Gmail");
-        obj.GetProperty("content").GetProperty("subject").GetString().Should().Be("");
-        obj.GetProperty("content").GetProperty("headers").GetProperty("cc").GetString().Should().Be("cc1@gmail.com,cc2@gmail.com");
-        obj.GetProperty("content").GetProperty("attachments").GetArrayLength().Should().Be(0);
-        obj.GetProperty("content").GetProperty("inline_images").GetArrayLength().Should().Be(0);
-        
-        obj.GetProperty("metadata").ValueKind.Should().Be(JsonValueKind.Object);
-        obj.GetProperty("substitution_data").ValueKind.Should().Be(JsonValueKind.Object);
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("to@thisperson.com");
+        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("email").GetString().Should().Be("cc@thatperson.com");
+        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("header_to").GetString().Should().Be("to@thisperson.com");
+        obj.GetProperty("content").GetProperty("from").GetString().Should().Be("you@fromyou.com");
+        obj.GetProperty("content").GetProperty("headers").GetProperty("CC").GetString().Should().Be("cc@thatperson.com");
+        obj.GetProperty("content").GetProperty("subject").GetString().Should().Be("To and CC");
+        obj.GetProperty("content").GetProperty("text").GetString().Should().Be("This mail was sent to to@thisperson.com while CCing cc@thatperson.com.");
     }
-
+    
     [Fact]
-    public void ParseTransmission_with_bcc_request_returns_expected_result()
+    public void HandleCcAndBccRecipients_with_bcc_returns_expected_result()
     {
         var recipients = new List<Recipient>
         {
-            new(new Address("to@gmail.com") { Name = "To Gmail" }),
-            new(new Address("bcc@gmail.com") { Name = "Bcc Gmail" }) { Type = RecipientType.Bcc }
+            new(new Address("to@thisperson.com")),
+            new(new Address("bcc@thatperson.com")) { Type = RecipientType.Bcc }
         };
-
-        var content = new InlineContent(new SenderAddress("from@gmail.com") { Name = "From Gmail" }, string.Empty);
+        var content = new InlineContent("you@fromyou.com", "To and BCC")
+        {
+            Text = "This mail was sent To to@thisperson.com while BCCing an unnamed recipient. Sneaky."
+        };
         var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
-
-        var parsedTransmission = TransmissionExtensions.ParseTransmission(transmission);
-
-        var json = JsonSerializer.Serialize(parsedTransmission,
+        var handledTransmission = TransmissionExtensions.HandleCcAndBccRecipients(transmission);
+        var json = JsonSerializer.Serialize(handledTransmission,
             JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
         using var scope = new AssertionScope();
-        json.Should().Contain("\"header_to\": \"to@gmail.com\"");
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("to@thisperson.com");
+        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("email").GetString().Should().Be("bcc@thatperson.com");
+        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("header_to").GetString().Should().Be("to@thisperson.com");
+        obj.GetProperty("content").GetProperty("from").GetString().Should().Be("you@fromyou.com");
+        obj.GetProperty("content").GetProperty("subject").GetString().Should().Be("To and BCC");
+        obj.GetProperty("content").GetProperty("text").GetString().Should().Be("This mail was sent To to@thisperson.com while BCCing an unnamed recipient. Sneaky.");
+    }
+
+    [Fact]
+    public void HandleCcAndBccRecipients_with_cc_and_bcc_returns_expected_result()
+    {
+        var recipients = new List<Recipient>
+        {
+            new(new Address("to@thisperson.com")),
+            new(new Address("cc@thatperson.com")) { Type = RecipientType.Cc },
+            new(new Address("bcc@thatperson.com")) { Type = RecipientType.Bcc }
+        };
+        var content = new InlineContent("you@fromyou.com", "To, CC and BCC")
+        {
+            Text = "This mail was sent To to@thisperson.com while CCing cc@thatperson.com and BCCing an unnamed recipient. You know who you are."
+        };
+        var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+        var handledTransmission = TransmissionExtensions.HandleCcAndBccRecipients(transmission);
+        var json = JsonSerializer.Serialize(handledTransmission,
+            JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        
+        using var scope = new AssertionScope();
+        obj.GetProperty("recipients")[0].GetProperty("address").GetProperty("email").GetString().Should().Be("to@thisperson.com");
+        
+        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("email").GetString().Should().Be("cc@thatperson.com");
+        obj.GetProperty("recipients")[1].GetProperty("address").GetProperty("header_to").GetString().Should().Be("to@thisperson.com");
+        
+        obj.GetProperty("recipients")[2].GetProperty("address").GetProperty("email").GetString().Should().Be("bcc@thatperson.com");
+        obj.GetProperty("recipients")[2].GetProperty("address").GetProperty("header_to").GetString().Should().Be("to@thisperson.com");
+        
+        obj.GetProperty("content").GetProperty("from").GetString().Should().Be("you@fromyou.com");
+        obj.GetProperty("content").GetProperty("headers").GetProperty("CC").GetString().Should().Be("cc@thatperson.com");
+        obj.GetProperty("content").GetProperty("subject").GetString().Should().Be("To, CC and BCC");
+        obj.GetProperty("content").GetProperty("text").GetString().Should().Be("This mail was sent To to@thisperson.com while CCing cc@thatperson.com and BCCing an unnamed recipient. You know who you are.");
     }
 }
