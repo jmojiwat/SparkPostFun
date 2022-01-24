@@ -8,7 +8,7 @@ public record ListTemplatesResponseResult
     public string Description { get; init; }
     public bool HasDraft { get; init; }
     public bool HasPublished { get; init; }
-    public DateTime? LastUse { get; init; }
-    public DateTime? LastUpdateTime { get; init; }
-    public bool SharedWithSubaccount { get; init; }
+    public DateTimeOffset? LastUse { get; init; }
+    public DateTimeOffset? LastUpdateTime { get; init; }
+    public bool SharedWithSubaccounts { get; init; }
 }

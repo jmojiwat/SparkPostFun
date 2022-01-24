@@ -2,6 +2,7 @@
 
 public record VerifySendingDomain
 {
+    
     public bool? DkimVerify { get; init; }
     public bool? CnameVerify { get; init; }
     public bool? VerificationMailboxVerify { get; init; }

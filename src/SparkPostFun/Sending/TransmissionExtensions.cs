@@ -57,6 +57,9 @@ public static class TransmissionExtensions
         IDictionary<string, object> metadata) =>
         @this with { Metadata = metadata };
 
+    public static Transmission WithName(this Transmission @this, string name) =>
+        @this with { Name = name };
+
     public static Transmission WithOptions(this Transmission @this, TransmissionOptions options) =>
         @this with { Options = options };
 
@@ -89,51 +92,71 @@ public static class TransmissionExtensions
         IDictionary<string, object> substitutionData) =>
         @this with { SubstitutionData = substitutionData };
 
-    internal static Transmission ParseTransmission(Transmission transmission)
+
+    private static IEnumerable<Recipient> UpdateHeaderTo(IList<Recipient> recipients)
     {
-        if (transmission.Recipients is IList<Recipient> recipients)
-        {
-            var (parsedRecipients, ccHeader) = CategorizeRecipients(recipients);
+        var (to, cc, bcc) = CategorizeRecipients(recipients);
 
-            switch (transmission.Content)
-            {
-                case InlineContent content when !string.IsNullOrEmpty(ccHeader):
-                {
-                    if (content.Headers.ContainsKey("cc"))
-                    {
-                        content.Headers["cc"] = ccHeader;
-                    }
-                    else
-                    {
-                        content.Headers.Add("cc", ccHeader);
-                    }
-
-                    break;
-                }
-            }
-
-            return transmission with { Recipients = parsedRecipients };
-        }
-
-        return transmission;
+        var firstToRecipientEmail = to.Map(r => r.Address.Email).HeadOrNone().IfNone("null");
+        
+        var ccRecipients = cc
+            .Filter(r => r.Type == RecipientType.Cc)
+            .Map(r => ToCcOrBccTransmissionRecipient(firstToRecipientEmail, r))
+            .ToList();
+        
+        var bccRecipients = bcc
+            .Filter(r => r.Type == RecipientType.Bcc)
+            .Map(r => ToCcOrBccTransmissionRecipient(firstToRecipientEmail, r));
+            
+        return to.Concat(ccRecipients).Concat(bccRecipients);
     }
+    
+    internal static Transmission HandleCcAndBccRecipients(Transmission transmission)
+    {
+        return transmission.Recipients switch
+        {
+            IList<Recipient> recipients when transmission.Content is InlineContent content => transmission with
+            {
+                Recipients = UpdateHeaderTo(recipients), 
+                Content = AddContentCcHeader(content, recipients)
+            },
+            IList<Recipient> recipients => transmission with
+            {
+                Recipients = UpdateHeaderTo(recipients)
+            },
+            _ => transmission
+        };
 
-    private static (IEnumerable<Recipient> recipients, string ccHeader) CategorizeRecipients(
-        IList<Recipient> recipients)
+    }
+    
+    private static (IList<Recipient>, IList<Recipient>, IList<Recipient>) CategorizeRecipients(IList<Recipient> recipients)
     {
         var toRecipients = recipients.Filter(r => r.Type == RecipientType.To).ToList();
-        var ccRecipients = recipients.Filter(r => r.Type == RecipientType.Cc);
-        var bccRecipients = recipients.Filter(r => r.Type == RecipientType.Bcc);
+        var ccRecipients = recipients.Filter(r => r.Type == RecipientType.Cc).ToList();
+        var bccRecipients = recipients.Filter(r => r.Type == RecipientType.Bcc).ToList();
+        
+        return (toRecipients, ccRecipients, bccRecipients);
+    }
 
-        var primaryRecipientEmail = toRecipients.Map(r => r.Address.Email).HeadOrNone();
-        var parsedCcRecipients = primaryRecipientEmail
-            .Bind(e => ccRecipients.Map(ccr => ToCcOrBccTransmissionRecipient(e, ccr))).ToList();
-        var parsedBccRecipients = primaryRecipientEmail
-            .Bind(e => bccRecipients.Map(bcc => ToCcOrBccTransmissionRecipient(e, bcc))).ToList();
+    private static InlineContent AddContentCcHeader(InlineContent content, IEnumerable<Recipient> recipients)
+    {
+        var ccRecipients = recipients.Filter(r => r.Type == RecipientType.Cc).ToList();
+        
+        if(ccRecipients.Any())
+        {
+            var ccHeader = ccRecipients.Map(r => r.Address.Email).Apply(es => string.Join(',', es));
+            var contentWithHeaders = content.Headers == null
+                ? content with { Headers = new Dictionary<string, string>() } 
+                : content;
+            
+            contentWithHeaders.Headers["CC"] = ccHeader;
 
-        var parsedRecipients = toRecipients.Concat(parsedCcRecipients).Concat(parsedBccRecipients);
-        var ccHeader = ccRecipients.Map(r => r.Address.Email).Apply(es => string.Join(",", es));
-        return (parsedRecipients, ccHeader);
+            return contentWithHeaders; 
+        }
+        else
+        {
+            return content;
+        }
     }
 
     private static Recipient ToCcOrBccTransmissionRecipient(string primaryEmail, Recipient recipient) =>

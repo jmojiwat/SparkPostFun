@@ -1,9 +1,7 @@
-﻿namespace SparkPostFun.Sending;
+namespace SparkPostFun.Sending;
 
-public record TemplateContent
+public record UpdateTemplateContent(SenderAddress From, string Subject)
 {
-    public SenderAddress From { get; init; }
-    public string Subject { get; init; }
     public string Html { get; init; }
     public string Text { get; init; }
     public string AmpHtml { get; init; }

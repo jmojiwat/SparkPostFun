@@ -1,7 +1,7 @@
 ﻿namespace SparkPostFun.Sending;
 
-public record ScheduleAbTestDraft(DateTime StartTime)
+public record ScheduleAbTestDraft(DateTimeOffset StartTime)
 {
-    public DateTime EndTime { get; init; }
-    public int EngagementTimeout { get; init; } = 24;
+    public DateTimeOffset? EndTime { get; init; }
+    public int? EngagementTimeout { get; init; } = 24;
 }

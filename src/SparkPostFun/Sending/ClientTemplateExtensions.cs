@@ -13,6 +13,13 @@ public static class ClientTemplateExtensions
             .MapAsync(ToResponse<TemplateErrorResponse, CreateTemplateResponse>);
     }
 
+    public static Task<Either<TemplateErrorResponse, CreateTemplateResponse>> CreateRfc822Template(this Client @this, CreateRfc822Template request)
+    {
+        var requestUrl = $"/api/{@this.Version}/templates";
+        return @this.Post(requestUrl, request)
+            .MapAsync(ToResponse<TemplateErrorResponse, CreateTemplateResponse>);
+    }
+
     public static Task<Either<ErrorResponse, Unit>> DeleteTemplate(this Client @this, string id)
     {
         var requestUrl = $"/api/{@this.Version}/templates/{id}";

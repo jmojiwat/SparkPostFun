@@ -9,7 +9,7 @@ public static class ClientTransmissionExtensions
     public static Task<Either<ErrorResponse, CreateTransmissionResponse>> CreateTransmission(this Client client, Transmission request)
     {
         var requestUrl = $"/api/{client.Version}/transmissions/";
-        var requestWithParsedRecipients = ParseTransmission(request);
+        var requestWithParsedRecipients = HandleCcAndBccRecipients(request);
         return client.Post(requestUrl, requestWithParsedRecipients)
             .MapAsync(ToResponse<CreateTransmissionResponse>);
     }
@@ -18,7 +18,7 @@ public static class ClientTransmissionExtensions
         int maximumRecipientErrors)
     {
         var requestUrl = $"/api/{client.Version}/transmissions/?{maximumRecipientErrors}";
-        var requestWithParsedRecipients = ParseTransmission(request);
+        var requestWithParsedRecipients = HandleCcAndBccRecipients(request);
         return client.Post(requestUrl, requestWithParsedRecipients)
             .MapAsync(ToResponse<CreateTransmissionResponse>);
     }

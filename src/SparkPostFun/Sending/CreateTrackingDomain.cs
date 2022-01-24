@@ -1,7 +1,6 @@
 ﻿namespace SparkPostFun.Sending;
 
-public record CreateTrackingDomain
+public record CreateTrackingDomain(string Domain)
 {
-    public string Domain { get; init; }
     public bool? Secure { get; init; }
 }

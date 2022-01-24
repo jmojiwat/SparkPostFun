@@ -78,6 +78,7 @@ public record Transmission
         Content = content;
     }
 
+    public string Name { get; init; }
     public TransmissionOptions Options { get; init; }
     public object Recipients { get; init; }
     public object Content { get; init; }
