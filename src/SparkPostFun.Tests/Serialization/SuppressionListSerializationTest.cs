@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using SparkPostFun.Infrastructure;
 using SparkPostFun.Sending;
 using Xunit;
@@ -10,27 +12,71 @@ namespace SparkPostFun.Tests.Serialization;
 public class SuppressionListSerializationTest
 {
     [Fact]
-    public void BulkCreateAndUpdateSuppressions_request_returns_expected_result()
+    public void BulkCreateOrUpdateSuppressions_request_returns_expected_result()
     {
-        var suppressions = new BulkCreateOrUpdateSuppressions
+        var recipients = new List<CreateOrUpdateSuppressionRecipient>
         {
-            Recipients = new List<CreateOrUpdateSuppression>
+            new("rcpt_1@example.com", SuppressionType.Transactional) { 
+                Description = "User requested to not receive any transactional emails."
+            },
+            new("rcpt_2@example.com", SuppressionType.NonTransactional)
             {
-                new("rcpt_10@example.com", SuppressionType.Transactional) { 
-                    Description = "User requested to not receive any transactional emails."
-                },
-                new("rcpt_20@example.com", SuppressionType.NonTransactional)
-                {
-                    Description = "User requested to not receive any non-transactional emails."
-                },
+                Description = "User requested to not receive any non-transactional emails."
             }
         };
+        var suppressions = new BulkCreateOrUpdateSuppressions(recipients);
 
-        var json = JsonSerializer.Serialize(suppressions,
-            JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        var json = JsonSerializer.Serialize(suppressions, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected:
+        {
+            "recipients": [
+            {
+                "recipient": "rcpt_1@example.com",
+                "type": "transactional",
+                "description": "User requested to not receive any transactional emails."
+            },
+            {
+                "recipient": "rcpt_2@example.com",
+                "type": "non_transactional",
+                "description": "User requested to not receive any non-transactional emails."
+            }
+            ]
+        }
+        */
 
-        json.Should().Contain("type");
-        json.Should().Contain("non_transactional");
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+
+        using var scope = new AssertionScope();
+        obj.GetProperty("recipients")[0].GetProperty("recipient").GetString().Should().Be("rcpt_1@example.com");
+        obj.GetProperty("recipients")[0].GetProperty("type").GetString().Should().Be("transactional");
+        obj.GetProperty("recipients")[0].GetProperty("description").GetString().Should().Be("User requested to not receive any transactional emails.");
+
+        obj.GetProperty("recipients")[1].GetProperty("recipient").GetString().Should().Be("rcpt_2@example.com");
+        obj.GetProperty("recipients")[1].GetProperty("type").GetString().Should().Be("non_transactional");
+        obj.GetProperty("recipients")[1].GetProperty("description").GetString().Should().Be("User requested to not receive any non-transactional emails.");
+    }
+
+    [Fact]
+    public void CreateOrUpdateSuppressions_request_returns_expected_result()
+    {
+        var suppressions = new CreateOrUpdateSuppression(SuppressionType.Transactional)
+        {
+            Description = "Unsubscribe from newsletter"
+        };
+
+        var json = JsonSerializer.Serialize(suppressions, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        /* expected:
+            {
+              "type": "transactional",
+              "description": "Unsubscribe from newsletter"
+            }
+        */
+
+        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+
+        using var scope = new AssertionScope();
+        obj.GetProperty("type").GetString().Should().Be("transactional");
+        obj.GetProperty("description").GetString().Should().Be("Unsubscribe from newsletter");
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using SparkPostFun.Infrastructure;
 using SparkPostFun.Sending;
 using Xunit;
@@ -8,6 +9,32 @@ namespace SparkPostFun.Tests.Serialization
 {
     public class IpPoolSerializationTest
     {
+        [Fact]
+        public void CreateIpPool_request_returns_expected_result()
+        {
+            var request = new CreateIpPool("Marketing IP Pool")
+            {
+                FblSigningDomain = "sparkpostmail.com",
+                AutoWarmupOverflowPool = "overflow_pool"
+            };
+
+            var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+            /* expected
+                {
+                  "name": "Marketing IP Pool",
+                  "fbl_signing_domain": "sparkpostmail.com",
+                  "auto_warmup_overflow_pool": "overflow_pool"
+                }
+            */
+
+            var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+
+            using var scope = new AssertionScope();
+            obj.GetProperty("name").GetString().Should().Be("Marketing IP Pool");
+            obj.GetProperty("fbl_signing_domain").GetString().Should().Be("sparkpostmail.com");
+            obj.GetProperty("auto_warmup_overflow_pool").GetString().Should().Be("overflow_pool");
+        }
+        
         [Fact]
         public void CreateIpPool_response_returns_expected_result()
         {

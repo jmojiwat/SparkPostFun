@@ -176,8 +176,9 @@ public class TemplateSerializationTest
         
         var response = JsonSerializer.Deserialize<PreviewTemplateResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response!.Results.From.Email.Should().Be("marketing@bounces.company.example");
-        response.Results.From.Name.Should().Be("Example Company Marketing");
+        var sender = TemplateExtensions.ParseTemplateContentFrom(response!.Results);
+        sender.Email.Should().Be("marketing@bounces.company.example");
+        sender.Name.Should().Be("Example Company Marketing");
         
         response.Results.Subject.Should().Be("Summer deals for Natalie");
         response.Results.ReplyTo.Should().Be("Summer deals <summer_deals@company.example>");
@@ -255,8 +256,9 @@ public class TemplateSerializationTest
         response.Results.Options.ClickTracking.Should().BeTrue();
         response.Results.Options.Transactional.Should().BeFalse();
 
-        response.Results.Content.From.Email.Should().Be("marketing@bounces.company.example");
-        response.Results.Content.From.Name.Should().Be("Example Company Marketing");
+        var sender = TemplateExtensions.ParseTemplateContentFrom(response.Results.Content);
+        sender.Email.Should().Be("marketing@bounces.company.example");
+        sender.Name.Should().Be("Example Company Marketing");
         response.Results.Content.Subject.Should().Be("Summer deals for {{name}}");
         response.Results.Content.ReplyTo.Should().Be("Summer deals <summer_deals@company.example>");
         response.Results.Content.Text.Should().Be("Check out these deals {{name}}!");
@@ -497,7 +499,7 @@ public class TemplateSerializationTest
     {
         var content = new TemplateContent
         {
-            From = new SenderAddress(""),
+            From = "sandbox@sparkpostbox.com",
             Subject = "Summer deals for {{name}}",
             Html = "<b>Check out these deals {{name}}!</b>"
         };
