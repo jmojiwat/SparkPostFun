@@ -22,7 +22,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<CancelAbTestResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Status.Should().Be("cancelled");
+        response!.Results.Status.Should().Be("cancelled");
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class AbTestingSerializationTest
         obj.GetProperty("name").GetString().Should().Be("Payment Confirmation");
         obj.GetProperty("metric").GetString().Should().Be("count_unique_confirmed_opened");
         obj.GetProperty("audience_selection").GetString().Should().Be("percent");
-        obj.GetProperty("start_time").GetDateTimeOffset().Should().Be(new DateTimeOffset(2018, 4, 3, 22, 8, 22, TimeSpan.Zero));
+        obj.GetProperty("start_time").GetDateTimeOffset().Should().Be(new DateTimeOffset(2018, 4, 3, 22, 8, 33, TimeSpan.Zero));
         obj.GetProperty("test_mode").GetString().Should().Be("bayesian");
         obj.GetProperty("confidence_level").GetDouble().Should().Be(0.99);
 
@@ -217,7 +217,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<CreateAbTestDraftResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Id.Should().Be("payment-confirmation");
+        response!.Results.Id.Should().Be("payment-confirmation");
     }
 
     [Fact]
@@ -305,7 +305,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<ListAbTestsResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Count.Should().Be(2);
+        response!.Results.Count.Should().Be(2);
     }
 
     [Fact]
@@ -354,7 +354,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<RetrieveAbTestResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Id.Should().Be("password-reset");
+        response!.Results.Id.Should().Be("password-reset");
     }
 
     [Fact]
@@ -377,7 +377,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<RetrieveAbTestDraftResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Id.Should().Be("my-draft-test");
+        response!.Results.Id.Should().Be("my-draft-test");
     }
 
     [Fact]
@@ -417,7 +417,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<ScheduleAbTestDraftResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Id.Should().Be("payment-confirmation");
+        response!.Results.Id.Should().Be("payment-confirmation");
     }
 
     [Fact]
@@ -480,7 +480,7 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<UpdateAbTestResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Version.Should().Be(2);
+        response!.Results.Version.Should().Be(2);
     }
 
     [Fact]
@@ -544,6 +544,6 @@ public class AbTestingSerializationTest
 
         var response = JsonSerializer.Deserialize<UpdateAbTestDraftResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.Id.Should().Be("payment-confirmation");
+        response!.Results.Id.Should().Be("payment-confirmation");
     }
 }
