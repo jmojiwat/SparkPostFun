@@ -2,7 +2,7 @@
 
 public record TemplateContent
 {
-    public SenderAddress From { get; init; }
+    public object From { get; init; }
     public string Subject { get; init; }
     public string Html { get; init; }
     public string Text { get; init; }

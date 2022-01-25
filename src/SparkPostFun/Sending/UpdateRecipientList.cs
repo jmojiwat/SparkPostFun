@@ -6,6 +6,6 @@ public record UpdateRecipientList
 {
     public string Name { get; init; }
     public string Description { get; init; }
-    public NameValueCollection Attributes { get; init; } = new();
+    public IDictionary<string, object> Attributes { get; init; }
     public IList<Recipient> Recipients { get; init; }
 }

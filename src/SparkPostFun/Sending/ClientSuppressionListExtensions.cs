@@ -15,22 +15,22 @@ public static class ClientSuppressionListExtensions
     }
 
     public static Task<Either<ErrorResponse, CreateOrUpdateSuppressionResponse>> CreateOrUpdateSuppression(this Client @this, string recipient,
-        CreateOrUpdateSuppression request)
+        CreateOrUpdateSuppressionRecipient request)
     {
         var requestUrl = $"/api/{@this.Version}/suppression-list/{recipient}";
         return @this.Put(requestUrl, request)
             .MapAsync(ToResponse<CreateOrUpdateSuppressionResponse>);
     }
 
-    public static Task<Either<ErrorResponse, Unit>> DeleteSuppression(this Client @this, string id)
+    public static Task<Either<ErrorResponse, Unit>> DeleteSuppression(this Client @this, string recipient)
     {
-        var requestUrl = $"/api/{@this.Version}/suppression-list/{id}";
+        var requestUrl = $"/api/{@this.Version}/suppression-list/{recipient}";
         return @this.Delete(requestUrl);
     }
 
-    public static Task<Either<ErrorResponse, Unit>> DeleteSuppression(this Client @this, string id, DeleteSuppression request)
+    public static Task<Either<ErrorResponse, Unit>> DeleteSuppression(this Client @this, string recipient, DeleteSuppression request)
     {
-        var requestUrl = $"/api/{@this.Version}/suppression-list/{id}";
+        var requestUrl = $"/api/{@this.Version}/suppression-list/{recipient}";
         return @this.Delete(requestUrl, request);
     }
 
