@@ -47,7 +47,7 @@ response.Match(
 ```
 ## Idiomatic Usage (Work in progress)
 
-However, there are extension method helpers that can wrap the client return type if you prefer a more idiomatic approach.
+There are extension method helpers that can wrap the client return type if you prefer a more idiomatic approach.
 
 ```cs
 var response = await ResponseExtensions.Wrap(client.CreateTransmission(transmission));
@@ -59,7 +59,7 @@ if(response.StatusCode == HttpStatusCode.OK) {
 
 To use this extension method helpers, you also need to install the ```SparkPostFun.ResponseWrappers``` NuGet package.
 
-### Completed Wrappers
+**Completed Wrappers**
 - Sending
     - Transmission
     - Sending Domains
