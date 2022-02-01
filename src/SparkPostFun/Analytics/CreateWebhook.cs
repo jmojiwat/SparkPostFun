@@ -2,8 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace SparkPostFun.Analytics;
 
-public record CreateWebhookRequest
+public record CreateWebhook
 {
+    
     public string Name { get; init; }
     public string Target { get; init; }
     public IList<string> Events { get; init; } = new List<string>();

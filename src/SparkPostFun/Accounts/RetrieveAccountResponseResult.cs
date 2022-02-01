@@ -17,7 +17,7 @@ namespace SparkPostFun.Accounts
         public string StatusReasonCategory { get; init; }
         public AccountSubscription Subscription { get; init; }
         public AccountSupport Support{ get; init; }
-        public object PendingSubscription { get; init; }
+        public AccountSubscription PendingSubscription { get; init; }
         public AccountOptions Options { get; init; }
         public AccountUsage Usage { get; init; }
         public string ServiceLevel { get; init; }

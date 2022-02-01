@@ -2,9 +2,8 @@
 
 namespace SparkPostFun.Accounts
 {
-    public record CreateSubaccount
+    public record CreateSubaccount(string Name)
     {
-        public string Name { get; init; }
         public string IpPool { get; init; }
         public bool? SetupApiKey { get; init; }
         public string KeyLabel { get; init; }

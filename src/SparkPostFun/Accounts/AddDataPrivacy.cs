@@ -1,8 +1,7 @@
 ﻿namespace SparkPostFun.Accounts
 {
-    public record AddDataPrivacy
+    public record AddDataPrivacy(IList<string> Recipients)
     {
-        public IList<string> Recipients { get; init; } = new List<string>();
         public bool? IncludeSubaccounts { get; init; }
     }
 }

@@ -1,7 +1,3 @@
-﻿namespace SparkPostFun.Receiving
-{
-    public record CreateInboundDomain
-    {
-        public string Domain { get; init; }
-    }
-}
+﻿namespace SparkPostFun.Receiving;
+
+public record CreateInboundDomain(string Domain);

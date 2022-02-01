@@ -13,6 +13,6 @@ public record UpdateRelayWebhookRequest
     public AuthenticationType AuthorizationType { get; set; }
     [JsonPropertyName("auth_request_details")]
     public AuthorizationRequestDetails AuthorizationRequestDetails { get; init; }
-    public RelayWebhookMatch1 Match { get; init; }
-    public object CustomHeaders { get; set; }
+    public RelayWebhookMatch Match { get; init; }
+    public IDictionary<string, object> CustomHeaders { get; set; }
 }

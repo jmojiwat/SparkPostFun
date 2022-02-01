@@ -1,8 +1,3 @@
-﻿namespace SparkPostFun.Receiving
-{
-    public record AuthenticationRequestDetails
-    {
-        public string Url { get; init; }
-        public AuthenticationRequestDetailsBody Body { get; init; }
-    }
-}
+﻿namespace SparkPostFun.Receiving;
+
+public record AuthenticationRequestDetails(string Url, AuthenticationRequestDetailsBody Body);

@@ -5,13 +5,14 @@ namespace SparkPostFun.Analytics;
 
 public static class ClientWebhooksExtensions
 {
-    public static Task<Either<CreateWebhookErrorResponse, CreateWebhookResponse>> CreateWebhook(this Client @this, CreateWebhookRequest request)
+    public static Task<Either<CreateWebhookErrorResponse, CreateWebhookResponse>> CreateWebhook(this Client @this, CreateWebhook request)
     {
         var requestUrl = $"/api/{@this.Version}/webhooks";
         return @this.Post(requestUrl, request)
             .MapAsync(ToResponse<CreateWebhookErrorResponse, CreateWebhookResponse>);
     }
 
+    /*
     public static Task<Either<ErrorResponse, ValidateWebhookResponse>> ValidateWebhook(this Client @this, Guid id, ValidateWebhookRequest request)
     {
         throw new NotImplementedException();
@@ -27,6 +28,7 @@ public static class ClientWebhooksExtensions
         var requestUrl = $"/api/{@this.Version}/webhooks/{id}";
         return @this.Get<RetrieveWebhookResponse>(requestUrl);
     }
+    */
 
     public static Task<Either<ErrorResponse, RetrieveBatchStatusInformationResponse>> RetrieveBatchStatusInformation(this Client @this, Guid id)
     {
