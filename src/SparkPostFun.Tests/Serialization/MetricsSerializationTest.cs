@@ -14,33 +14,33 @@ public class MetricsSerializationTest
     public void AdvancedQueryJsonSchema_response_returns_expected_result()
     {
         const string json = "{                                                                                   " +
-                   "      \"results\": {                                                                " +
-                   "          \"$schema\": \"http://json-schema.org/draft-07/schema\",                  " +
-                   "          \"$id\": \"root\",                                                        " +
-                   "          \"type\": \"object\",                                                     " +
-                   "          \"title\": \"The root schema\",                                           " +
-                   "          \"description\": \"The root schema comprises the entire JSON document.\", " +
-                   "          \"default\": {},                                                          " +
-                   "          \"required\": [                                                           " +
-                   "              \"groupings\"                                                         " +
-                   "          ],                                                                        " +
-                   "          \"properties\": {                                                         " +
-                   "          },                                                                        " +
-                   "          \"additionalProperties\": false,                                          " +
-                   "          \"$defs\": {                                                              " +
-                   "              \"groupings\": {                                                      " +
-                   "              },                                                                    " +
-                   "              \"filters\": {                                                        " +
-                   "              },                                                                    " +
-                   "              \"logicalOperators\": {                                               " +
-                   "              }                                                                     " +
-                   "          }                                                                         " +
-                   "      }                                                                             " +
-                   "}                                                                                   ";
+                            "      \"results\": {                                                                " +
+                            "          \"$schema\": \"http://json-schema.org/draft-07/schema\",                  " +
+                            "          \"$id\": \"root\",                                                        " +
+                            "          \"type\": \"object\",                                                     " +
+                            "          \"title\": \"The root schema\",                                           " +
+                            "          \"description\": \"The root schema comprises the entire JSON document.\", " +
+                            "          \"default\": {},                                                          " +
+                            "          \"required\": [                                                           " +
+                            "              \"groupings\"                                                         " +
+                            "          ],                                                                        " +
+                            "          \"properties\": {                                                         " +
+                            "          },                                                                        " +
+                            "          \"additionalProperties\": false,                                          " +
+                            "          \"$defs\": {                                                              " +
+                            "              \"groupings\": {                                                      " +
+                            "              },                                                                    " +
+                            "              \"filters\": {                                                        " +
+                            "              },                                                                    " +
+                            "              \"logicalOperators\": {                                               " +
+                            "              }                                                                     " +
+                            "          }                                                                         " +
+                            "      }                                                                             " +
+                            "}                                                                                   ";
 
         var response = JsonSerializer.Deserialize<AdvancedQueryJsonSchemaResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-        response.Results.ToString().Should().Contain("groupings");
+        response!.Results.ToString().Should().Contain("groupings");
     }
 
     [Fact]
@@ -109,7 +109,10 @@ public class MetricsSerializationTest
 
         var response = JsonSerializer.Deserialize<DiscoverabilityLinksResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
+        response!.Results.Should().NotBeNull();
         response.Links[0].Href.Should().Be("/api/v1/metrics/");
+        response.Links[0].Rel.Should().BeEmpty();
+        response.Links[0].Method.Should().Be("GET");
     }
 
     [Fact]
@@ -136,10 +139,14 @@ public class MetricsSerializationTest
         var response = JsonSerializer.Deserialize<MetricsSummaryResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
         using var scope = new AssertionScope();
+        response!.Results.Count.Should().Be(1);
         response.Results[0].CountTargeted.Should().Be(34432);
-        response.Results.Count.Should().Be(1);
+        response.Results[0].CountInjected.Should().Be(32323);
+        response.Results[0].CountRejected.Should().Be(2343);
+        response.Results[0].CountSent.Should().Be(34344);
         response.Links[0].Href.Should().Be("/api/v1/metrics/deliverability");
-        response.Results.Count.Should().Be(1);
+        response.Links[0].Rel.Should().Be("deliverability");
+        response.Links[0].Method.Should().Be("GET");
     }
 
     [Fact]
@@ -167,9 +174,12 @@ public class MetricsSerializationTest
         var response = JsonSerializer.Deserialize<MetricsByRecipientDomainResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
         using var scope = new AssertionScope();
+        response!.Results.Count.Should().Be(2);
         response.Results[0].Domain.Should().Be("aol.com");
         response.Results[0].CountTargeted.Should().Be(34432);
-        response.Results.Count.Should().Be(2);
+        response.Results[0].CountInjected.Should().Be(32323);
+        response.Results[0].CountRejected.Should().Be(2343);
+        response.Results[0].CountSent.Should().Be(34344);
     }
 
     [Fact]
@@ -197,7 +207,7 @@ public class MetricsSerializationTest
         var response = JsonSerializer.Deserialize<MetricsBySendingIpResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
         using var scope = new AssertionScope();
-        response.Results[0].SendingIp.Should().Be("sending-ip-0");
+        response!.Results[0].SendingIp.Should().Be("sending-ip-0");
         response.Results.Count.Should().Be(2);
     }
 

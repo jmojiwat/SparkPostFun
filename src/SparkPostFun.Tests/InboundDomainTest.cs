@@ -20,10 +20,7 @@ namespace SparkPostFun.Tests
             var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
             var client = new Client(apiKey);
 
-            var request = new CreateInboundDomain
-            {
-                Domain = "indbound.example.com"
-            };
+            var request = new CreateInboundDomain("indbound.example.com");
             var response = await client.CreateInboundDomain(request);
 
             response.Should().BeRight();
