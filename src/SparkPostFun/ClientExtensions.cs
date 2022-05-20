@@ -7,8 +7,6 @@ namespace SparkPostFun;
 
 public static class ClientExtensions
 {
-    public static Client Client(string apiKey, string host) => new(apiKey, host);
-
     internal static Uri BuildBaseUri(string host)
     {
         var builder = new UriBuilder("https", host);

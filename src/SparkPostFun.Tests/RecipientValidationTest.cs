@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -18,7 +19,8 @@ namespace SparkPostFun.Tests
                 .AddUserSecrets(Assembly.GetExecutingAssembly())
                 .Build();
             var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var client = new Client(apiKey);
+            var httpClient = new HttpClient();
+            var client = new Client(httpClient, apiKey);
 
             var response = await client.EmailAddressValidation("jmojiwat@gmail.com");
 

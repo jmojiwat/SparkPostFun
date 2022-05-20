@@ -9,25 +9,29 @@ namespace SparkPostFun;
 
 public class Client : IDisposable
 {
+    private readonly HttpClient httpClient;
     public string ApiKey { get; }
     public string Host { get; }
     public string Version { get; }
 
-    private readonly HttpClient httpClient = new();
     private static readonly JsonSerializerOptions JsonSerializerOptions = DefaultJsonSerializerOptions();
 
-    public Client(string apiKey) : this(apiKey, Hosts.Host) { }
+    public Client(HttpClient httpClient, string apiKey, string host = Hosts.Host, string version = "v1")
+    {
+        this.httpClient = httpClient;
+        InitializeHttpClient(this.httpClient, apiKey, host);
+        ApiKey = apiKey;
+        Host = host;
+        Version = version;
+    }
 
-    public Client(string apiKey, string host, string version = "v1")
+    private static void InitializeHttpClient(HttpClient httpClient, string apiKey, string host)
     {
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         httpClient.DefaultRequestHeaders.Add("User-Agent", "SparkPostFun");
         httpClient.BaseAddress = BuildBaseUri(host);
         httpClient.DefaultRequestHeaders.Add("Authorization", apiKey);
-        ApiKey = apiKey;
-        Host = host;
-        Version = version;
     }
 
     public Task<HttpResponseMessage> Post<TRequest>(string requestUri, TRequest request)

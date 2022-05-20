@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -35,7 +36,8 @@ public class SubaccountTest
                 .Build();
             
             var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var client = new Client(apiKey);
+            var httpClient = new HttpClient();
+            var client = new Client(httpClient, apiKey);
 
             fixture.Register(() => client);
         }

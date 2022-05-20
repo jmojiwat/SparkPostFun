@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Xunit2;
@@ -37,7 +38,9 @@ public class SendingDomainTest
                     .Build();
 
                 var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                return new Client(apiKey);
+                var httpClient = new HttpClient();
+                var client = new Client(httpClient, apiKey);
+                return client;
             });
         }
     }

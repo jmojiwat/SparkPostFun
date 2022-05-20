@@ -1,10 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
-using SparkPostFun.Accounts;
 using SparkPostFun.Sending;
 using Xunit;
 
@@ -35,7 +35,8 @@ public class TrackingDomainTest
                 .Build();
             
             var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var client = new Client(apiKey);
+            var httpClient = new HttpClient();
+            var client = new Client(httpClient, apiKey);
 
             fixture.Register(() => client);
         }

@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -56,7 +57,9 @@ public class AutomaticInlineSeedingTest
                     .Build();
 
                 var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                return new Client(apiKey);
+                var httpClient = new HttpClient();
+                var client = new Client(httpClient, apiKey);
+                return client;
             });
         }
     }

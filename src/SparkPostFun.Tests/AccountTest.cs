@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions.LanguageExt;
@@ -35,7 +36,8 @@ public class AccountTest
                 .Build();
             
             var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var client = new Client(apiKey);
+            var httpClient = new HttpClient();
+            var client = new Client(httpClient, apiKey);
 
             fixture.Register(() => client);
         }

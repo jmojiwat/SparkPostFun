@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
@@ -18,7 +19,10 @@ public class TestCaseEmailsFixture : IDisposable
         BccAddress = configuration.GetSection("TestCaseEmails:BccAddress").Value;
 
         var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-        Client = new Client(apiKey);
+        var httpClient = new HttpClient();
+        var client = new Client(httpClient, apiKey);
+
+        Client = client;
 
     }
 
