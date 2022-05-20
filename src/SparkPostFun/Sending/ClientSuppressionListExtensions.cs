@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using LanguageExt;
+using SparkPostFun.Infrastructure;
 using static SparkPostFun.ClientExtensions;
 
 namespace SparkPostFun.Sending;
@@ -78,89 +79,89 @@ public static class ClientSuppressionListExtensions
     // ReSharper disable once CognitiveComplexity
     private static string ToQueryString(SearchSuppressionsFilter filter)
     {
-        var queryString = new NameValueCollection();
+        var collection = new NameValueCollection();
 
         if (filter.To != null)
         {
-            queryString.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
 
         if (filter.From != null)
         {
-            queryString.Add("from", filter.To?.ToString("s"));
+            collection.Add("from", filter.To?.ToString("s"));
         }
 
         if (filter.Domain != null)
         {
-            queryString.Add("domain", filter.Domain);
+            collection.Add("domain", filter.Domain);
         }
 
         if (filter.Sources != null)
         {
-            queryString.Add("sources", string.Concat(',', filter.Sources));
+            collection.Add("sources", string.Concat(',', filter.Sources));
         }
 
         if (filter.Types != null)
         {
-            queryString.Add("types", string.Concat(',', filter.Types));
+            collection.Add("types", string.Concat(',', filter.Types));
         }
 
         if (filter.Description != null)
         {
-            queryString.Add("description", filter.Description);
+            collection.Add("description", filter.Description);
         }
 
         if (filter.DescriptionStrict != null)
         {
-            queryString.Add("description_strict", filter.DescriptionStrict.ToString());
+            collection.Add("description_strict", filter.DescriptionStrict.ToString());
         }
 
         if (filter.Cursor != null)
         {
-            queryString.Add("cursor", filter.Cursor);
+            collection.Add("cursor", filter.Cursor);
         }
 
         if (filter.PerPage != null)
         {
-            queryString.Add("per_page", filter.PerPage.ToString());
+            collection.Add("per_page", filter.PerPage.ToString());
         }
 
         if (filter.Page != null)
         {
-            queryString.Add("page", filter.Page.ToString());
+            collection.Add("page", filter.Page.ToString());
         }
 
         if (filter.Sort != null)
         {
-            queryString.Add("sort", filter.Sort.ToString());
+            collection.Add("sort", filter.Sort.ToString());
         }
 
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
 
     private static string ToQueryString(RetrieveSuppressionFilter filter)
     {
-        var queryString = new NameValueCollection();
+        var collection = new NameValueCollection();
         if (filter.Types != null)
         {
-            queryString.Add("types", string.Concat(',', filter.Types));
+            collection.Add("types", string.Concat(',', filter.Types));
         }
 
         if (filter.Cursor != null)
         {
-            queryString.Add("cursor", filter.Cursor);
+            collection.Add("cursor", filter.Cursor);
         }
 
         if (filter.PerPage != null)
         {
-            queryString.Add("per_page", filter.PerPage.ToString());
+            collection.Add("per_page", filter.PerPage.ToString());
         }
 
         if (filter.Page != null)
         {
-            queryString.Add("page", filter.Page.ToString());
+            collection.Add("page", filter.Page.ToString());
         }
 
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using LanguageExt;
 using static SparkPostFun.ClientExtensions;
+using static SparkPostFun.Infrastructure.NameValueCollectionExtensions;
 
 namespace SparkPostFun.Sending;
 
@@ -24,18 +25,19 @@ public static class ClientTrackingDomainExtensions
 
     public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListTrackingDomains(this Client @this, bool? @default, IList<int> subaccounts)
     {
-        var nameValue = new NameValueCollection();
+        var collection = new NameValueCollection();
         if (@default != null)
         {
-            nameValue.Add("default", @default.ToString());
+            collection.Add("default", @default.ToString());
         }
 
         if (subaccounts != null)
         {
-            nameValue.Add("subaccounts", string.Join(",", subaccounts));
+            collection.Add("subaccounts", string.Join(",", subaccounts));
         }
 
-        var requestUrl = $"/api/{@this.Version}/tracking-domains?{nameValue}";
+        var queryString = ToQueryString(collection);
+        var requestUrl = $"/api/{@this.Version}/tracking-domains?{queryString}";
         return @this.Get<ListSendingDomainsResponse>(requestUrl);
     }
 

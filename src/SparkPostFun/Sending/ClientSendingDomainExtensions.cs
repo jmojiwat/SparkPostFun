@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using LanguageExt;
+using SparkPostFun.Infrastructure;
 using static SparkPostFun.ClientExtensions;
 
 namespace SparkPostFun.Sending;
@@ -54,47 +55,47 @@ public static class ClientSendingDomainExtensions
 
     private static string ToQueryString(SendingDomainsFilter filter)
     {
-        var queryString = new NameValueCollection();
+        var collection = new NameValueCollection();
         if (filter.OwnershipVerified != null)
         {
-            queryString.Add("ownership_verified", filter.OwnershipVerified.ToString());
+            collection.Add("ownership_verified", filter.OwnershipVerified.ToString());
         }
 
         if (filter.DkimStatus != null)
         {
-            queryString.Add("dkim_status", filter.DkimStatus.ToString());
+            collection.Add("dkim_status", filter.DkimStatus.ToString());
         }
 
         if (filter.CnameStatus != null)
         {
-            queryString.Add("cname_status", filter.CnameStatus.ToString());
+            collection.Add("cname_status", filter.CnameStatus.ToString());
         }
 
         if (filter.MxStatus != null)
         {
-            queryString.Add("mx_status", filter.MxStatus.ToString());
+            collection.Add("mx_status", filter.MxStatus.ToString());
         }
 
         if (filter.AbuseAtStatus != null)
         {
-            queryString.Add("abuse_at_status", filter.AbuseAtStatus.ToString());
+            collection.Add("abuse_at_status", filter.AbuseAtStatus.ToString());
         }
 
         if (filter.PostmasterAtStatus != null)
         {
-            queryString.Add("postmaster_at_status", filter.PostmasterAtStatus.ToString());
+            collection.Add("postmaster_at_status", filter.PostmasterAtStatus.ToString());
         }
 
         if (filter.ComplianceStatus != null)
         {
-            queryString.Add("compliance_status", filter.ComplianceStatus.ToString());
+            collection.Add("compliance_status", filter.ComplianceStatus.ToString());
         }
 
         if (filter.IsDefaultBounceDomain != null)
         {
-            queryString.Add("is_default_bounce_domain", filter.IsDefaultBounceDomain.ToString());
+            collection.Add("is_default_bounce_domain", filter.IsDefaultBounceDomain.ToString());
         }
 
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Specialized;
 using LanguageExt;
+using SparkPostFun.Infrastructure;
 
 namespace SparkPostFun.Analytics;
 
@@ -372,56 +373,56 @@ public static class ClientMetricsExtensions
     
     private static string ToQueryString(DateTime from, InboxRateFilter filter)
     {
-        var queryString = new NameValueCollection { { "from", @from.ToString("s") } };
+        var collection = new NameValueCollection { { "from", @from.ToString("s") } };
 
         if(filter.To != null)
         {
-            queryString.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
-        queryString.Add("industry_category", filter.IndustryCategory.ToString());
+        collection.Add("industry_category", filter.IndustryCategory.ToString());
 
-        queryString.Add("mailbox_provider", filter.MailboxProvider.ToString());
+        collection.Add("mailbox_provider", filter.MailboxProvider.ToString());
 
         if(filter.Timezone != null)
         {
-            queryString.Add("timezone", filter.Timezone);
+            collection.Add("timezone", filter.Timezone);
         }
         
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
     
     private static string ToQueryString(MetricsFilter filter)
     {
-        var queryString = new NameValueCollection();
+        var collection = new NameValueCollection();
 
         if(filter.Match != null)
         {
-            queryString.Add("match", filter.Match);
+            collection.Add("match", filter.Match);
         }
         if(filter.Limit != null)
         {
-            queryString.Add("limit", filter.Limit.ToString());
+            collection.Add("limit", filter.Limit.ToString());
         }
         if(filter.From != null)
         {
-            queryString.Add("from", filter.From?.ToString("s"));
+            collection.Add("from", filter.From?.ToString("s"));
         }
         if(filter.To != null)
         {
-            queryString.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
         if(filter.Timezone != null)
         {
-            queryString.Add("timezone", filter.Timezone);
+            collection.Add("timezone", filter.Timezone);
         }
         
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
     
     // ReSharper disable once CognitiveComplexity
     private static string ToQueryString(DateTime from, IList<Metric> metrics, MetricsSummaryFilter filter)
     {
-        var queryString = new NameValueCollection
+        var collection = new NameValueCollection
         {
             { "from", from.ToString("s")},  
             { "metrics", string.Concat(',', metrics)}  
@@ -429,237 +430,238 @@ public static class ClientMetricsExtensions
 
         if(filter.To != null)
         {
-            queryString.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
         if(filter.Delimiter != null)
         {
-            queryString.Add("delimiter", filter.Delimiter);
+            collection.Add("delimiter", filter.Delimiter);
         }
         if(filter.QueryFilters != null)
         {
-            queryString.Add("query_filters", filter.QueryFilters);
+            collection.Add("query_filters", filter.QueryFilters);
         }
         if(filter.Domains != null)
         {
-            queryString.Add("domains", string.Concat(',', filter.Domains));
+            collection.Add("domains", string.Concat(',', filter.Domains));
         }
         if(filter.Campaigns != null)
         {
-            queryString.Add("campaigns", string.Concat(',', filter.Campaigns));
+            collection.Add("campaigns", string.Concat(',', filter.Campaigns));
         }
         if(filter.SubjectCampaigns != null)
         {
-            queryString.Add("subject_campaigns", string.Concat(',', filter.SubjectCampaigns));
+            collection.Add("subject_campaigns", string.Concat(',', filter.SubjectCampaigns));
         }
         if(filter.MailboxProviders != null)
         {
-            queryString.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+            collection.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
         }
         if(filter.MailboxProviderRegions != null)
         {
-            queryString.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+            collection.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
         }
         if(filter.Templates != null)
         {
-            queryString.Add("templates", string.Concat(',', filter.Templates));
+            collection.Add("templates", string.Concat(',', filter.Templates));
         }
         if(filter.SendingIps != null)
         {
-            queryString.Add("sending_ips", string.Concat(',', filter.SendingIps));
+            collection.Add("sending_ips", string.Concat(',', filter.SendingIps));
         }
         if(filter.IpPools != null)
         {
-            queryString.Add("ip_pools", string.Concat(',', filter.IpPools));
+            collection.Add("ip_pools", string.Concat(',', filter.IpPools));
         }
         if(filter.SendingDomains != null)
         {
-            queryString.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+            collection.Add("sending_domains", string.Concat(',', filter.SendingDomains));
         }
         if(filter.Subaccounts != null)
         {
-            queryString.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+            collection.Add("subaccounts", string.Concat(',', filter.Subaccounts));
         }
         if(filter.Domains != null)
         {
-            queryString.Add("domains", string.Concat(',', filter.Domains));
+            collection.Add("domains", string.Concat(',', filter.Domains));
         }
         if(filter.Precision != null)
         {
-            queryString.Add("precision", filter.Precision.ToString());
+            collection.Add("precision", filter.Precision.ToString());
         }
-        queryString.Add("timezone", filter.Timezone);
+        collection.Add("timezone", filter.Timezone);
         
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
     private static string ToQueryString(DateTime from, DeliveriesByAttemptFilter filter)
     {
-        var queryString = new NameValueCollection
+        var collection = new NameValueCollection
         {
             { "from", from.ToString("s")}  
         };
 
         if(filter.To != null)
         {
-            queryString.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
         if(filter.Delimiter != null)
         {
-            queryString.Add("delimiter", filter.Delimiter);
+            collection.Add("delimiter", filter.Delimiter);
         }
         if(filter.QueryFilters != null)
         {
-            queryString.Add("query_filters", filter.QueryFilters);
+            collection.Add("query_filters", filter.QueryFilters);
         }
         if(filter.Domains != null)
         {
-            queryString.Add("domains", string.Concat(',', filter.Domains));
+            collection.Add("domains", string.Concat(',', filter.Domains));
         }
         if(filter.Campaigns != null)
         {
-            queryString.Add("campaigns", string.Concat(',', filter.Campaigns));
+            collection.Add("campaigns", string.Concat(',', filter.Campaigns));
         }
         if(filter.MailboxProviders != null)
         {
-            queryString.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+            collection.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
         }
         if(filter.MailboxProviderRegions != null)
         {
-            queryString.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+            collection.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
         }
         if(filter.Templates != null)
         {
-            queryString.Add("templates", string.Concat(',', filter.Templates));
+            collection.Add("templates", string.Concat(',', filter.Templates));
         }
         if(filter.SendingIps != null)
         {
-            queryString.Add("sending_ips", string.Concat(',', filter.SendingIps));
+            collection.Add("sending_ips", string.Concat(',', filter.SendingIps));
         }
         if(filter.IpPools != null)
         {
-            queryString.Add("ip_pools", string.Concat(',', filter.IpPools));
+            collection.Add("ip_pools", string.Concat(',', filter.IpPools));
         }
         if(filter.SendingDomains != null)
         {
-            queryString.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+            collection.Add("sending_domains", string.Concat(',', filter.SendingDomains));
         }
         if(filter.Bindings != null)
         {
-            queryString.Add("bindings", string.Concat(',', filter.Bindings));
+            collection.Add("bindings", string.Concat(',', filter.Bindings));
         }
         if(filter.BindingGroups != null)
         {
-            queryString.Add("binding_groups", string.Concat(',', filter.BindingGroups));
+            collection.Add("binding_groups", string.Concat(',', filter.BindingGroups));
         }
         if(filter.Subaccounts != null)
         {
-            queryString.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+            collection.Add("subaccounts", string.Concat(',', filter.Subaccounts));
         }
-        queryString.Add("timezone", filter.Timezone);
+        collection.Add("timezone", filter.Timezone);
         
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
 
     private static string ToQueryString(DateTime from, IList<Metric> metrics, AggregateMetricsFilter filter)
     {
-        var nameValueCollection = new NameValueCollection
+        var collection = new NameValueCollection
         {
             { "from", from.ToString("s")},  
             { "metrics", string.Concat(',', metrics)}  
         };
 
-        return ToQueryString(nameValueCollection, filter);
+        return ToQueryString(collection, filter);
     }
     
     // ReSharper disable once CognitiveComplexity
-    private static string ToQueryString(NameValueCollection nameValueCollection, AggregateMetricsFilter filter)
+    private static string ToQueryString(NameValueCollection collection, AggregateMetricsFilter filter)
     {
         if(filter.To != null)
         {
-            nameValueCollection.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
         if(filter.Delimiter != null)
         {
-            nameValueCollection.Add("delimiter", filter.Delimiter);
+            collection.Add("delimiter", filter.Delimiter);
         }
         if(filter.QueryFilters != null)
         {
-            nameValueCollection.Add("query_filters", filter.QueryFilters);
+            collection.Add("query_filters", filter.QueryFilters);
         }
         if(filter.Domains != null)
         {
-            nameValueCollection.Add("domains", string.Concat(',', filter.Domains));
+            collection.Add("domains", string.Concat(',', filter.Domains));
         }
         if(filter.Campaigns != null)
         {
-            nameValueCollection.Add("campaigns", string.Concat(',', filter.Campaigns));
+            collection.Add("campaigns", string.Concat(',', filter.Campaigns));
         }
         if(filter.SubjectCampaigns != null)
         {
-            nameValueCollection.Add("subject_campaigns", string.Concat(',', filter.SubjectCampaigns));
+            collection.Add("subject_campaigns", string.Concat(',', filter.SubjectCampaigns));
         }
         if(filter.MailboxProviders != null)
         {
-            nameValueCollection.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+            collection.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
         }
         if(filter.MailboxProviderRegions != null)
         {
-            nameValueCollection.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+            collection.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
         }
         if(filter.Templates != null)
         {
-            nameValueCollection.Add("templates", string.Concat(',', filter.Templates));
+            collection.Add("templates", string.Concat(',', filter.Templates));
         }
         if(filter.SendingIps != null)
         {
-            nameValueCollection.Add("sending_ips", string.Concat(',', filter.SendingIps));
+            collection.Add("sending_ips", string.Concat(',', filter.SendingIps));
         }
         if(filter.IpPools != null)
         {
-            nameValueCollection.Add("ip_pools", string.Concat(',', filter.IpPools));
+            collection.Add("ip_pools", string.Concat(',', filter.IpPools));
         }
         if(filter.SendingDomains != null)
         {
-            nameValueCollection.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+            collection.Add("sending_domains", string.Concat(',', filter.SendingDomains));
         }
         if(filter.Subaccounts != null)
         {
-            nameValueCollection.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+            collection.Add("subaccounts", string.Concat(',', filter.Subaccounts));
         }
         if(filter.Domains != null)
         {
-            nameValueCollection.Add("domains", string.Concat(',', filter.Domains));
+            collection.Add("domains", string.Concat(',', filter.Domains));
         }
         if(filter.Precision != null)
         {
-            nameValueCollection.Add("precision", filter.Precision.ToString());
+            collection.Add("precision", filter.Precision.ToString());
         }
-        nameValueCollection.Add("timezone", filter.Timezone);
+        collection.Add("timezone", filter.Timezone);
 
         if(filter.Limit != null)
         {
-            nameValueCollection.Add("limit", filter.Limit.ToString());
+            collection.Add("limit", filter.Limit.ToString());
         }
         if(filter.OrderBy != null)
         {
-            nameValueCollection.Add("order_by", filter.OrderBy.ToString());
+            collection.Add("order_by", filter.OrderBy.ToString());
         }
         
-        return nameValueCollection.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
+
     private static string ToQueryString(DateTime from, IList<Metric> metrics, string sample, AggregateMetricsFilter filter)
     {
-        var nameValueCollection = new NameValueCollection
+        var collection = new NameValueCollection
         {
             { "from", from.ToString("s")},  
             { "metrics", string.Concat(',', metrics)},  
             { "sample", sample }  
         };
         
-        return ToQueryString(nameValueCollection, filter);
+        return ToQueryString(collection, filter);
     }
     private static string ToQueryString(DateTime from, IList<Metric> metrics, EngagementDetailsFilter filter)
     {
-        var queryString = new NameValueCollection
+        var collection = new NameValueCollection
         {
             { "from", from.ToString("s")},  
             { "metrics", string.Concat(',', metrics)}  
@@ -667,47 +669,47 @@ public static class ClientMetricsExtensions
 
         if(filter.To != null)
         {
-            queryString.Add("to", filter.To?.ToString("s"));
+            collection.Add("to", filter.To?.ToString("s"));
         }
         if(filter.Delimiter != null)
         {
-            queryString.Add("delimiter", filter.Delimiter);
+            collection.Add("delimiter", filter.Delimiter);
         }
         if(filter.QueryFilters != null)
         {
-            queryString.Add("query_filters", filter.QueryFilters);
+            collection.Add("query_filters", filter.QueryFilters);
         }
-        queryString.Add("timezone", filter.Timezone);
+        collection.Add("timezone", filter.Timezone);
         
         if(filter.Campaigns != null)
         {
-            queryString.Add("campaigns", string.Concat(',', filter.Campaigns));
+            collection.Add("campaigns", string.Concat(',', filter.Campaigns));
         }
         if(filter.MailboxProviders != null)
         {
-            queryString.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
+            collection.Add("mailbox_providers", string.Concat(',', filter.MailboxProviders));
         }
         if(filter.MailboxProviderRegions != null)
         {
-            queryString.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
+            collection.Add("mailbox_provider_regions", string.Concat(',', filter.MailboxProviderRegions));
         }
         if(filter.Templates != null)
         {
-            queryString.Add("templates", string.Concat(',', filter.Templates));
+            collection.Add("templates", string.Concat(',', filter.Templates));
         }
         if(filter.SendingDomains != null)
         {
-            queryString.Add("sending_domains", string.Concat(',', filter.SendingDomains));
+            collection.Add("sending_domains", string.Concat(',', filter.SendingDomains));
         }
         if(filter.Subaccounts != null)
         {
-            queryString.Add("subaccounts", string.Concat(',', filter.Subaccounts));
+            collection.Add("subaccounts", string.Concat(',', filter.Subaccounts));
         }
         if(filter.Limit != null)
         {
-            queryString.Add("limit", filter.Limit.ToString());
+            collection.Add("limit", filter.Limit.ToString());
         }
         
-        return queryString.ToString();
+        return NameValueCollectionExtensions.ToQueryString(collection);
     }
 }

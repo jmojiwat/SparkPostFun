@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using LanguageExt;
 using static SparkPostFun.ClientExtensions;
+using static SparkPostFun.Infrastructure.NameValueCollectionExtensions;
 
 namespace SparkPostFun.Sending;
 
@@ -34,18 +35,19 @@ public static class ClientTemplateExtensions
 
     public static Task<Either<ErrorResponse, ListTemplatesResponse>> ListTemplates(this Client @this, bool? draft, bool? sharedWithSubaccounts)
     {
-        var nameValue = new NameValueCollection();
+        var collection = new NameValueCollection();
         if (draft != null)
         {
-            nameValue.Add("draft", draft.ToString());
+            collection.Add("draft", draft.ToString());
         }
 
         if (sharedWithSubaccounts != null)
         {
-            nameValue.Add("shared_with_subaccounts", sharedWithSubaccounts.ToString());
+            collection.Add("shared_with_subaccounts", sharedWithSubaccounts.ToString());
         }
 
-        var requestUrl = $"/api/{@this.Version}/templates?{nameValue}";
+        var queryString = ToQueryString(collection);
+        var requestUrl = $"/api/{@this.Version}/templates?{queryString}";
         return @this.Get<ListTemplatesResponse>(requestUrl);
     }
 
