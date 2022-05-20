@@ -7,11 +7,25 @@
     <Version>0.2.0</Version>
     <Authors>Jacob Mojiwat</Authors>
     <Copyright>Copyright © 2022. Jacob Mojiwat</Copyright>
+    <Description>SparkPostFun is a functional style C# library using LanguageExt for SparkPost API</Description>
+    <PackageProjectUrl>https://github.com/jmojiwat/SparkPostFun</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jmojiwat/SparkPostFun</RepositoryUrl>
+    <PackageTags>sparkpost;languageext</PackageTags>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+	  <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
+ <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
+ 
+	  <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LanguageExt.Core" Version="4.0.3" />
+    <PackageReference Include="LanguageExt.Core" Version="4.1.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

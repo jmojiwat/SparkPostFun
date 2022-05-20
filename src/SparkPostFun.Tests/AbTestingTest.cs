@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Reflection;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Xunit2;

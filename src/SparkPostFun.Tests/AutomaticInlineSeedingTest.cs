@@ -4,11 +4,9 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
 using SparkPostFun.Analytics;
-using SparkPostFun.Sending;
 using Xunit;
 
 namespace SparkPostFun.Tests;
