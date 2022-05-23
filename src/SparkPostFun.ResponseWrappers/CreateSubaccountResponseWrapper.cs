@@ -1,6 +1,5 @@
 using System.Net;
 using SparkPostFun.Accounts;
-using SparkPostFun.Sending;
 
 namespace SparkPostFun.ResponseWrappers;
 

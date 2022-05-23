@@ -1,9 +1,10 @@
 using System.Net;
 using SparkPostFun.Accounts;
+using SparkPostFun.Sending;
 
 namespace SparkPostFun.ResponseWrappers;
 
-public record DataPrivacyResponseWrapper
+public record AddDataPrivacyResponseWrapper
 {
     public AddDataPrivacyResponseResult Results { get; init; } = new();
     public HttpStatusCode StatusCode { get; init; }
