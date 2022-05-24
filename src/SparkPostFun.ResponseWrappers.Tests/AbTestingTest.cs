@@ -1,22 +1,23 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using SparkPostFun.Accounts;
+using SparkPostFun.Sending;
 using Xunit;
-using static System.Reflection.Assembly;
 
 namespace SparkPostFun.ResponseWrappers.Tests;
 
-public class AccountTest
+public class AbTestingTest
 {
     [Theory, AccountAutoData]
     public async Task RetrieveAccountInformation_returns_expected_result(Client client)
     {
-        var result = await AccountsResponseExtensions.Wrap(client.RetrieveAccount());
+        var result = await SendingResponseExtensions.Wrap(client.ListAbTests());
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
@@ -32,7 +33,7 @@ public class AccountTest
         public void Customize(IFixture fixture)
         {
             var configuration = new ConfigurationBuilder()
-                .AddUserSecrets(GetExecutingAssembly())
+                .AddUserSecrets(Assembly.GetExecutingAssembly())
                 .Build();
             
             var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
@@ -43,4 +44,3 @@ public class AccountTest
         }
     }
 }
-
