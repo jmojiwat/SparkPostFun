@@ -17,11 +17,11 @@ namespace SparkPostFun.Accounts
             return @this.Get<RetrieveAccountResponse>(requestUrl);
         }
 
-        public static Task<Either<ErrorResponse, UpdateSubaccountResponse>> UpdateAccount(this Client @this, int id, UpdateAccount request)
+        public static Task<Either<ErrorResponse, UpdateAccountResponse>> UpdateAccount(this Client @this, int id, UpdateAccount request)
         {
             var requestUrl = $"/api/{@this.Version}/account/{id}";
             return @this.Put(requestUrl, request)
-                .MapAsync(ToResponse<UpdateSubaccountResponse>);
+                .MapAsync(ToResponse<UpdateAccountResponse>);
         }
     }
 }
