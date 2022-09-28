@@ -8,40 +8,41 @@ using SparkPostFun.Sending;
 using Xunit;
 using static System.Reflection.Assembly;
 
-namespace SparkPostFun.Tests;
-
-public class SnippetTest
+namespace SparkPostFun.Tests
 {
-    [Theory, SnippetAutoData]
-    public async Task ListSnippets_returns_expected_result(Client client)
+    public class SnippetTest
     {
-        var response = await client.ListSnippets();
-
-        response.Should().BeRight();
-    }
-    
-    private class SnippetAutoDataAttribute : AutoDataAttribute
-    {
-        public SnippetAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+        [Theory, SnippetAutoData]
+        public async Task ListSnippets_returns_expected_result(Client client)
         {
+            var response = await client.ListSnippets();
+
+            response.Should().BeRight();
         }
-    }
-
-    private class Customization : ICustomization
-    {
-        public void Customize(IFixture fixture)
+    
+        private class SnippetAutoDataAttribute : AutoDataAttribute
         {
-            fixture.Register(() =>
+            public SnippetAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
             {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(GetExecutingAssembly())
-                    .Build();
+            }
+        }
 
-                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                var httpClient = new HttpClient();
-                var client = new Client(httpClient, apiKey);
-                return client;
-            });
+        private class Customization : ICustomization
+        {
+            public void Customize(IFixture fixture)
+            {
+                fixture.Register(() =>
+                {
+                    var configuration = new ConfigurationBuilder()
+                        .AddUserSecrets(GetExecutingAssembly())
+                        .Build();
+
+                    var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                    var httpClient = new HttpClient();
+                    var client = new Client(httpClient, apiKey);
+                    return client;
+                });
+            }
         }
     }
 }

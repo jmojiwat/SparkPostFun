@@ -8,38 +8,39 @@ using Microsoft.Extensions.Configuration;
 using SparkPostFun.Accounts;
 using Xunit;
 
-namespace SparkPostFun.Tests;
-
-public class SubaccountTest
+namespace SparkPostFun.Tests
 {
-    [Theory, SubaccountAutoData]
-    public async Task ListSubaccounts_returns_expected_result(Client client)
+    public class SubaccountTest
     {
-        var result = await client.ListSubaccounts();
+        [Theory, SubaccountAutoData]
+        public async Task ListSubaccounts_returns_expected_result(Client client)
+        {
+            var result = await client.ListSubaccounts();
         
-        result.Should().BeRight();
-    }
-
-    private class SubaccountAutoDataAttribute : AutoDataAttribute
-    {
-        public SubaccountAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
-        {
+            result.Should().BeRight();
         }
-    }
 
-    private class Customization : ICustomization
-    {
-        public void Customize(IFixture fixture)
+        private class SubaccountAutoDataAttribute : AutoDataAttribute
         {
-            var configuration = new ConfigurationBuilder()
-                .AddUserSecrets(Assembly.GetExecutingAssembly())
-                .Build();
-            
-            var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var httpClient = new HttpClient();
-            var client = new Client(httpClient, apiKey);
+            public SubaccountAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+            {
+            }
+        }
 
-            fixture.Register(() => client);
+        private class Customization : ICustomization
+        {
+            public void Customize(IFixture fixture)
+            {
+                var configuration = new ConfigurationBuilder()
+                    .AddUserSecrets(Assembly.GetExecutingAssembly())
+                    .Build();
+            
+                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                var httpClient = new HttpClient();
+                var client = new Client(httpClient, apiKey);
+
+                fixture.Register(() => client);
+            }
         }
     }
 }

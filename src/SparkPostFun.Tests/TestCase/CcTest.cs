@@ -4,39 +4,40 @@ using FluentAssertions.LanguageExt;
 using SparkPostFun.Sending;
 using Xunit;
 
-namespace SparkPostFun.Tests.TestCase;
-
-public class CcTest : IClassFixture<TestCaseEmailsFixture>
+namespace SparkPostFun.Tests.TestCase
 {
-    private readonly TestCaseEmailsFixture fixture;
-
-    public CcTest(TestCaseEmailsFixture fixture)
+    public class CcTest : IClassFixture<TestCaseEmailsFixture>
     {
-        this.fixture = fixture;
-    }
+        private readonly TestCaseEmailsFixture fixture;
 
-    [Fact]
-    public async Task Cc_returns_expected_result()
-    {
-        var recipients = new List<Recipient>
+        public CcTest(TestCaseEmailsFixture fixture)
         {
-            new(new Address(fixture.ToAddress)),
-            new(new Address(fixture.CcAddress))
+            this.fixture = fixture;
+        }
+
+        [Fact]
+        public async Task Cc_returns_expected_result()
+        {
+            var recipients = new List<Recipient>
             {
-                Type = RecipientType.Cc
-            }
-        };
-        var senderAddress = new SenderAddress(fixture.FromAddress);
-        var subject = "SparkPost CC example";
-        var content = new InlineContent(senderAddress, subject)
-        {
-            Text = "This message was sent To 1 recipient, 1 recipient was CC'd."
-        };
+                new(new Address(fixture.ToAddress)),
+                new(new Address(fixture.CcAddress))
+                {
+                    Type = RecipientType.Cc
+                }
+            };
+            var senderAddress = new SenderAddress(fixture.FromAddress);
+            var subject = "SparkPost CC example";
+            var content = new InlineContent(senderAddress, subject)
+            {
+                Text = "This message was sent To 1 recipient, 1 recipient was CC'd."
+            };
             
-        var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+            var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
             
-        var response = await fixture.Client.CreateTransmission(transmission);
+            var response = await fixture.Client.CreateTransmission(transmission);
 
-        response.Should().BeRight();
+            response.Should().BeRight();
+        }
     }
 }

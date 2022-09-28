@@ -8,37 +8,38 @@ using Microsoft.Extensions.Configuration;
 using SparkPostFun.Sending;
 using Xunit;
 
-namespace SparkPostFun.Tests;
-
-public class TrackingDomainTest
+namespace SparkPostFun.Tests
 {
-    [Theory, TrackingDomainAutoData]
-    public async Task RetrieveAccountInformation_returns_expected_result(Client client)
+    public class TrackingDomainTest
     {
-        var result = await client.ListTrackingDomains();
-        result.Should().BeRight();
-    }
-
-    private class TrackingDomainAutoDataAttribute : AutoDataAttribute
-    {
-        public TrackingDomainAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+        [Theory, TrackingDomainAutoData]
+        public async Task RetrieveAccountInformation_returns_expected_result(Client client)
         {
+            var result = await client.ListTrackingDomains();
+            result.Should().BeRight();
         }
-    }
 
-    private class Customization : ICustomization
-    {
-        public void Customize(IFixture fixture)
+        private class TrackingDomainAutoDataAttribute : AutoDataAttribute
         {
-            var configuration = new ConfigurationBuilder()
-                .AddUserSecrets(Assembly.GetExecutingAssembly())
-                .Build();
-            
-            var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var httpClient = new HttpClient();
-            var client = new Client(httpClient, apiKey);
+            public TrackingDomainAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+            {
+            }
+        }
 
-            fixture.Register(() => client);
+        private class Customization : ICustomization
+        {
+            public void Customize(IFixture fixture)
+            {
+                var configuration = new ConfigurationBuilder()
+                    .AddUserSecrets(Assembly.GetExecutingAssembly())
+                    .Build();
+            
+                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                var httpClient = new HttpClient();
+                var client = new Client(httpClient, apiKey);
+
+                fixture.Register(() => client);
+            }
         }
     }
 }

@@ -4,44 +4,45 @@ using FluentAssertions.LanguageExt;
 using SparkPostFun.Sending;
 using Xunit;
 
-namespace SparkPostFun.Tests.TestCase;
-
-public class BccTest : IClassFixture<TestCaseEmailsFixture>
+namespace SparkPostFun.Tests.TestCase
 {
-    private readonly TestCaseEmailsFixture fixture;
-
-    public BccTest(TestCaseEmailsFixture fixture)
+    public class BccTest : IClassFixture<TestCaseEmailsFixture>
     {
-        this.fixture = fixture;
-    }
+        private readonly TestCaseEmailsFixture fixture;
 
-    [Fact]
-    public async Task Bcc_returns_expected_result()
-    {
-        var recipients = new List<Recipient>
+        public BccTest(TestCaseEmailsFixture fixture)
         {
-            new(new Address(fixture.ToAddress)),
-            new(new Address(fixture.CcAddress))
+            this.fixture = fixture;
+        }
+
+        [Fact]
+        public async Task Bcc_returns_expected_result()
+        {
+            var recipients = new List<Recipient>
             {
-                Type = RecipientType.Cc
-            },
-            new(new Address(fixture.BccAddress))
-            {
-                Type = RecipientType.Bcc
-            }
-        };
+                new(new Address(fixture.ToAddress)),
+                new(new Address(fixture.CcAddress))
+                {
+                    Type = RecipientType.Cc
+                },
+                new(new Address(fixture.BccAddress))
+                {
+                    Type = RecipientType.Bcc
+                }
+            };
         
-        var senderAddress = new SenderAddress(fixture.FromAddress);
-        const string subject = "SparkPost BCC / CC example";
-        var content = new InlineContent(senderAddress, subject)
-        {
-            Text = "This message was sent To 1 recipient, 1 recipient was CC'd and 1 sneaky recipient was BCC'd."
-        };
+            var senderAddress = new SenderAddress(fixture.FromAddress);
+            const string subject = "SparkPost BCC / CC example";
+            var content = new InlineContent(senderAddress, subject)
+            {
+                Text = "This message was sent To 1 recipient, 1 recipient was CC'd and 1 sneaky recipient was BCC'd."
+            };
             
-        var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+            var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
             
-        var response = await fixture.Client.CreateTransmission(transmission);
+            var response = await fixture.Client.CreateTransmission(transmission);
 
-        response.Should().BeRight();
+            response.Should().BeRight();
+        }
     }
 }

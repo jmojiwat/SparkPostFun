@@ -5,49 +5,50 @@ using FluentAssertions.LanguageExt;
 using SparkPostFun.Sending;
 using Xunit;
 
-namespace SparkPostFun.Tests.TestCase;
-
-public class InlineTest : IClassFixture<TestCaseEmailsFixture>
+namespace SparkPostFun.Tests.TestCase
 {
-    private readonly TestCaseEmailsFixture fixture;
-
-    public InlineTest(TestCaseEmailsFixture fixture)
+    public class InlineTest : IClassFixture<TestCaseEmailsFixture>
     {
-        this.fixture = fixture ?? throw new ArgumentNullException(nameof(fixture));
-    }
+        private readonly TestCaseEmailsFixture fixture;
 
-    [Fact]
-    public async Task Inline_returns_expected_result()
-    {
-        var address = new Address(fixture.ToAddress);
-        var recipients = new List<Recipient>
+        public InlineTest(TestCaseEmailsFixture fixture)
         {
-            new(address)
+            this.fixture = fixture ?? throw new ArgumentNullException(nameof(fixture));
+        }
+
+        [Fact]
+        public async Task Inline_returns_expected_result()
+        {
+            var address = new Address(fixture.ToAddress);
+            var recipients = new List<Recipient>
             {
-                SubstitutionData = new Dictionary<string, object>
+                new(address)
                 {
-                    ["firstName"] = "Jane"
+                    SubstitutionData = new Dictionary<string, object>
+                    {
+                        ["firstName"] = "Jane"
+                    }
                 }
-            }
-        };
+            };
         
-        var senderAddress = new SenderAddress(fixture.FromAddress);
-        var content = new InlineContent(senderAddress, "SparkPost online content example")
-        {
-            Text = "Greetings {{firstName or 'recipient'}}\nHello from C# land.",
-            Html = "<html><body><h2>Greetings {{firstName or 'recipient'}}</h2><p>Hello from C# land.</p></body></html>"
-        };
+            var senderAddress = new SenderAddress(fixture.FromAddress);
+            var content = new InlineContent(senderAddress, "SparkPost online content example")
+            {
+                Text = "Greetings {{firstName or 'recipient'}}\nHello from C# land.",
+                Html = "<html><body><h2>Greetings {{firstName or 'recipient'}}</h2><p>Hello from C# land.</p></body></html>"
+            };
         
-        var substitutionData = new Dictionary<string, object>
-        {
-            ["firstName"] = "Oh Ye Of Little Name"
-        };
+            var substitutionData = new Dictionary<string, object>
+            {
+                ["firstName"] = "Oh Ye Of Little Name"
+            };
             
-        var transmission = TransmissionExtensions.CreateTransmission(recipients, content)
-            .WithSubstitutionData(substitutionData);
+            var transmission = TransmissionExtensions.CreateTransmission(recipients, content)
+                .WithSubstitutionData(substitutionData);
             
-        var response = await fixture.Client.CreateTransmission(transmission);
+            var response = await fixture.Client.CreateTransmission(transmission);
 
-        response.Should().BeRight();
+            response.Should().BeRight();
+        }
     }
 }

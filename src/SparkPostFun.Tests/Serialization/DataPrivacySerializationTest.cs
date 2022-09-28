@@ -6,53 +6,54 @@ using SparkPostFun.Accounts;
 using SparkPostFun.Infrastructure;
 using Xunit;
 
-namespace SparkPostFun.Tests.Serialization;
-
-public class DataPrivacySerializationTest
+namespace SparkPostFun.Tests.Serialization
 {
-    [Fact]
-    public void AddRequestToBeForgotten_request_returns_expected_result()
+    public class DataPrivacySerializationTest
     {
-        var recipients = new List<string>
+        [Fact]
+        public void AddRequestToBeForgotten_request_returns_expected_result()
         {
-            "email@example.com",
-            "email2@example.com"
-        };
-        var request = new AddDataPrivacy(recipients)
-        {
-            IncludeSubaccounts = false
-        };
-
-        var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-        /* expected
+            var recipients = new List<string>
             {
-              "recipients": [
                 "email@example.com",
                 "email2@example.com"
-              ],
-              "include_subaccounts": false
-            }
-        */
+            };
+            var request = new AddDataPrivacy(recipients)
+            {
+                IncludeSubaccounts = false
+            };
 
-        var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+            var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+            /* expected
+                {
+                  "recipients": [
+                    "email@example.com",
+                    "email2@example.com"
+                  ],
+                  "include_subaccounts": false
+                }
+            */
 
-        using var scope = new AssertionScope();
-        obj.GetProperty("recipients")[0].GetString().Should().Be("email@example.com");
-        obj.GetProperty("recipients")[1].GetString().Should().Be("email2@example.com");
-        obj.GetProperty("include_subaccounts").GetBoolean().Should().BeFalse();
-    }
+            var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
-    [Fact]
-    public void AddRequestToBeForgotten_response_returns_expected_result()
-    {
-        var json = "{                  " +
-                   "  \"results\": {   " +
-                   "    \"message\": \"Request saved.\" " +
-                   "  }                " +
-                   "}                  ";
+            using var scope = new AssertionScope();
+            obj.GetProperty("recipients")[0].GetString().Should().Be("email@example.com");
+            obj.GetProperty("recipients")[1].GetString().Should().Be("email2@example.com");
+            obj.GetProperty("include_subaccounts").GetBoolean().Should().BeFalse();
+        }
 
-        var response = JsonSerializer.Deserialize<DataPrivacyResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+        [Fact]
+        public void AddRequestToBeForgotten_response_returns_expected_result()
+        {
+            var json = "{                  " +
+                       "  \"results\": {   " +
+                       "    \"message\": \"Request saved.\" " +
+                       "  }                " +
+                       "}                  ";
 
-        response!.Results.Message.Should().Be("Request saved.");
+            var response = JsonSerializer.Deserialize<DataPrivacyResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
+
+            response!.Results.Message.Should().Be("Request saved.");
+        }
     }
 }
