@@ -1,7 +1,10 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record ReceiptMeta
+namespace SparkPostFun.Analytics
 {
-    public string customKey { get; init; }
-    public IList<string> AnotherKey { get; init; } = new List<string>();
+    public record ReceiptMeta
+    {
+        public string customKey { get; init; }
+        public IList<string> AnotherKey { get; init; } = new List<string>();
+    }
 }

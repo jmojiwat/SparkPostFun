@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record Links
+namespace SparkPostFun.Analytics
 {
-    public string Next { get; set; }
+    public record Links
+    {
+        public string Next { get; set; }
+    }
 }

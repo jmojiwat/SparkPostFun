@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record CreateWebhookErrorResponse : BaseErrorResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<CreateWebhookError> Errors { get; init; } = new List<CreateWebhookError>();
+    public record CreateWebhookErrorResponse : BaseErrorResponse
+    {
+        public IList<CreateWebhookError> Errors { get; init; } = new List<CreateWebhookError>();
+    }
 }

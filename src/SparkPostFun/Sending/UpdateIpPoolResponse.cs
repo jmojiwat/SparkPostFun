@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record UpdateIpPoolResponse
+﻿namespace SparkPostFun.Sending
 {
-    public UpdateIpPoolResponseResult Results { get; init; } = new();
+    public record UpdateIpPoolResponse
+    {
+        public UpdateIpPoolResponseResult Results { get; init; } = new();
+    }
 }

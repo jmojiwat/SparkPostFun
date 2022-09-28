@@ -1,9 +1,10 @@
 using System.Collections.Specialized;
 
-namespace SparkPostFun.Analytics;
-
-public record WebhookResponse
+namespace SparkPostFun.Analytics
 {
-    public int Status { get; init; }
-    public NameValueCollection Headers { get; init; }
+    public record WebhookResponse
+    {
+        public int Status { get; init; }
+        public NameValueCollection Headers { get; init; }
+    }
 }

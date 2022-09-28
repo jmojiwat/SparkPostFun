@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public record CreateTransmissionResponseError
+﻿namespace SparkPostFun.Sending
 {
-    public string Message { get; init; }
-    public string Code { get; init; }
+    public record CreateTransmissionResponseError
+    {
+        public string Message { get; init; }
+        public string Code { get; init; }
+    }
 }

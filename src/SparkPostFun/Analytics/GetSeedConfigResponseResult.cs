@@ -1,6 +1,10 @@
-namespace SparkPostFun.Analytics;
+using System;
+using System.Collections.Generic;
 
-public record GetSeedConfigResponseResult
+namespace SparkPostFun.Analytics
 {
-    public IList<SeedConfig> Configs { get; init; } = new ArraySegment<SeedConfig>();
+    public record GetSeedConfigResponseResult
+    {
+        public IList<SeedConfig> Configs { get; init; } = new ArraySegment<SeedConfig>();
+    }
 }

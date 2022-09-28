@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Receiving;
-
-public record RelayWebhookMatch(string Domain)
+﻿namespace SparkPostFun.Receiving
 {
-    public static string Protocol => "SMTP";
+    public record RelayWebhookMatch(string Domain)
+    {
+        public static string Protocol => "SMTP";
+    }
 }

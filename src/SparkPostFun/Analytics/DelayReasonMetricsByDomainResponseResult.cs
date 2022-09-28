@@ -1,9 +1,10 @@
-namespace SparkPostFun.Analytics;
-
-public record DelayReasonMetricsByDomainResponseResult
+namespace SparkPostFun.Analytics
 {
-    public string Reason { get; init; }
-    public string Domain { get; init; }
-    public int CountDelayed { get; init; }
-    public int CountDelayedFirst { get; init; }
+    public record DelayReasonMetricsByDomainResponseResult
+    {
+        public string Reason { get; init; }
+        public string Domain { get; init; }
+        public int CountDelayed { get; init; }
+        public int CountDelayedFirst { get; init; }
+    }
 }

@@ -1,3 +1,6 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record BulkCreateOrUpdateSuppressions(IList<CreateOrUpdateSuppressionRecipient> Recipients);
+namespace SparkPostFun.Sending
+{
+    public record BulkCreateOrUpdateSuppressions(IList<CreateOrUpdateSuppressionRecipient> Recipients);
+}

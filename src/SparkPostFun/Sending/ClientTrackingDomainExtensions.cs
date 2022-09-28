@@ -1,64 +1,67 @@
 ﻿using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using LanguageExt;
 using static SparkPostFun.ClientExtensions;
 using static SparkPostFun.Infrastructure.NameValueCollectionExtensions;
 
-namespace SparkPostFun.Sending;
-
-public static class ClientTrackingDomainExtensions
+namespace SparkPostFun.Sending
 {
-    public static Task<Either<ErrorResponse, CreateTrackingDomainResponse>> CreateTrackingDomain(this Client @this, CreateTrackingDomain request)
+    public static class ClientTrackingDomainExtensions
     {
-        var requestUrl = $"/api/{@this.Version}/tracking-domains";
-        return @this.Post(requestUrl, request)
-            .MapAsync(ToResponse<CreateTrackingDomainResponse>);
-    }
-
-    public static Task<Either<ErrorResponse, Unit>> DeleteTrackingDomain(this Client @this, string domain)
-    {
-        var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}";
-        return @this.Delete(requestUrl);
-    }
-
-    public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListTrackingDomains(this Client @this) =>
-        ListTrackingDomains(@this, null, null);
-
-    public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListTrackingDomains(this Client @this, bool? @default, IList<int> subaccounts)
-    {
-        var collection = new NameValueCollection();
-        if (@default != null)
+        public static Task<Either<ErrorResponse, CreateTrackingDomainResponse>> CreateTrackingDomain(this Client @this, CreateTrackingDomain request)
         {
-            collection.Add("default", @default.ToString());
+            var requestUrl = $"/api/{@this.Version}/tracking-domains";
+            return @this.Post(requestUrl, request)
+                .MapAsync(ToResponse<CreateTrackingDomainResponse>);
         }
 
-        if (subaccounts != null)
+        public static Task<Either<ErrorResponse, Unit>> DeleteTrackingDomain(this Client @this, string domain)
         {
-            collection.Add("subaccounts", string.Join(",", subaccounts));
+            var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}";
+            return @this.Delete(requestUrl);
         }
 
-        var queryString = ToQueryString(collection);
-        var requestUrl = $"/api/{@this.Version}/tracking-domains?{queryString}";
-        return @this.Get<ListSendingDomainsResponse>(requestUrl);
-    }
+        public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListTrackingDomains(this Client @this) =>
+            ListTrackingDomains(@this, null, null);
 
-    public static Task<Either<ErrorResponse, RetrieveTrackingDomainResponse>> RetrieveTrackingDomain(this Client @this, string domain)
-    {
-        var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}";
-        return @this.Get<RetrieveTrackingDomainResponse>(requestUrl);
-    }
+        public static Task<Either<ErrorResponse, ListSendingDomainsResponse>> ListTrackingDomains(this Client @this, bool? @default, IList<int> subaccounts)
+        {
+            var collection = new NameValueCollection();
+            if (@default != null)
+            {
+                collection.Add("default", @default.ToString());
+            }
 
-    public static Task<Either<ErrorResponse, UpdateTrackingDomainResponse>> UpdateTrackingDomain(this Client @this, string domain,
-        UpdateTrackingDomain request)
-    {
-        var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}";
-        return @this.Put(requestUrl, request)
-            .MapAsync(ToResponse<UpdateTrackingDomainResponse>);
-    }
+            if (subaccounts != null)
+            {
+                collection.Add("subaccounts", string.Join(",", subaccounts));
+            }
 
-    public static Task<Either<ErrorResponse, VerifyTrackingDomainResponse>> VerifyTrackingDomain(this Client @this, string domain)
-    {
-        var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}/verify";
-        return @this.Post(requestUrl)
-            .MapAsync(ToResponse<VerifyTrackingDomainResponse>);
+            var queryString = ToQueryString(collection);
+            var requestUrl = $"/api/{@this.Version}/tracking-domains?{queryString}";
+            return @this.Get<ListSendingDomainsResponse>(requestUrl);
+        }
+
+        public static Task<Either<ErrorResponse, RetrieveTrackingDomainResponse>> RetrieveTrackingDomain(this Client @this, string domain)
+        {
+            var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}";
+            return @this.Get<RetrieveTrackingDomainResponse>(requestUrl);
+        }
+
+        public static Task<Either<ErrorResponse, UpdateTrackingDomainResponse>> UpdateTrackingDomain(this Client @this, string domain,
+            UpdateTrackingDomain request)
+        {
+            var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}";
+            return @this.Put(requestUrl, request)
+                .MapAsync(ToResponse<UpdateTrackingDomainResponse>);
+        }
+
+        public static Task<Either<ErrorResponse, VerifyTrackingDomainResponse>> VerifyTrackingDomain(this Client @this, string domain)
+        {
+            var requestUrl = $"/api/{@this.Version}/tracking-domains/{domain}/verify";
+            return @this.Post(requestUrl)
+                .MapAsync(ToResponse<VerifyTrackingDomainResponse>);
+        }
     }
 }

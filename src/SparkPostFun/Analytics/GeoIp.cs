@@ -1,11 +1,12 @@
-namespace SparkPostFun.Analytics;
-
-public record GeoIp
+namespace SparkPostFun.Analytics
 {
-    public string country { get; init; }
-    public string region { get; init; }
-    public string city { get; init; }
-    public decimal latitude { get; init; }
-    public decimal longitude { get; init; }
+    public record GeoIp
+    {
+        public string country { get; init; }
+        public string region { get; init; }
+        public string city { get; init; }
+        public decimal latitude { get; init; }
+        public decimal longitude { get; init; }
     
+    }
 }

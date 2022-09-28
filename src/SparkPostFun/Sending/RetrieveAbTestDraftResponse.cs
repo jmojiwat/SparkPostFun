@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record RetrieveAbTestDraftResponse
+﻿namespace SparkPostFun.Sending
 {
-    public RetrieveAbTestDraftResponseResult Results { get; init; } = new();
+    public record RetrieveAbTestDraftResponse
+    {
+        public RetrieveAbTestDraftResponseResult Results { get; init; } = new();
+    }
 }

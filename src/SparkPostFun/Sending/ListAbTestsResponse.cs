@@ -1,6 +1,9 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record ListAbTestsResponse
+namespace SparkPostFun.Sending
 {
-    public IList<ListAbTestResponseResult> Results { get; init; } = new List<ListAbTestResponseResult>();
+    public record ListAbTestsResponse
+    {
+        public IList<ListAbTestResponseResult> Results { get; init; } = new List<ListAbTestResponseResult>();
+    }
 }

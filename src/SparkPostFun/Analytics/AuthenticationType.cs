@@ -1,8 +1,9 @@
-namespace SparkPostFun.Analytics;
-
-public enum AuthenticationType
+namespace SparkPostFun.Analytics
 {
-    None,
-    Basic,
-    Oauth2
+    public enum AuthenticationType
+    {
+        None,
+        Basic,
+        Oauth2
+    }
 }

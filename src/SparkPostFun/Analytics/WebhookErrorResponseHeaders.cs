@@ -1,8 +1,9 @@
-namespace SparkPostFun.Analytics;
-
-public record WebhookErrorResponseHeaders
+namespace SparkPostFun.Analytics
 {
-    public string Connection { get; set; }
-    public string ContentLength { get; set; }
-    public string ContentType { get; set; }
+    public record WebhookErrorResponseHeaders
+    {
+        public string Connection { get; set; }
+        public string ContentLength { get; set; }
+        public string ContentType { get; set; }
+    }
 }

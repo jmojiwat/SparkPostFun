@@ -1,7 +1,8 @@
-namespace SparkPostFun.Analytics;
-
-public record SeedOptions
+namespace SparkPostFun.Analytics
 {
-    public int SubaccountId { get; init; }
-    public bool Enabled { get; init; }
+    public record SeedOptions
+    {
+        public int SubaccountId { get; init; }
+        public bool Enabled { get; init; }
+    }
 }

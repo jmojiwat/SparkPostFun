@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record TemplatesMetricsResponse
+namespace SparkPostFun.Analytics
 {
-    public TemplatesMetricsResponseResult Results { get; init; } = new();
+    public record TemplatesMetricsResponse
+    {
+        public TemplatesMetricsResponseResult Results { get; init; } = new();
+    }
 }

@@ -1,6 +1,9 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record ListSnippetsResponse
+namespace SparkPostFun.Sending
 {
-    public IList<ListSnippetsResponseResult> Results { get; init; }
+    public record ListSnippetsResponse
+    {
+        public IList<ListSnippetsResponseResult> Results { get; init; }
+    }
 }

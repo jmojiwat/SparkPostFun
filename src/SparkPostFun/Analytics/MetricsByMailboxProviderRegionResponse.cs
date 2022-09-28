@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record MetricsByMailboxProviderRegionResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<MetricsByMailboxProviderRegionResponseResult> Results { get; init; } = new List<MetricsByMailboxProviderRegionResponseResult>();
+    public record MetricsByMailboxProviderRegionResponse
+    {
+        public IList<MetricsByMailboxProviderRegionResponseResult> Results { get; init; } = new List<MetricsByMailboxProviderRegionResponseResult>();
+    }
 }

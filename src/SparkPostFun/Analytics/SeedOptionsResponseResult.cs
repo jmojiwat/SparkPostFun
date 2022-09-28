@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record SeedOptionsResponseResult
+namespace SparkPostFun.Analytics
 {
-    public bool Enabled { get; init; }
+    public record SeedOptionsResponseResult
+    {
+        public bool Enabled { get; init; }
+    }
 }

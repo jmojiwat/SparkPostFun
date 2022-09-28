@@ -1,9 +1,10 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum DkimStatus
+﻿namespace SparkPostFun.Sending
 {
-    Unverified,
-    Pending,
-    Invalid,
-    Valid
+    public enum DkimStatus
+    {
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
+    }
 }

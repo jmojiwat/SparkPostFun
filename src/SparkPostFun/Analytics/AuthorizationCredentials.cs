@@ -1,7 +1,8 @@
-namespace SparkPostFun.Analytics;
-
-public record AuthorizationCredentials
+namespace SparkPostFun.Analytics
 {
-    public string Username { get; init; }
-    public string Password { get; init; }
+    public record AuthorizationCredentials
+    {
+        public string Username { get; init; }
+        public string Password { get; init; }
+    }
 }

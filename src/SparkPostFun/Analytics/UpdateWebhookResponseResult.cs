@@ -1,7 +1,11 @@
-namespace SparkPostFun.Analytics;
+using System;
+using System.Collections.Generic;
 
-public record UpdateWebhookResponseResult
+namespace SparkPostFun.Analytics
 {
-    public Guid Id { get; init; }
-    public IList<WebhookLink> Links { get; init; }
+    public record UpdateWebhookResponseResult
+    {
+        public Guid Id { get; init; }
+        public IList<WebhookLink> Links { get; init; }
+    }
 }

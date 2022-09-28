@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record Rfc822TemplateContent
+﻿namespace SparkPostFun.Sending
 {
-    public string EmailRfc822 { get; init; }
+    public record Rfc822TemplateContent
+    {
+        public string EmailRfc822 { get; init; }
+    }
 }

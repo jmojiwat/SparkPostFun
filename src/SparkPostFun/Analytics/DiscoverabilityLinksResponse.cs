@@ -1,7 +1,10 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record DiscoverabilityLinksResponse
+namespace SparkPostFun.Analytics
 {
-    public object Results { get; init; } = new();
-    public IList<DiscoverabilityLink> Links { get; init; } = new List<DiscoverabilityLink>();
+    public record DiscoverabilityLinksResponse
+    {
+        public object Results { get; init; } = new();
+        public IList<DiscoverabilityLink> Links { get; init; } = new List<DiscoverabilityLink>();
+    }
 }

@@ -1,8 +1,9 @@
-namespace SparkPostFun.Analytics;
-
-public record RetrievePageEventsResponse
+namespace SparkPostFun.Analytics
 {
-    public object Results { get; init; } = new();
-    public int TotalCount { get; set; }
-    public Links Links { get; set; }
+    public record RetrievePageEventsResponse
+    {
+        public object Results { get; init; } = new();
+        public int TotalCount { get; set; }
+        public Links Links { get; set; }
+    }
 }

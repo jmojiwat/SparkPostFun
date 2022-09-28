@@ -1,8 +1,11 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record WebhookLink
+namespace SparkPostFun.Analytics
 {
-    public string Href { get; init; }
-    public string Rel { get; init; }
-    public IList<string> Method { get; init; }
+    public record WebhookLink
+    {
+        public string Href { get; init; }
+        public string Rel { get; init; }
+        public IList<string> Method { get; init; }
+    }
 }

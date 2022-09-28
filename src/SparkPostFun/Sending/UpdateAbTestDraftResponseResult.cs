@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record UpdateAbTestDraftResponseResult
+﻿namespace SparkPostFun.Sending
 {
-    public string Id { get; init; }
+    public record UpdateAbTestDraftResponseResult
+    {
+        public string Id { get; init; }
+    }
 }

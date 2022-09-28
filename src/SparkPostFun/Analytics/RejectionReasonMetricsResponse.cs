@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record RejectionReasonMetricsResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<RejectionReasonMetricsResponseResult> Results { get; init; } = new List<RejectionReasonMetricsResponseResult>();
+    public record RejectionReasonMetricsResponse
+    {
+        public IList<RejectionReasonMetricsResponseResult> Results { get; init; } = new List<RejectionReasonMetricsResponseResult>();
+    }
 }

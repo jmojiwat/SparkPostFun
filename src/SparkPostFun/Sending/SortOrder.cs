@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum SortOrder
+﻿namespace SparkPostFun.Sending
 {
-    Asc,
-    Desc
+    public enum SortOrder
+    {
+        Asc,
+        Desc
+    }
 }

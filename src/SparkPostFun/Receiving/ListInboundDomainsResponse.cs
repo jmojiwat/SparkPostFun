@@ -1,4 +1,6 @@
-﻿namespace SparkPostFun.Receiving
+﻿using System.Collections.Generic;
+
+namespace SparkPostFun.Receiving
 {
     public record ListInboundDomainsResponse
     {

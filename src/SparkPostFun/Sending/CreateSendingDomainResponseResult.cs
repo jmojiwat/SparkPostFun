@@ -1,8 +1,9 @@
-﻿namespace SparkPostFun.Sending;
-
-public record CreateSendingDomainResponseResult
+﻿namespace SparkPostFun.Sending
 {
-    public string Message { get; init; }
-    public string Domain { get; init; }
-    public Dkim Dkim { get; init; }
+    public record CreateSendingDomainResponseResult
+    {
+        public string Message { get; init; }
+        public string Domain { get; init; }
+        public Dkim Dkim { get; init; }
+    }
 }

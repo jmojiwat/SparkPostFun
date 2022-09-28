@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record ListWebhooksResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<ListWebhooksResponseResult> Results = new List<ListWebhooksResponseResult>();
+    public record ListWebhooksResponse
+    {
+        public IList<ListWebhooksResponseResult> Results = new List<ListWebhooksResponseResult>();
+    }
 }

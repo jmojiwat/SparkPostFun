@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record PublishTemplateDraft
+﻿namespace SparkPostFun.Sending
 {
-    public bool Published => true;
+    public record PublishTemplateDraft
+    {
+        public bool Published => true;
+    }
 }

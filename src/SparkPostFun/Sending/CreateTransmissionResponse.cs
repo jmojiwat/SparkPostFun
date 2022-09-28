@@ -1,7 +1,10 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record CreateTransmissionResponse
+namespace SparkPostFun.Sending
 {
-    public CreateTransmissionResponseResult Results { get; init; } = new();
-    public IList<CreateTransmissionResponseError> Errors { get; init; } = new List<CreateTransmissionResponseError>();
+    public record CreateTransmissionResponse
+    {
+        public CreateTransmissionResponseResult Results { get; init; } = new();
+        public IList<CreateTransmissionResponseError> Errors { get; init; } = new List<CreateTransmissionResponseError>();
+    }
 }

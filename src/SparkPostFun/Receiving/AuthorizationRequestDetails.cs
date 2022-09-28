@@ -1,3 +1,6 @@
-namespace SparkPostFun.Receiving;
+using System.Collections.Generic;
 
-public record AuthorizationRequestDetails(string Url, IDictionary<string, object> Body);
+namespace SparkPostFun.Receiving
+{
+    public record AuthorizationRequestDetails(string Url, IDictionary<string, object> Body);
+}

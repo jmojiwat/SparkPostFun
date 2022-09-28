@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public static class StoredRecipientListExtensions
+﻿namespace SparkPostFun.Sending
 {
-    public static StoredRecipientList WithListId(this StoredRecipientList @this, string listId) =>
-        @this with { ListId = listId };
+    public static class StoredRecipientListExtensions
+    {
+        public static StoredRecipientList WithListId(this StoredRecipientList @this, string listId) =>
+            @this with { ListId = listId };
+    }
 }

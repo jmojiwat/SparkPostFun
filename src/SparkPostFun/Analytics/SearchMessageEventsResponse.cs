@@ -1,8 +1,11 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record SearchMessageEventsResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<SearchMessageEventsResponseResult> Results { get; init; } = new List<SearchMessageEventsResponseResult>();
-    public int TotalCount { get; set; }
-    public Links Links { get; set; }
+    public record SearchMessageEventsResponse
+    {
+        public IList<SearchMessageEventsResponseResult> Results { get; init; } = new List<SearchMessageEventsResponseResult>();
+        public int TotalCount { get; set; }
+        public Links Links { get; set; }
+    }
 }

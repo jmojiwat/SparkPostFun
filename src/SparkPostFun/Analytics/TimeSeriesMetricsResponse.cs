@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record TimeSeriesMetricsResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<TimeSeriesMetricsResponseResult> Results { get; init; } = new List<TimeSeriesMetricsResponseResult>();
+    public record TimeSeriesMetricsResponse
+    {
+        public IList<TimeSeriesMetricsResponseResult> Results { get; init; } = new List<TimeSeriesMetricsResponseResult>();
+    }
 }

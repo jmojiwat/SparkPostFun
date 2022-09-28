@@ -1,5 +1,6 @@
-namespace SparkPostFun.Analytics;
-
-public record ValidateWebhookRequest
+namespace SparkPostFun.Analytics
 {
+    public record ValidateWebhookRequest
+    {
+    }
 }

@@ -1,9 +1,10 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum AbuseAtStatus
+﻿namespace SparkPostFun.Sending
 {
-    Unverified,
-    Pending,
-    Invalid,
-    Valid
+    public enum AbuseAtStatus
+    {
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
+    }
 }

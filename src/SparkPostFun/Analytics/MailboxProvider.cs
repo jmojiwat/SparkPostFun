@@ -1,9 +1,10 @@
-namespace SparkPostFun.Analytics;
-
-public enum MailboxProvider
+namespace SparkPostFun.Analytics
 {
-    All,
-    Gmail,
-    Hotmail,
-    VerizonMediaGroup
+    public enum MailboxProvider
+    {
+        All,
+        Gmail,
+        Hotmail,
+        VerizonMediaGroup
+    }
 }

@@ -1,8 +1,9 @@
-namespace SparkPostFun.Analytics;
-
-public record CreateWebhookError
+namespace SparkPostFun.Analytics
 {
-    public string Code { get; init; }
-    public string Message { get; init; }
-    public WebhookErrorResponse Response { get; init; }
+    public record CreateWebhookError
+    {
+        public string Code { get; init; }
+        public string Message { get; init; }
+        public WebhookErrorResponse Response { get; init; }
+    }
 }

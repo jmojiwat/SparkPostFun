@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record UpdateOptions
+namespace SparkPostFun.Analytics
 {
-    public bool Enabled { get; init; }
+    public record UpdateOptions
+    {
+        public bool Enabled { get; init; }
+    }
 }

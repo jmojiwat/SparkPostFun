@@ -1,10 +1,13 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record ListRecipientListsResponseResult
+namespace SparkPostFun.Sending
 {
-    public string Id { get; init; }
-    public string Name { get; init; }
-    public string Description { get; init; }
-    public IDictionary<string, object> Attributes { get; init; }
-    public int TotalAcceptedRecipients { get; init; }
+    public record ListRecipientListsResponseResult
+    {
+        public string Id { get; init; }
+        public string Name { get; init; }
+        public string Description { get; init; }
+        public IDictionary<string, object> Attributes { get; init; }
+        public int TotalAcceptedRecipients { get; init; }
+    }
 }

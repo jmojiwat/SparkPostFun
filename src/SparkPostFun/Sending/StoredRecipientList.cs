@@ -1,3 +1,4 @@
-﻿namespace SparkPostFun.Sending;
-
-public record StoredRecipientList(string ListId);
+﻿namespace SparkPostFun.Sending
+{
+    public record StoredRecipientList(string ListId);
+}

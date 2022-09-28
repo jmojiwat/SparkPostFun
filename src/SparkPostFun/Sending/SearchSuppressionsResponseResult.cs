@@ -1,13 +1,16 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System;
 
-public record SearchSuppressionsResponseResult
+namespace SparkPostFun.Sending
 {
-    public string Recipient { get; init; }
-    public bool Transactional { get; init; }
-    public bool NonTransactional { get; init; }
-    public SuppressionType Type { get; init; }
-    public string Source { get; init; }
-    public string Description { get; init; }
-    public DateTimeOffset Created { get; init; }
-    public DateTimeOffset Updated { get; init; }
+    public record SearchSuppressionsResponseResult
+    {
+        public string Recipient { get; init; }
+        public bool Transactional { get; init; }
+        public bool NonTransactional { get; init; }
+        public SuppressionType Type { get; init; }
+        public string Source { get; init; }
+        public string Description { get; init; }
+        public DateTimeOffset Created { get; init; }
+        public DateTimeOffset Updated { get; init; }
+    }
 }

@@ -1,10 +1,11 @@
 using System.Text.Json.Serialization;
 
-namespace SparkPostFun.Analytics;
-
-public record ValidateWebhookResponseResult
+namespace SparkPostFun.Analytics
 {
-    [JsonPropertyName("msg")]
-    public string Message { get; init; }
-    public WebhookResponse Response { get; init; }
+    public record ValidateWebhookResponseResult
+    {
+        [JsonPropertyName("msg")]
+        public string Message { get; init; }
+        public WebhookResponse Response { get; init; }
+    }
 }

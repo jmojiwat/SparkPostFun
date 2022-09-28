@@ -1,9 +1,12 @@
-namespace SparkPostFun.Sending;
+using System.Collections.Generic;
 
-public record RetrieveSuppressionFilter
+namespace SparkPostFun.Sending
 {
-    public IList<SuppressionType> Types { get; init; } = new List<SuppressionType>();
-    public string Cursor { get; init; }
-    public int? PerPage { get; init; }
-    public int? Page { get; init; }
+    public record RetrieveSuppressionFilter
+    {
+        public IList<SuppressionType> Types { get; init; } = new List<SuppressionType>();
+        public string Cursor { get; init; }
+        public int? PerPage { get; init; }
+        public int? Page { get; init; }
+    }
 }

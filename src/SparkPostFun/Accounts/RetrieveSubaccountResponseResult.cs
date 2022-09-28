@@ -1,6 +1,4 @@
-﻿using SparkPostFun.Sending;
-
-namespace SparkPostFun.Accounts
+﻿namespace SparkPostFun.Accounts
 {
     public record RetrieveSubaccountResponseResult
     {

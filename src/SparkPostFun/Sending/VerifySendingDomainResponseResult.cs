@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public record VerifySendingDomainResponseResult
+﻿namespace SparkPostFun.Sending
 {
-    public bool OwnershipVerified { get; init; }
-    public Dns Dns { get; init; }
+    public record VerifySendingDomainResponseResult
+    {
+        public bool OwnershipVerified { get; init; }
+        public Dns Dns { get; init; }
+    }
 }

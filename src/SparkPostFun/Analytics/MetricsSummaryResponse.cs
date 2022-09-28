@@ -1,7 +1,10 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record MetricsSummaryResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<MetricsSummaryResponseResult> Results { get; init; } = new List<MetricsSummaryResponseResult>();
-    public IList<DiscoverabilityLink> Links { get; init; } = new List<DiscoverabilityLink>();
+    public record MetricsSummaryResponse
+    {
+        public IList<MetricsSummaryResponseResult> Results { get; init; } = new List<MetricsSummaryResponseResult>();
+        public IList<DiscoverabilityLink> Links { get; init; } = new List<DiscoverabilityLink>();
+    }
 }

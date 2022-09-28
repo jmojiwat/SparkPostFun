@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record RetrieveSuppressionSummaryResponse
+﻿namespace SparkPostFun.Sending
 {
-    public RetrieveSuppressionSummaryResponseResult Results { get; init; } = new();
+    public record RetrieveSuppressionSummaryResponse
+    {
+        public RetrieveSuppressionSummaryResponseResult Results { get; init; } = new();
+    }
 }

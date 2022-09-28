@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record DeliveriesByAttemptResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<DeliveriesByAttemptResponseResult> Results { get; init; } = new List<DeliveriesByAttemptResponseResult>();
+    public record DeliveriesByAttemptResponse
+    {
+        public IList<DeliveriesByAttemptResponseResult> Results { get; init; } = new List<DeliveriesByAttemptResponseResult>();
+    }
 }

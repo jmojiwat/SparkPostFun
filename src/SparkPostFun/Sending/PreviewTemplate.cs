@@ -1,6 +1,9 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record PreviewTemplate
+namespace SparkPostFun.Sending
 {
-    public IDictionary<string, object> SubstitutionData { get; init; } = new Dictionary<string, object>();
+    public record PreviewTemplate
+    {
+        public IDictionary<string, object> SubstitutionData { get; init; } = new Dictionary<string, object>();
+    }
 }

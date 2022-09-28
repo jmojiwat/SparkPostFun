@@ -1,7 +1,10 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record CreateWebhookResponseResult
+namespace SparkPostFun.Analytics
 {
-    public string Id { get; init; }
-    public IList<WebhookLink> Links { get; init; }
+    public record CreateWebhookResponseResult
+    {
+        public string Id { get; init; }
+        public IList<WebhookLink> Links { get; init; }
+    }
 }

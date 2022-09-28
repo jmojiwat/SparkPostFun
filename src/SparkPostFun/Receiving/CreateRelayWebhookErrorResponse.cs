@@ -1,6 +1,9 @@
-namespace SparkPostFun.Receiving;
+using System.Collections.Generic;
 
-public record CreateRelayWebhookErrorResponse : BaseErrorResponse
+namespace SparkPostFun.Receiving
 {
-    public IList<CreateRelayWebhookError> Errors { get; init; } = new List<CreateRelayWebhookError>();
+    public record CreateRelayWebhookErrorResponse : BaseErrorResponse
+    {
+        public IList<CreateRelayWebhookError> Errors { get; init; } = new List<CreateRelayWebhookError>();
+    }
 }

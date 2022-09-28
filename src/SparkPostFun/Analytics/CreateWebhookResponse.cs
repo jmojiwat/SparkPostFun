@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record CreateWebhookResponse
+namespace SparkPostFun.Analytics
 {
-    public CreateWebhookResponseResult Results { get; init; } = new();
+    public record CreateWebhookResponse
+    {
+        public CreateWebhookResponseResult Results { get; init; } = new();
+    }
 }

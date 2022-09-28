@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record SeedListResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<string> Results { get; init; } = new List<string>();
+    public record SeedListResponse
+    {
+        public IList<string> Results { get; init; } = new List<string>();
+    }
 }

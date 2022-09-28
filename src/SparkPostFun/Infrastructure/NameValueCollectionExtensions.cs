@@ -2,16 +2,17 @@
 using System.Net;
 using LanguageExt;
 
-namespace SparkPostFun.Infrastructure;
-
-public static class NameValueCollectionExtensions
+namespace SparkPostFun.Infrastructure
 {
-    public static string ToQueryString(NameValueCollection collection)
+    public static class NameValueCollectionExtensions
     {
-        return collection.AllKeys
-            .Map(key => $"{key}={WebUtility.UrlEncode(collection[key])}")
-            .Apply(a => string.Join('&', a));
+        public static string ToQueryString(NameValueCollection collection)
+        {
+            return collection.AllKeys
+                .Map(key => $"{key}={WebUtility.UrlEncode(collection[key])}")
+                .Apply(a => string.Join('&', a));
+
+        }
 
     }
-
 }

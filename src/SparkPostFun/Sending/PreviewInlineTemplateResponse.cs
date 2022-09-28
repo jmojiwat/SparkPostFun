@@ -1,6 +1,9 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record PreviewInlineTemplateResponse
+namespace SparkPostFun.Sending
 {
-    public IDictionary<string, string> Results { get; init; }
+    public record PreviewInlineTemplateResponse
+    {
+        public IDictionary<string, string> Results { get; init; }
+    }
 }

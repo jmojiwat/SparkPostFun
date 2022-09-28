@@ -1,6 +1,9 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record TemplateErrorResponse : BaseErrorResponse
+namespace SparkPostFun.Sending
 {
-    public IList<TemplateError> Errors { get; init; } = new List<TemplateError>();
+    public record TemplateErrorResponse : BaseErrorResponse
+    {
+        public IList<TemplateError> Errors { get; init; } = new List<TemplateError>();
+    }
 }

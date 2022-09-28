@@ -1,8 +1,11 @@
-﻿namespace SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
-public record SearchSuppressionsResponse
+namespace SparkPostFun.Sending
 {
-    public IList<SearchSuppressionsResponseResult> Results { get; init; }
-    public IList<string> Links { get; init; }
-    public int TotalCount { get; init; }
+    public record SearchSuppressionsResponse
+    {
+        public IList<SearchSuppressionsResponseResult> Results { get; init; }
+        public IList<string> Links { get; init; }
+        public int TotalCount { get; init; }
+    }
 }

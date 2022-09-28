@@ -1,4 +1,4 @@
-﻿using SparkPostFun.Sending;
+﻿using System.Collections.Generic;
 
 namespace SparkPostFun.Accounts
 {

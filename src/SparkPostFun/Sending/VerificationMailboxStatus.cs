@@ -1,9 +1,10 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum VerificationMailboxStatus
+﻿namespace SparkPostFun.Sending
 {
-    Unverified,
-    Pending,
-    Invalid,
-    Valid
+    public enum VerificationMailboxStatus
+    {
+        Unverified,
+        Pending,
+        Invalid,
+        Valid
+    }
 }

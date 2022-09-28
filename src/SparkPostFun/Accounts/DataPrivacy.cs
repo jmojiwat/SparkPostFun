@@ -1,4 +1,6 @@
-﻿namespace SparkPostFun.Accounts
+﻿using System.Collections.Generic;
+
+namespace SparkPostFun.Accounts
 {
     public record DataPrivacy
     {

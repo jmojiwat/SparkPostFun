@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public record UpdateTrackingDomain
+﻿namespace SparkPostFun.Sending
 {
-    public bool? Secure { get; init; }
-    public bool? Default { get; init; }
+    public record UpdateTrackingDomain
+    {
+        public bool? Secure { get; init; }
+        public bool? Default { get; init; }
+    }
 }

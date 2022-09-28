@@ -1,13 +1,15 @@
 ﻿using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
-namespace SparkPostFun.Sending;
-
-public record Recipient(Address Address)
+namespace SparkPostFun.Sending
 {
-    public string ReturnPath { get; init; }
-    public IList<string> Tags { get; init; }
-    public IDictionary<string, object> Metadata { get; init; }
-    public IDictionary<string, object> SubstitutionData { get; init; }
+    public record Recipient(Address Address)
+    {
+        public string ReturnPath { get; init; }
+        public IList<string> Tags { get; init; }
+        public IDictionary<string, object> Metadata { get; init; }
+        public IDictionary<string, object> SubstitutionData { get; init; }
 
-    [JsonIgnore] public RecipientType Type { get; init; } = RecipientType.To;
+        [JsonIgnore] public RecipientType Type { get; init; } = RecipientType.To;
+    }
 }

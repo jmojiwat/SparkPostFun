@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record CreateOrUpdateSuppressionResponse
+﻿namespace SparkPostFun.Sending
 {
-    public CreateOrUpdateSuppressionResponseResult Results { get; init; } = new();
+    public record CreateOrUpdateSuppressionResponse
+    {
+        public CreateOrUpdateSuppressionResponseResult Results { get; init; } = new();
+    }
 }

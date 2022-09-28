@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record MetricsBySendingIpResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<MetricsBySendingIpResponseResult> Results { get; init; } = new List<MetricsBySendingIpResponseResult>();
+    public record MetricsBySendingIpResponse
+    {
+        public IList<MetricsBySendingIpResponseResult> Results { get; init; } = new List<MetricsBySendingIpResponseResult>();
+    }
 }

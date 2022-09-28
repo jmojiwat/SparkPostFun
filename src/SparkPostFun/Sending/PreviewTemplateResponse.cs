@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record PreviewTemplateResponse
+﻿namespace SparkPostFun.Sending
 {
-    public TemplateContent Results { get; init; } = new();
+    public record PreviewTemplateResponse
+    {
+        public TemplateContent Results { get; init; } = new();
+    }
 }

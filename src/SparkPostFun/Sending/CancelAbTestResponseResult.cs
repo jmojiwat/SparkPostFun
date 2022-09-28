@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record CancelAbTestResponseResult
+﻿namespace SparkPostFun.Sending
 {
-    public string Status { get; init; }
+    public record CancelAbTestResponseResult
+    {
+        public string Status { get; init; }
+    }
 }

@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum TestMode
+﻿namespace SparkPostFun.Sending
 {
-    Bayesian,
-    Learning
+    public enum TestMode
+    {
+        Bayesian,
+        Learning
+    }
 }

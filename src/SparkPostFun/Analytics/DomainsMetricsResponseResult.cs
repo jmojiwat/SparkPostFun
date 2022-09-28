@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record DomainsMetricsResponseResult
+namespace SparkPostFun.Analytics
 {
-    public IList<string> Domains { get; init; } = new List<string>();
+    public record DomainsMetricsResponseResult
+    {
+        public IList<string> Domains { get; init; } = new List<string>();
+    }
 }

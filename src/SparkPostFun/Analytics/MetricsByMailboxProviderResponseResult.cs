@@ -1,10 +1,11 @@
-namespace SparkPostFun.Analytics;
-
-public record MetricsByMailboxProviderResponseResult
+namespace SparkPostFun.Analytics
 {
-    public string MailboxProvider { get; init; }
-    public int CountTargeted { get; init; }
-    public int CountInjected { get; init; }
-    public int CountRejected { get; init; }
-    public int CountSent { get; init; }
+    public record MetricsByMailboxProviderResponseResult
+    {
+        public string MailboxProvider { get; init; }
+        public int CountTargeted { get; init; }
+        public int CountInjected { get; init; }
+        public int CountRejected { get; init; }
+        public int CountSent { get; init; }
+    }
 }

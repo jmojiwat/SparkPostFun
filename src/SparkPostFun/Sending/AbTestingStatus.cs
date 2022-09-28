@@ -1,10 +1,11 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum AbTestingStatus
+﻿namespace SparkPostFun.Sending
 {
-    Draft,
-    Scheduled,
-    Running,
-    Cancelled,
-    Completed
+    public enum AbTestingStatus
+    {
+        Draft,
+        Scheduled,
+        Running,
+        Cancelled,
+        Completed
+    }
 }

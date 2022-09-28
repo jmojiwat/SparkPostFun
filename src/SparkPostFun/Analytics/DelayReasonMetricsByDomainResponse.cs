@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record DelayReasonMetricsByDomainResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<DelayReasonMetricsByDomainResponseResult> Results { get; init; } = new List<DelayReasonMetricsByDomainResponseResult>();
+    public record DelayReasonMetricsByDomainResponse
+    {
+        public IList<DelayReasonMetricsByDomainResponseResult> Results { get; init; } = new List<DelayReasonMetricsByDomainResponseResult>();
+    }
 }

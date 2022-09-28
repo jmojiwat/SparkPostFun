@@ -1,7 +1,8 @@
-﻿namespace SparkPostFun.Sending;
-
-public enum Metric
+﻿namespace SparkPostFun.Sending
 {
-    CountUniqueClicked,
-    CountUniqueConfirmedOpened
+    public enum Metric
+    {
+        CountUniqueClicked,
+        CountUniqueConfirmedOpened
+    }
 }

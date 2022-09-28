@@ -1,6 +1,7 @@
-namespace SparkPostFun.Sending;
-
-public record CreateOrUpdateSuppression(SuppressionType Type)
+namespace SparkPostFun.Sending
 {
-    public string Description { get; init; }
+    public record CreateOrUpdateSuppression(SuppressionType Type)
+    {
+        public string Description { get; init; }
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace SparkPostFun.Analytics
+﻿using System;
+
+namespace SparkPostFun.Analytics
 {
     public record BounceEvent
     {

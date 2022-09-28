@@ -1,7 +1,8 @@
-namespace SparkPostFun.Analytics;
-
-public record DeliveriesByAttemptResponseResult
+namespace SparkPostFun.Analytics
 {
-    public string Attempt { get; init; }
-    public int CountDelivered { get; init; }
+    public record DeliveriesByAttemptResponseResult
+    {
+        public string Attempt { get; init; }
+        public int CountDelivered { get; init; }
+    }
 }

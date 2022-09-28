@@ -1,6 +1,7 @@
-﻿namespace SparkPostFun.Sending;
-
-public record CreateRecipientListResponse
+﻿namespace SparkPostFun.Sending
 {
-    public CreateRecipientListResponseResult Results { get; init; } = new();
+    public record CreateRecipientListResponse
+    {
+        public CreateRecipientListResponseResult Results { get; init; } = new();
+    }
 }

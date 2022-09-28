@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record EngagementDetailsResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<EngagementDetailsResponseResult> Results { get; init; } = new List<EngagementDetailsResponseResult>();
+    public record EngagementDetailsResponse
+    {
+        public IList<EngagementDetailsResponseResult> Results { get; init; } = new List<EngagementDetailsResponseResult>();
+    }
 }

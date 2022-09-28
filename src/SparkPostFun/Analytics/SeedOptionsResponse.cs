@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record SeedOptionsResponse
+namespace SparkPostFun.Analytics
 {
-    public SeedOptionsResponseResult Results { get; init; } = new();
+    public record SeedOptionsResponse
+    {
+        public SeedOptionsResponseResult Results { get; init; } = new();
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace SparkPostFun.Accounts
+﻿using System;
+
+namespace SparkPostFun.Accounts
 {
     public record AccountUsage
     {

@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record EventsDocumentationResponse
+namespace SparkPostFun.Analytics
 {
-    public object Results { get; init; } = new();
+    public record EventsDocumentationResponse
+    {
+        public object Results { get; init; } = new();
+    }
 }

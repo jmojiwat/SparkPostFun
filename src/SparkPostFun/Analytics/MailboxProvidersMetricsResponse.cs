@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record MailboxProvidersMetricsResponse
+namespace SparkPostFun.Analytics
 {
-    public MailboxProvidersMetricsResponseResult Results { get; init; } = new();
+    public record MailboxProvidersMetricsResponse
+    {
+        public MailboxProvidersMetricsResponseResult Results { get; init; } = new();
+    }
 }

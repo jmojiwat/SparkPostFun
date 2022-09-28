@@ -1,6 +1,7 @@
-namespace SparkPostFun.Analytics;
-
-public record AdvancedQueryJsonSchemaResponse
+namespace SparkPostFun.Analytics
 {
-    public object Results { get; init; } = new();
+    public record AdvancedQueryJsonSchemaResponse
+    {
+        public object Results { get; init; } = new();
+    }
 }

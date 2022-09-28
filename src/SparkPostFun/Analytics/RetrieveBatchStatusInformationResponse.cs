@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record RetrieveBatchStatusInformationResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<RetrieveBatchStatusInformationResponseResult> Results { get; init; } = new List<RetrieveBatchStatusInformationResponseResult>();
+    public record RetrieveBatchStatusInformationResponse
+    {
+        public IList<RetrieveBatchStatusInformationResponseResult> Results { get; init; } = new List<RetrieveBatchStatusInformationResponseResult>();
+    }
 }

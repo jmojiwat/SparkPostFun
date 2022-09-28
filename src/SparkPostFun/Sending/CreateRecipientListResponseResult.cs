@@ -1,9 +1,10 @@
-﻿namespace SparkPostFun.Sending;
-
-public record CreateRecipientListResponseResult
+﻿namespace SparkPostFun.Sending
 {
-    public int TotalRejectedRecipients { get; init; }
-    public int TotalAcceptedRecipients { get; init; }
-    public string Id { get; init; }
-    public string Name { get; init; }
+    public record CreateRecipientListResponseResult
+    {
+        public int TotalRejectedRecipients { get; init; }
+        public int TotalAcceptedRecipients { get; init; }
+        public string Id { get; init; }
+        public string Name { get; init; }
+    }
 }

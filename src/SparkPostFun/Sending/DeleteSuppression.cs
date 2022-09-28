@@ -1,3 +1,4 @@
-﻿namespace SparkPostFun.Sending;
-
-public record DeleteSuppression(SuppressionType Type);
+﻿namespace SparkPostFun.Sending
+{
+    public record DeleteSuppression(SuppressionType Type);
+}

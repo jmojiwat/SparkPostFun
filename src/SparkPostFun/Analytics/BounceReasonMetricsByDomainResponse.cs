@@ -1,6 +1,9 @@
-namespace SparkPostFun.Analytics;
+using System.Collections.Generic;
 
-public record BounceReasonMetricsByDomainResponse
+namespace SparkPostFun.Analytics
 {
-    public IList<BounceReasonMetricsByDomainResponseResult> Results { get; init; } = new List<BounceReasonMetricsByDomainResponseResult>();
+    public record BounceReasonMetricsByDomainResponse
+    {
+        public IList<BounceReasonMetricsByDomainResponseResult> Results { get; init; } = new List<BounceReasonMetricsByDomainResponseResult>();
+    }
 }

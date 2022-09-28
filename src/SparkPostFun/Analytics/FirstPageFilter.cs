@@ -1,7 +1,8 @@
-namespace SparkPostFun.Analytics;
-
-public record FirstPageFilter
+namespace SparkPostFun.Analytics
 {
-    public int? PerPage { get; init; }
-    public string Cursor => "initial";
+    public record FirstPageFilter
+    {
+        public int? PerPage { get; init; }
+        public string Cursor => "initial";
+    }
 }
