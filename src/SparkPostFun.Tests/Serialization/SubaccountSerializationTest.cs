@@ -146,16 +146,19 @@ namespace SparkPostFun.Tests.Serialization
                 }
             };
 
-            const string json = "{                                      " +
-                                "    \"id\": 123,                       " +
-                                "    \"name\": \"Joes Garage\",         " +
-                                "    \"status\": \"active\",            " +
-                                "    \"compliance_status\": \"active\", " +
-                                "    \"ip_pool\": \"assigned_ip_pool\", " +
-                                "    \"options\": {                      " +
-                                "        \"deliverability\": false      " +
-                                "    }                                  " +
-                                "}                                      ";
+            const string json = 
+                """
+                {
+                    "id": 123,
+                    "name": "Joes Garage",
+                    "status": "active",
+                    "compliance_status": "active",
+                    "ip_pool": "assigned_ip_pool",
+                    "options": {
+                        "deliverability": false
+                    }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<Subaccount>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -165,14 +168,17 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateSubaccount_response_returns_expected_result()
         {
-            const string json = "{                                                          " +
-                                "  \"results\": {                                           " +
-                                "    \"subaccount_id\": 888,                                " +
-                                "    \"key\": \"cf806c8c472562ab98ad5acac1d1b06cbd1fb438\", " +
-                                "    \"label\": \"API Key for Sparkle Ponies Subaccount\",  " +
-                                "    \"short_key\": \"cf80\"                                " +
-                                "  }                                                        " +
-                                "}                                                          ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "subaccount_id": 888,
+                    "key": "cf806c8c472562ab98ad5acac1d1b06cbd1fb438",
+                    "label": "API Key for Sparkle Ponies Subaccount",
+                    "short_key": "cf80"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateSubaccountResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -186,18 +192,21 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveSubaccount_response_returns_expected_result()
         {
-            const string json = "{                                      " +
-                                "  \"results\": {                       " +
-                                "    \"id\": 123,                       " +
-                                "    \"name\": \"Joes Garage\",         " +
-                                "    \"status\": \"active\",            " +
-                                "    \"compliance_status\": \"active\", " +
-                                "    \"ip_pool\": \"assigned_ip_pool\", " +
-                                "    \"options\": {                     " +
-                                "      \"deliverability\": false        " +
-                                "    }                                  " +
-                                "  }                                    " +
-                                "}                                      ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "id": 123,
+                    "name": "Joes Garage",
+                    "status": "active",
+                    "compliance_status": "active",
+                    "ip_pool": "assigned_ip_pool",
+                    "options": {
+                      "deliverability": false
+                    }
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveSubaccountResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -226,38 +235,41 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ListSubaccounts_response_returns_expected_result()
         {
-            const string json = "{                                         " +
-                                "  \"results\": [                          " +
-                                "    {                                     " +
-                                "      \"id\": 123,                        " +
-                                "      \"name\": \"Joe's Garage\",         " +
-                                "      \"status\": \"active\",             " +
-                                "      \"ip_pool\": \"my_ip_pool\",        " +
-                                "      \"compliance_status\": \"active\",  " +
-                                "      \"options\": {                      " +
-                                "        \"deliverability\": true          " +
-                                "      }                                   " +
-                                "    },                                    " +
-                                "    {                                     " +
-                                "      \"id\": 456,                        " +
-                                "      \"name\": \"SharkPost\",            " +
-                                "      \"status\": \"active\",             " +
-                                "      \"compliance_status\": \"active\",  " +
-                                "      \"options\": {                      " +
-                                "        \"deliverability\": true          " +
-                                "      }                                   " +
-                                "    },                                    " +
-                                "    {                                     " +
-                                "      \"id\": 789,                        " +
-                                "      \"name\": \"Dev Avocado\",          " +
-                                "      \"status\": \"suspended\",          " +
-                                "      \"compliance_status\": \"active\",  " +
-                                "      \"options\": {                      " +
-                                "        \"deliverability\": true          " +
-                                "      }                                   " +
-                                "    }                                     " +
-                                "  ]                                       " +
-                                "}                                         ";
+            const string json =
+                """
+                {
+                  "results": [
+                    {
+                      "id": 123,
+                      "name": "Joe's Garage",
+                      "status": "active",
+                      "ip_pool": "my_ip_pool",
+                      "compliance_status": "active",
+                      "options": {
+                        "deliverability": true
+                      }
+                    },
+                    {
+                      "id": 456,
+                      "name": "SharkPost",
+                      "status": "active",
+                      "compliance_status": "active",
+                      "options": {
+                        "deliverability": true
+                      }
+                    },
+                    {
+                      "id": 789,
+                      "name": "Dev Avocado",
+                      "status": "suspended",
+                      "compliance_status": "active",
+                      "options": {
+                        "deliverability": true
+                      }
+                    }
+                  ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ListSubaccountsResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -280,11 +292,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveSubaccountSummary_response_returns_expected_result()
         {
-            const string json = "{                 " +
-                                "  \"results\": {  " +
-                                "    \"total\": 46 " +
-                                "  }               " +
-                                "}                 ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "total": 46
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveSubaccountsSummaryResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
-using AutoFixture.Xunit2;
+using AutoFixture.Xunit3;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
 using SparkPostFun.Sending;
@@ -13,19 +13,15 @@ namespace SparkPostFun.Tests
     public class SendingIpsTest
     {
         [Theory, SendingIpsAutoData]
-        public async Task ListSendingIps_returns_expected_result(Client client)
+        public async Task ListSendingIps_returns_expected_result(SparkPostEnvironment env)
         {
-            var response = await client.ListSendingIps();
+            var response = await SendingIpExtensions.ListSendingIps()(env).IfFailThrow();
 
             response.Should().BeRight();
         }
     
-        private class SendingIpsAutoDataAttribute : AutoDataAttribute
-        {
-            public SendingIpsAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
-            {
-            }
-        }
+        private class SendingIpsAutoDataAttribute()
+            : AutoDataAttribute(() => new Fixture().Customize(new Customization()));
 
         private class Customization : ICustomization
         {
@@ -39,8 +35,8 @@ namespace SparkPostFun.Tests
 
                     var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
                     var httpClient = new HttpClient();
-                    var client = new Client(httpClient, apiKey);
-                    return client;
+                    var env = SparkPostEnvironmentExtension.InitializeEnvironment(httpClient, apiKey);
+                    return env;
                 });
             }
         }

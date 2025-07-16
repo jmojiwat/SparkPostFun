@@ -12,6 +12,6 @@ namespace SparkPostFun.Sending
         public bool HasPublished { get; init; }
         public DateTimeOffset? LastUse { get; init; }
         public DateTimeOffset? LastUpdateTime { get; init; }
-        public bool SharedWithSubaccounts { get; init; }
+        public bool SharedWithSubaccount { get; init; }
     }
 }

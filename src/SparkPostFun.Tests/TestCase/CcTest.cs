@@ -6,15 +6,8 @@ using Xunit;
 
 namespace SparkPostFun.Tests.TestCase
 {
-    public class CcTest : IClassFixture<TestCaseEmailsFixture>
+    public class CcTest(TestCaseEmailsFixture fixture) : IClassFixture<TestCaseEmailsFixture>
     {
-        private readonly TestCaseEmailsFixture fixture;
-
-        public CcTest(TestCaseEmailsFixture fixture)
-        {
-            this.fixture = fixture;
-        }
-
         [Fact]
         public async Task Cc_returns_expected_result()
         {
@@ -33,9 +26,9 @@ namespace SparkPostFun.Tests.TestCase
                 Text = "This message was sent To 1 recipient, 1 recipient was CC'd."
             };
             
-            var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipients, content);
             
-            var response = await fixture.Client.CreateTransmission(transmission);
+            var response = await TransmissionExtensions.CreateTransmission(transmission)(fixture.SparkPostEnvironment).IfFailThrow();
 
             response.Should().BeRight();
         }

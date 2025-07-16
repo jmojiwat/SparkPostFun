@@ -3,42 +3,39 @@ using System.Net.Http;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
-namespace SparkPostFun.Tests.TestCase
+namespace SparkPostFun.Tests.TestCase;
+
+public class TestCaseEmailsFixture : IDisposable
 {
-    public class TestCaseEmailsFixture : IDisposable
+    public TestCaseEmailsFixture()
     {
-        public TestCaseEmailsFixture()
-        {
-            var configuration = new ConfigurationBuilder()
-                .AddUserSecrets(Assembly.Load("SparkPostFun.Tests"))
-                .Build();
+        var configuration = new ConfigurationBuilder()
+            .AddUserSecrets(Assembly.Load("SparkPostFun.Tests"))
+            .Build();
 
-            FromAddress = configuration.GetSection("TestCaseEmails:FromAddress").Value;
-            ToAddress = configuration.GetSection("TestCaseEmails:ToAddress").Value;
-            CcAddress = configuration.GetSection("TestCaseEmails:CcAddress").Value;
-            BccAddress = configuration.GetSection("TestCaseEmails:BccAddress").Value;
+        FromAddress = configuration.GetSection("TestCaseEmails:FromAddress").Value;
+        ToAddress = configuration.GetSection("TestCaseEmails:ToAddress").Value;
+        CcAddress = configuration.GetSection("TestCaseEmails:CcAddress").Value;
+        BccAddress = configuration.GetSection("TestCaseEmails:BccAddress").Value;
 
-            var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-            var httpClient = new HttpClient();
-            var client = new Client(httpClient, apiKey);
+        var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+        var httpClient = new HttpClient();
+        var env = SparkPostEnvironmentExtension.InitializeEnvironment(httpClient, apiKey);
+        SparkPostEnvironment = env;
+    }
 
-            Client = client;
+    public string BccAddress { get; }
 
-        }
+    public string CcAddress { get; }
 
-        public string BccAddress { get; }
+    public string ToAddress { get; }
 
-        public string CcAddress { get; }
+    public string FromAddress { get; }
 
-        public string ToAddress { get; }
+    public SparkPostEnvironment SparkPostEnvironment { get; }
 
-        public string FromAddress { get; }
-
-        public Client Client { get; }
-
-        public void Dispose()
-        {
-            Client.Dispose();
-        }
+    public void Dispose()
+    {
+        SparkPostEnvironment.Client.Dispose();
     }
 }

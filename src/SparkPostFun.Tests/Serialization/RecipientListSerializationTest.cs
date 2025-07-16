@@ -86,77 +86,6 @@ namespace SparkPostFun.Tests.Serialization
             };
 
             var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-            /* expected
-                {
-                  "id": "unique_id_4_graduate_students_list",
-                  "name": "graduate_students",
-                  "description": "An email list of graduate students at UMBC",
-                  "attributes": {
-                    "internal_id": 112,
-                    "list_group_id": 12321
-                  },
-                  "recipients": [
-                    {
-                      "address": {
-                        "email": "wilmaflin@yahoo.com",
-                        "name": "Wilma"
-                      },
-                      "tags": [
-                        "greeting",
-                        "prehistoric",
-                        "fred",
-                        "flintstone"
-                      ],
-                      "metadata": {
-                        "age": "24",
-                        "place": "Bedrock"
-                      },
-                      "substitution_data": {
-                        "favorite_color": "SparkPost Orange",
-                        "job": "Software Engineer"
-                      }
-                    },
-                    {
-                      "address": {
-                        "email": "abc@flintstone.com",
-                        "name": "ABC"
-                      },
-                      "tags": [
-                        "driver",
-                        "flintstone"
-                      ],
-                      "metadata": {
-                        "age": "52",
-                        "place": "MD"
-                      },
-                      "substitution_data": {
-                        "favorite_color": "Sky Blue",
-                        "job": "Driver"
-                      }
-                    },
-                    {
-                      "address": {
-                        "email": "fred.jones@flintstone.com",
-                        "name": "Grad Student Office",
-                        "header_to": "grad-student-office@flintstone.com"
-                      },
-                      "tags": [
-                        "driver",
-                        "fred",
-                        "flintstone"
-                      ],
-                      "metadata": {
-                        "age": "33",
-                        "place": "NY"
-                      },
-                      "substitution_data": {
-                        "favorite_color": "Bright Green",
-                        "job": "Firefighter"
-                      }
-                    }
-                  ]
-                }
-            */
 
             var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -283,56 +212,6 @@ namespace SparkPostFun.Tests.Serialization
             };
 
             var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-            /* expected
-                {
-                  "name": "updated_graduate_students",
-                  "description": "An email list of graduate students at UMBC",
-                  "attributes": {
-                    "internal_id": 112,
-                    "list_group_id": 12321
-                  },
-                  "recipients": [
-                    {
-                      "address": {
-                        "email": "wilmaflin@yahoo.com",
-                        "name": "Wilma"
-                      },
-                      "tags": [
-                        "greeting",
-                        "prehistoric",
-                        "fred",
-                        "flintstone"
-                      ],
-                      "metadata": {
-                        "age": "24",
-                        "place": "Bedrock"
-                      },
-                      "substitution_data": {
-                        "favorite_color": "SparkPost Orange",
-                        "job": "Software Engineer"
-                      }
-                    },
-                    {
-                      "address": {
-                        "email": "abc@flintstone.com",
-                        "name": "ABC"
-                      },
-                      "tags": [
-                        "driver",
-                        "flintstone"
-                      ],
-                      "metadata": {
-                        "age": "52",
-                        "place": "MD"
-                      },
-                      "substitution_data": {
-                        "favorite_color": "Sky Blue",
-                        "job": "Driver"
-                      }
-                    }
-                  ]
-                }
-            */
 
             var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -372,14 +251,17 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateRecipientList_response_returns_expected_result()
         {
-            const string json = "{                                                   " +
-                                "  \"results\": {                                    " +
-                                "    \"total_rejected_recipients\": 0,               " +
-                                "    \"total_accepted_recipients\": 3,               " +
-                                "    \"id\": \"unique_id_4_graduate_students_list\", " +
-                                "    \"name\": \"graduate_students\"                 " +
-                                "  }                                                 " +
-                                "}                                                   ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "total_rejected_recipients": 0,
+                    "total_accepted_recipients": 3,
+                    "id": "unique_id_4_graduate_students_list",
+                    "name": "graduate_students"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateRecipientListResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -389,78 +271,81 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveRecipientList_response_returns_expected_result()
         {
-            const string json = "{                                                                     " +
-                                "  \"results\": {                                                      " +
-                                "    \"id\": \"unique_id_4_graduate_students_list\",                   " +
-                                "    \"name\": \"graduate_students\",                                  " +
-                                "    \"description\": \"An email list of graduate students at UMBC\",  " +
-                                "    \"attributes\": {                                                 " +
-                                "      \"internal_id\": 112,                                           " +
-                                "      \"list_group_id\": 12321                                        " +
-                                "    },                                                                " +
-                                "    \"total_accepted_recipients\": 3,                                 " +
-                                "    \"recipients\": [                                                 " +
-                                "      {                                                               " +
-                                "        \"address\": {                                                " +
-                                "          \"email\": \"wilmaflin@yahoo.com\",                         " +
-                                "          \"name\": \"Wilma\"                                         " +
-                                "        },                                                            " +
-                                "        \"tags\": [                                                   " +
-                                "          \"greeting\",                                               " +
-                                "          \"prehistoric\",                                            " +
-                                "          \"fred\",                                                   " +
-                                "          \"flintstone\"                                              " +
-                                "        ],                                                            " +
-                                "        \"metadata\": {                                               " +
-                                "          \"age\": \"24\",                                            " +
-                                "          \"place\": \"Bedrock\"                                      " +
-                                "        },                                                            " +
-                                "        \"substitution_data\": {                                      " +
-                                "          \"favorite_color\": \"SparkPost Orange\",                   " +
-                                "          \"job\": \"Software Engineer\"                              " +
-                                "        }                                                             " +
-                                "      },                                                              " +
-                                "      {                                                               " +
-                                "        \"address\": {                                                " +
-                                "          \"email\": \"abc@flintstone.com\",                          " +
-                                "          \"name\": \"ABC\"                                           " +
-                                "        },                                                            " +
-                                "        \"tags\": [                                                   " +
-                                "          \"driver\",                                                 " +
-                                "          \"flintstone\"                                              " +
-                                "        ],                                                            " +
-                                "        \"metadata\": {                                               " +
-                                "          \"age\": \"52\",                                            " +
-                                "          \"place\": \"MD\"                                           " +
-                                "        },                                                            " +
-                                "        \"substitution_data\": {                                      " +
-                                "          \"favorite_color\": \"Sky Blue\",                           " +
-                                "          \"job\": \"Driver\"                                         " +
-                                "        }                                                             " +
-                                "      },                                                              " +
-                                "      {                                                               " +
-                                "        \"address\": {                                                " +
-                                "          \"email\": \"fred.jones@flintstone.com\",                   " +
-                                "          \"name\": \"Grad Student Office\",                          " +
-                                "          \"header_to\": \"grad-student-office@flintstone.com\"       " +
-                                "        },                                                            " +
-                                "        \"tags\": [                                                   " +
-                                "          \"driver\",                                                 " +
-                                "          \"fred\",                                                   " +
-                                "          \"flintstone\"                                              " +
-                                "        ],                                                            " +
-                                "        \"metadata\": {                                               " +
-                                "          \"age\": \"33\",                                            " +
-                                "          \"place\": \"NY\"                                           " +
-                                "        },                                                            " +
-                                "        \"substitution_data\": {                                      " +
-                                "          \"favorite_color\": \"Bright Green\",                       " +
-                                "          \"job\": \"Firefighter\"                                    " +
-                                "        }                                                             " +
-                                "      }                                                               " +
-                                "    ]                                                                 " +
-                                "  }                                                                   " +
-                                "}                                                                     ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "id": "unique_id_4_graduate_students_list",
+                    "name": "graduate_students",
+                    "description": "An email list of graduate students at UMBC",
+                    "attributes": {
+                      "internal_id": 112,
+                      "list_group_id": 12321
+                    },
+                    "total_accepted_recipients": 3,
+                    "recipients": [
+                      {
+                        "address": {
+                          "email": "wilmaflin@yahoo.com",
+                          "name": "Wilma"
+                        },
+                        "tags": [
+                          "greeting",
+                          "prehistoric",
+                          "fred",
+                          "flintstone"
+                        ],
+                        "metadata": {
+                          "age": "24",
+                          "place": "Bedrock"
+                        },
+                        "substitution_data": {
+                          "favorite_color": "SparkPost Orange",
+                          "job": "Software Engineer"
+                        }
+                      },
+                      {
+                        "address": {
+                          "email": "abc@flintstone.com",
+                          "name": "ABC"
+                        },
+                        "tags": [
+                          "driver",
+                          "flintstone"
+                        ],
+                        "metadata": {
+                          "age": "52",
+                          "place": "MD"
+                        },
+                        "substitution_data": {
+                          "favorite_color": "Sky Blue",
+                          "job": "Driver"
+                        }
+                      },
+                      {
+                        "address": {
+                          "email": "fred.jones@flintstone.com",
+                          "name": "Grad Student Office",
+                          "header_to": "grad-student-office@flintstone.com"
+                        },
+                        "tags": [
+                          "driver",
+                          "fred",
+                          "flintstone"
+                        ],
+                        "metadata": {
+                          "age": "33",
+                          "place": "NY"
+                        },
+                        "substitution_data": {
+                          "favorite_color": "Bright Green",
+                          "job": "Firefighter"
+                        }
+                      }
+                    ]
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveRecipientListResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -471,14 +356,17 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void UpdateRecipientList_response_returns_expected_result()
         {
-            const string json = "{                                                   " +
-                                "  \"results\": {                                    " +
-                                "    \"total_rejected_recipients\": 0,               " +
-                                "    \"total_accepted_recipients\": 2,               " +
-                                "    \"id\": \"unique_id_4_graduate_students_list\", " +
-                                "    \"name\": \"updated_graduate_students\"         " +
-                                "  }                                                 " +
-                                "}                                                   ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "total_rejected_recipients": 0,
+                    "total_accepted_recipients": 2,
+                    "id": "unique_id_4_graduate_students_list",
+                    "name": "updated_graduate_students"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<UpdateRecipientListResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -490,30 +378,33 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ListRecipientLists_response_returns_expected_result()
         {
-            const string json = "{                                                                           " +
-                                "  \"results\": [                                                            " +
-                                "    {                                                                       " +
-                                "      \"id\": \"unique_id_4_graduate_students_list\",                       " +
-                                "      \"name\": \"graduate_students\",                                      " +
-                                "      \"description\": \"An email list of graduate students at UMBC\",      " +
-                                "      \"attributes\": {                                                     " +
-                                "        \"internal_id\": 112,                                               " +
-                                "        \"list_group_id\": 12321                                            " +
-                                "      },                                                                    " +
-                                "      \"total_accepted_recipients\": 3                                      " +
-                                "    },                                                                      " +
-                                "    {                                                                       " +
-                                "      \"id\": \"unique_id_4_undergraduates\",                               " +
-                                "      \"name\": \"undergraduate_students\",                                 " +
-                                "      \"description\": \"An email list of undergraduate students at UMBC\", " +
-                                "      \"attributes\": {                                                     " +
-                                "        \"internal_id\": 111,                                               " +
-                                "        \"list_group_id\": 11321                                            " +
-                                "      },                                                                    " +
-                                "      \"total_accepted_recipients\": 8                                      " +
-                                "    }                                                                       " +
-                                "  ]                                                                         " +
-                                "}                                                                           ";
+            const string json = 
+                """
+                {
+                  "results": [
+                    {
+                      "id": "unique_id_4_graduate_students_list",
+                      "name": "graduate_students",
+                      "description": "An email list of graduate students at UMBC",
+                      "attributes": {
+                        "internal_id": 112,
+                        "list_group_id": 12321
+                      },
+                      "total_accepted_recipients": 3
+                    },
+                    {
+                      "id": "unique_id_4_undergraduates",
+                      "name": "undergraduate_students",
+                      "description": "An email list of undergraduate students at UMBC",
+                      "attributes": {
+                        "internal_id": 111,
+                        "list_group_id": 11321
+                      },
+                      "total_accepted_recipients": 8
+                    }
+                  ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ListRecipientListsResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

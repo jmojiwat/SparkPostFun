@@ -2,79 +2,79 @@
 
 namespace SparkPostFun.Sending
 {
-    public record Transmission
+    public record TransmissionRequest
     {
-        public Transmission(Recipient recipient, InlineContent content)
+        public TransmissionRequest(Recipient recipient, InlineContent content)
         {
             var recipientList = ToRecipientList(recipient);
             Recipients = recipientList;
             Content = content;
         }
 
-        public Transmission(IList<Recipient> recipients, InlineContent content)
+        public TransmissionRequest(IList<Recipient> recipients, InlineContent content)
         {
             Recipients = recipients;
             Content = content;
         }
 
-        public Transmission(StoredRecipientList storedRecipientList, InlineContent content)
+        public TransmissionRequest(StoredRecipientList storedRecipientList, InlineContent content)
         {
             Recipients = storedRecipientList;
             Content = content;
         }
 
-        public Transmission(Recipient recipient, StoredTemplateContent content)
+        public TransmissionRequest(Recipient recipient, StoredTemplateContent content)
         {
             var recipientList = ToRecipientList(recipient);
             Recipients = recipientList;
             Content = content;
         }
 
-        public Transmission(IList<Recipient> recipients, StoredTemplateContent content)
+        public TransmissionRequest(IList<Recipient> recipients, StoredTemplateContent content)
         {
             Recipients = recipients;
             Content = content;
         }
 
-        public Transmission(StoredRecipientList storedRecipientList, StoredTemplateContent content)
+        public TransmissionRequest(StoredRecipientList storedRecipientList, StoredTemplateContent content)
         {
             Recipients = storedRecipientList;
             Content = content;
         }
 
-        public Transmission(Recipient recipient, AbTestContent content)
+        public TransmissionRequest(Recipient recipient, AbTestContent content)
         {
             var recipientList = ToRecipientList(recipient);
             Recipients = recipientList;
             Content = content;
         }
 
-        public Transmission(IList<Recipient> recipients, AbTestContent content)
+        public TransmissionRequest(IList<Recipient> recipients, AbTestContent content)
         {
             Recipients = recipients;
             Content = content;
         }
 
-        public Transmission(StoredRecipientList storedRecipientList, AbTestContent content)
+        public TransmissionRequest(StoredRecipientList storedRecipientList, AbTestContent content)
         {
             Recipients = storedRecipientList;
             Content = content;
         }
 
-        public Transmission(Recipient recipient, Rfc822TemplateContent content)
+        public TransmissionRequest(Recipient recipient, Rfc822TemplateContent content)
         {
             var recipientList = ToRecipientList(recipient);
             Recipients = recipientList;
             Content = content;
         }
 
-        public Transmission(IList<Recipient> recipients, Rfc822TemplateContent content)
+        public TransmissionRequest(IList<Recipient> recipients, Rfc822TemplateContent content)
         {
             Recipients = recipients;
             Content = content;
         }
 
-        public Transmission(StoredRecipientList storedRecipientList, Rfc822TemplateContent content)
+        public TransmissionRequest(StoredRecipientList storedRecipientList, Rfc822TemplateContent content)
         {
             Recipients = storedRecipientList;
             Content = content;

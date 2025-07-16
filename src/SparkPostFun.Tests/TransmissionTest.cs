@@ -16,7 +16,7 @@ namespace SparkPostFun.Tests
             var recipient = new Recipient(new Address(string.Empty));
             var content = new InlineContent(new SenderAddress(string.Empty), string.Empty);
         
-            var transmission = CreateTransmission(recipient, content);
+            var transmission = CreateTransmissionRequest(recipient, content);
         
             transmission.Recipients.Should().NotBeNull();
         }
@@ -27,7 +27,7 @@ namespace SparkPostFun.Tests
             var recipient = new Recipient(new Address(string.Empty));
             var content = new InlineContent(new SenderAddress(string.Empty), string.Empty);
         
-            var transmission = CreateTransmission(recipient, content);
+            var transmission = CreateTransmissionRequest(recipient, content);
         
             transmission.Content.Should().NotBeNull();
         }
@@ -48,7 +48,7 @@ namespace SparkPostFun.Tests
             var recipient = new Recipient(address);
 
 
-            var transmission = CreateTransmission(recipient, new InlineContent(new SenderAddress(string.Empty), string.Empty))
+            var transmission = CreateTransmissionRequest(recipient, new InlineContent(new SenderAddress(string.Empty), string.Empty))
                 .WithOptions(options);
 
             using(new AssertionScope())
@@ -74,7 +74,7 @@ namespace SparkPostFun.Tests
             var address = new Address("wilma@flintstone.com") { Name = "Wilma Flintstone" };
             var recipient = new Recipient(address);
 
-            var transmission = new Transmission(recipient, new InlineContent(new SenderAddress(string.Empty), string.Empty))
+            var transmission = new TransmissionRequest(recipient, new InlineContent(new SenderAddress(string.Empty), string.Empty))
             {
                 Options = options
             };

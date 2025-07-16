@@ -3,86 +3,81 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoFixture;
-using AutoFixture.Xunit2;
+using AutoFixture.Xunit3;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
 using SparkPostFun.Analytics;
 using Xunit;
 
-namespace SparkPostFun.Tests
+namespace SparkPostFun.Tests;
+
+public class EventsTest
 {
-    public class EventsTest
+    [Theory, AccountAutoData]
+    public async Task RetrieveFirstPage_returns_expected_result(SparkPostEnvironment env)
     {
-        [Theory, AccountAutoData]
-        public async Task RetrieveFirstPage_returns_expected_result(Client client)
+        var filter = new FirstPageFilter
         {
-            var filter = new FirstPageFilter
-            {
-                PerPage = 1_000
-            };
-            var result = await client.RetrieveFirstPage(filter);
+            PerPage = 1_000
+        };
+        var result = await EventsExtensions.RetrieveFirstPage(filter)(env).IfFailThrow();
         
-            result.Should().BeRight();
-        }
+        result.Should().BeRight();
+    }
 
-        [Theory, AccountAutoData]
-        public async Task SearchMessageEvents_returns_expected_result(Client client)
+    [Theory, AccountAutoData]
+    public async Task SearchMessageEvents_returns_expected_result(SparkPostEnvironment env)
+    {
+        var filter = new SearchMessageEventsFilter
         {
-            var filter = new SearchMessageEventsFilter
-            {
-                Recipients = new List<string> { "recipient@example.com" }
-            };
-            var result = await client.SearchMessageEvents(filter);
+            Recipients = new List<string> { "recipient@example.com" }
+        };
+        var result = await EventsExtensions.SearchMessageEvents(filter)(env).IfFailThrow();
         
-            result.Should().BeRight();
-        }
+        result.Should().BeRight();
+    }
 
-        [Theory(Skip = "error_typessubaccounts used but no specifications in the documentation"), AccountAutoData]
-        public async Task SearchIngestEvents_returns_expected_result(Client client)
-        {
-            var filter = new SearchIngestEventsFilter();
-            var result = await client.SearchIngestEvents(filter);
+    [Theory(Skip = "error_typessubaccounts used but no specifications in the documentation"), AccountAutoData]
+    public async Task SearchIngestEvents_returns_expected_result(SparkPostEnvironment env)
+    {
+        var filter = new SearchIngestEventsFilter();
+        var result = await EventsExtensions.SearchIngestEvents(filter)(env).IfFailThrow();
         
-            result.Should().BeRight();
-        }
+        result.Should().BeRight();
+    }
 
-        [Theory, AccountAutoData]
-        public async Task EventsDocumentation_returns_expected_result(Client client)
-        {
-            var result = await client.EventsDocumentation();
+    [Theory, AccountAutoData]
+    public async Task EventsDocumentation_returns_expected_result(SparkPostEnvironment env)
+    {
+        var result = await EventsExtensions.EventsDocumentation()(env).IfFailThrow();
         
-            result.Should().BeRight();
-        }
+        result.Should().BeRight();
+    }
 
-        [Theory, AccountAutoData]
-        public async Task EventsSamples_returns_expected_result(Client client)
-        {
-            var result = await client.EventsSamples("bounce");
+    [Theory, AccountAutoData]
+    public async Task EventsSamples_returns_expected_result(SparkPostEnvironment env)
+    {
+        var result = await EventsExtensions.EventsSamples("bounce")(env).IfFailThrow();
         
-            result.Should().BeRight();
-        }
+        result.Should().BeRight();
+    }
 
-        private class AccountAutoDataAttribute : AutoDataAttribute
-        {
-            public AccountAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
-            {
-            }
-        }
+    private class AccountAutoDataAttribute() : AutoDataAttribute(() => new Fixture().Customize(new Customization()));
 
-        private class Customization : ICustomization
+    private class Customization : ICustomization
+    {
+        public void Customize(IFixture fixture)
         {
-            public void Customize(IFixture fixture)
-            {
-                var configuration = new ConfigurationBuilder()
-                    .AddUserSecrets(Assembly.GetExecutingAssembly())
-                    .Build();
+            var configuration = new ConfigurationBuilder()
+                .AddUserSecrets(Assembly.GetExecutingAssembly())
+                .Build();
             
-                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                var httpClient = new HttpClient();
-                var client = new Client(httpClient, apiKey);
+            var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+            var httpClient = new HttpClient();
 
-                fixture.Register(() => client);
-            }
+            var env = SparkPostEnvironmentExtension.InitializeEnvironment(httpClient, apiKey);
+
+            fixture.Register(() => env);
         }
     }
 }

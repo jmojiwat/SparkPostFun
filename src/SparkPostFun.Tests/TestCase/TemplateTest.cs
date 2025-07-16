@@ -6,15 +6,8 @@ using Xunit;
 
 namespace SparkPostFun.Tests.TestCase
 {
-    public class TemplateTest : IClassFixture<TestCaseEmailsFixture>
+    public class TemplateTest(TestCaseEmailsFixture fixture) : IClassFixture<TestCaseEmailsFixture>
     {
-        private readonly TestCaseEmailsFixture fixture;
-
-        public TemplateTest(TestCaseEmailsFixture fixture)
-        {
-            this.fixture = fixture;
-        }
-
         private class Order
         {
             public int OrderId { get; set; }
@@ -56,11 +49,11 @@ namespace SparkPostFun.Tests.TestCase
                 }
             };
             
-            var transmission = TransmissionExtensions.CreateTransmission(recipients, content)
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipients, content)
                 .WithSubstitutionData(substitutionData)
                 .WithReturnPath(returnPath);
             
-            var response = await fixture.Client.CreateTransmission(transmission);
+            var response = await TransmissionExtensions.CreateTransmission(transmission)(fixture.SparkPostEnvironment).IfFailThrow();
 
             response.Should().BeRight();
         }

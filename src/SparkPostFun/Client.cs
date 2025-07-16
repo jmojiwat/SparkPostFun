@@ -18,7 +18,7 @@ namespace SparkPostFun
         public string Host { get; }
         public string Version { get; }
 
-        private static readonly JsonSerializerOptions JsonSerializerOptions = DefaultJsonSerializerOptions();
+        private static readonly JsonSerializerOptions JsonSerializerOptions1 = DefaultJsonSerializerOptions();
 
         public Client(HttpClient httpClient, string apiKey, string host = Hosts.Host, string version = "v1")
         {
@@ -40,7 +40,7 @@ namespace SparkPostFun
 
         public Task<HttpResponseMessage> Post<TRequest>(string requestUri, TRequest request)
         {
-            return httpClient.PostAsJsonAsync(requestUri, request, JsonSerializerOptions, CancellationToken.None);
+            return httpClient.PostAsJsonAsync(requestUri, request, JsonSerializerOptions1, CancellationToken.None);
         }
 
         public async Task<HttpResponseMessage> Post(string requestUri)
@@ -55,12 +55,12 @@ namespace SparkPostFun
 
         public Task<HttpResponseMessage> Put<TRequest>(string requestUri, TRequest request)
         {
-            return httpClient.PutAsJsonAsync(requestUri, request, JsonSerializerOptions, CancellationToken.None);
+            return httpClient.PutAsJsonAsync(requestUri, request, JsonSerializerOptions1, CancellationToken.None);
         }
 
         public Task<HttpResponseMessage> PutWithSubaccount<TRequest>(string requestUri, TRequest request, int subaccountId)
         {
-            var content = JsonSerializer.Serialize(request, JsonSerializerOptions);
+            var content = JsonSerializer.Serialize(request, JsonSerializerOptions1);
             using var requestMessage = new HttpRequestMessage(HttpMethod.Put, requestUri);
             requestMessage.Content = new StringContent(content);
             
@@ -98,7 +98,7 @@ namespace SparkPostFun
         {
             var httpRequestMessage = new HttpRequestMessage
             {
-                Content = JsonContent.Create(request, null, JsonSerializerOptions),
+                Content = JsonContent.Create(request, null, JsonSerializerOptions1),
                 Method = HttpMethod.Delete,
                 RequestUri = new Uri(requestUri, UriKind.Relative)
             };

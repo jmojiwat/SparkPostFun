@@ -18,9 +18,12 @@ namespace SparkPostFun.Tests.Serialization
                 Domain = "indbound.example.com"
             };
 
-            const string json = "{                                      " +
-                                "  \"domain\": \"indbound.example.com\" " +
-                                "}                                      ";
+            const string json =
+                """
+                {
+                  "domain": "indbound.example.com"
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<InboundDomain>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -30,11 +33,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveSendingDomain_response_returns_expected_result()
         {
-            const string json = "{                                        " +
-                                "  \"results\": {                         " +
-                                "    \"domain\": \"indbound.example.com\" " +
-                                "  }                                      " +
-                                "}                                        ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "domain": "indbound.example.com"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveInboundDomainResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -44,16 +50,19 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ListTrackingDomains_response_returns_expected_result()
         {
-            const string json = "{                                             " +
-                                "  \"results\": [                              " +
-                                "    {                                         " +
-                                "      \"domain\": \"indbound.example.com\"    " +
-                                "    },                                        " +
-                                "    {                                         " +
-                                "      \"domain\": \"inbounddomain2.test.com\" " +
-                                "    }                                         " +
-                                "  ]                                           " +
-                                "}                                             ";
+            const string json = 
+                """
+                {
+                  "results": [
+                    {
+                      "domain": "indbound.example.com"
+                    },
+                    {
+                      "domain": "inbounddomain2.test.com"
+                    }
+                  ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ListInboundDomainsResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -64,7 +73,7 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateInboundDomain_request_returns_expected_result()
         {
-            var request = new CreateInboundDomain("indbound.example.com");
+            var request = new CreateInboundDomainRequest("indbound.example.com");
 
             var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
             /* expected

@@ -5,9 +5,12 @@ namespace SparkPostFun.Infrastructure
 {
     public static class JsonSerializerOptionsExtensions
     {
+        public static readonly JsonSerializerOptions JsonSerializerOptions = DefaultJsonSerializerOptions();
+
         public static JsonSerializerOptions DefaultJsonSerializerOptions()
         {
-            var jsonSnakeCaseNamingPolicy = new JsonSnakeCaseNamingPolicy();
+            var jsonSnakeCaseNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+//            var jsonSnakeCaseNamingPolicy = new JsonSnakeCaseNamingPolicy();
             return new JsonSerializerOptions
             {
                 PropertyNamingPolicy = jsonSnakeCaseNamingPolicy,

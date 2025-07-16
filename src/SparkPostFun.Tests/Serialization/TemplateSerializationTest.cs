@@ -14,17 +14,20 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateTemplate_error_response_returns_expected_result()
         {
-            const string json = "{                                                                                             " +
-                                "  \"errors\": [                                                                               " +
-                                "    {                                                                                         " +
-                                "      \"part\": \"text\",                                                                     " +
-                                "      \"description\": \"Error while compiling part text: line 4: syntax error near 'age'\",  " +
-                                "      \"line\": 4,                                                                            " +
-                                "      \"code\": \"3000\",                                                                     " +
-                                "      \"message\": \"substitution language syntax error in template content\"                 " +
-                                "    }                                                                                         " +
-                                "  ]                                                                                           " +
-                                "}                                                                                             ";
+            const string json =
+                """
+                {
+                  "errors": [
+                    {
+                      "part": "text",
+                      "description": "Error while compiling part text: line 4: syntax error near 'age'",
+                      "line": 4,
+                      "code": "3000",
+                      "message": "substitution language syntax error in template content"
+                    }
+                  ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<TemplateErrorResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -113,11 +116,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateTemplate_response_returns_expected_result()
         {
-            const string json = "{                            " +
-                                "  \"results\": {             " +
-                                "    \"id\": \"summer_sale\"  " +
-                                "  }                          " +
-                                "}                            ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "id": "summer_sale"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTemplateResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -158,21 +164,24 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void PreviewTemplate_response_returns_expected_result()
         {
-            const string json = "{                                                                   " +
-                                "  \"results\": {                                                    " +
-                                "    \"from\": {                                                     " +
-                                "      \"email\": \"marketing@bounces.company.example\",             " +
-                                "      \"name\": \"Example Company Marketing\"                       " +
-                                "    },                                                              " +
-                                "    \"subject\": \"Summer deals for Natalie\",                      " +
-                                "    \"reply_to\": \"Summer deals <summer_deals@company.example>\",  " +
-                                "    \"text\": \"Check out these deals Natalie!\",                   " +
-                                "    \"html\": \"<b>Check out these deals Natalie!</b>\",            " +
-                                "    \"headers\": {                                                  " +
-                                "      \"X-Example-Header\": \"Summer2018\"                          " +
-                                "    }                                                               " +
-                                "  }                                                                 " +
-                                "}                                                                   ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "from": {
+                      "email": "marketing@bounces.company.example",
+                      "name": "Example Company Marketing"
+                    },
+                    "subject": "Summer deals for Natalie",
+                    "reply_to": "Summer deals <summer_deals@company.example>",
+                    "text": "Check out these deals Natalie!",
+                    "html": "<b>Check out these deals Natalie!</b>",
+                    "headers": {
+                      "X-Example-Header": "Summer2018"
+                    }
+                  }
+                }
+                """;
         
             var response = JsonSerializer.Deserialize<PreviewTemplateResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -208,37 +217,40 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveTemplate_response_returns_expected_result()
         {
-            const string json = "{                                                                    " +
-                                "  \"results\": {                                                     " +
-                                "    \"id\": \"summer_sale\",                                         " +
-                                "    \"name\": \"Summer Sale!\",                                      " +
-                                "    \"description\": \"\",                                           " +
-                                "    \"has_draft\": true,                                             " +
-                                "    \"has_published\": true,                                         " +
-                                "    \"published\": false,                                            " +
-                                "    \"shared_with_subaccounts\": false,                              " +
-                                "    \"last_update_time\": \"2014-05-22T15:12:59+00:00\",             " +
-                                "    \"last_use\": \"2014-06-02T08:15:30+00:00\",                     " +
-                                "    \"options\": {                                                   " +
-                                "      \"open_tracking\": false,                                      " +
-                                "      \"click_tracking\": true,                                      " +
-                                "      \"transactional\": false                                       " +
-                                "    },                                                               " +
-                                "    \"content\": {                                                   " +
-                                "      \"from\": {                                                    " +
-                                "        \"email\": \"marketing@bounces.company.example\",            " +
-                                "        \"name\": \"Example Company Marketing\"                      " +
-                                "      },                                                             " +
-                                "      \"subject\": \"Summer deals for {{name}}\",                    " +
-                                "      \"reply_to\": \"Summer deals <summer_deals@company.example>\", " +
-                                "      \"text\": \"Check out these deals {{name}}!\",                 " +
-                                "      \"html\": \"<b>Check out these deals {{name}}!</b>\",          " +
-                                "      \"headers\": {                                                 " +
-                                "        \"X-Example-Header\": \"Summer2014\"                         " +
-                                "      }                                                              " +
-                                "    }                                                                " +
-                                "  }                                                                  " +
-                                "}                                                                    ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "id": "summer_sale",
+                    "name": "Summer Sale!",
+                    "description": "",
+                    "has_draft": true,
+                    "has_published": true,
+                    "published": false,
+                    "shared_with_subaccounts": false,
+                    "last_update_time": "2014-05-22T15:12:59+00:00",
+                    "last_use": "2014-06-02T08:15:30+00:00",
+                    "options": {
+                      "open_tracking": false,
+                      "click_tracking": true,
+                      "transactional": false
+                    },
+                    "content": {
+                      "from": {
+                        "email": "marketing@bounces.company.example",
+                        "name": "Example Company Marketing"
+                      },
+                      "subject": "Summer deals for {{name}}",
+                      "reply_to": "Summer deals <summer_deals@company.example>",
+                      "text": "Check out these deals {{name}}!",
+                      "html": "<b>Check out these deals {{name}}!</b>",
+                      "headers": {
+                        "X-Example-Header": "Summer2014"
+                      }
+                    }
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveTemplateResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -270,31 +282,34 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ListTemplates_response_returns_expected_result()
         {
-            const string json = "{                                                               " +
-                                "  \"results\": [                                                " +
-                                "      {                                                         " +
-                                "          \"id\": \"summer_sale\",                              " +
-                                "          \"name\": \"Summer Sale!\",                           " +
-                                "          \"published\": false,                                 " +
-                                "          \"description\": \"\",                                " +
-                                "          \"has_draft\": true,                                  " +
-                                "          \"has_published\": true,                              " +
-                                "          \"last_update_time\": \"2017-08-11T12:12:12+00:00\",  " +
-                                "          \"shared_with_subaccounts\": true                     " +
-                                "      },                                                        " +
-                                "      {                                                         " +
-                                "          \"id\": \"daily\",                                    " +
-                                "          \"name\": \"daily\",                                  " +
-                                "          \"published\": false,                                 " +
-                                "          \"description\": \"Daily roundup email.\",            " +
-                                "          \"has_draft\": true,                                  " +
-                                "          \"has_published\": true,                              " +
-                                "          \"last_use\": \"2018-05-08T14:49:03+00:00\",          " +
-                                "          \"last_update_time\": \"2018-02-10T14:15:16+00:00\",  " +
-                                "          \"shared_with_subaccounts\": true                     " +
-                                "      }                                                         " +
-                                "  ]                                                             " +
-                                "}                                                               ";
+            const string json = 
+                """
+                {
+                    "results": [
+                        {
+                            "id": "summer_sale",
+                            "name": "Summer Sale!",
+                            "published": false,
+                            "description": "",
+                            "has_draft": true,
+                            "has_published": true,
+                            "last_update_time": "2017-08-11T12:12:12+00:00",
+                            "shared_with_subaccount": true
+                        },
+                        {
+                            "id": "daily",
+                            "name": "daily",
+                            "published": false,
+                            "description": "Daily roundup email.",
+                            "has_draft": true,
+                            "has_published": true,
+                            "last_use": "2018-05-08T14:49:03+00:00",
+                            "last_update_time": "2018-02-10T14:15:16+00:00",
+                            "shared_with_subaccount": true
+                        }
+                    ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ListTemplatesResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -305,7 +320,7 @@ namespace SparkPostFun.Tests.Serialization
             response.Results[0].HasDraft.Should().BeTrue();
             response.Results[0].HasPublished.Should().BeTrue();
             response.Results[0].LastUpdateTime.Should().Be(new DateTimeOffset(2017, 8, 11, 12, 12, 12, TimeSpan.Zero));
-            response.Results[0].SharedWithSubaccounts.Should().BeTrue();
+            response.Results[0].SharedWithSubaccount.Should().BeTrue();
 
             response.Results[1].Id.Should().Be("daily");
             response.Results[1].Name.Should().Be("daily");
@@ -315,7 +330,7 @@ namespace SparkPostFun.Tests.Serialization
             response.Results[1].HasPublished.Should().BeTrue();
             response.Results[1].LastUse.Should().Be(new DateTimeOffset(2018, 5, 8, 14, 49, 3, TimeSpan.Zero));
             response.Results[1].LastUpdateTime.Should().Be(new DateTimeOffset(2018, 2, 10, 14, 15, 16, TimeSpan.Zero));
-            response.Results[1].SharedWithSubaccounts.Should().BeTrue();
+            response.Results[1].SharedWithSubaccount.Should().BeTrue();
         }
 
         [Fact]
@@ -483,11 +498,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateRfc822Template_response_returns_expected_result()
         {
-            const string json = "{                                    " +
-                                "  \"results\": {                     " +
-                                "    \"id\": \"another_summer_sale\"  " +
-                                "  }                                  " +
-                                "}                                    ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "id": "another_summer_sale"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTemplateResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -545,12 +563,15 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void PreviewInlineTemplate_response_returns_expected_result()
         {
-            const string json = "{                                                        " +
-                                "  \"results\": {                                         " +
-                                "    \"subject\": \"Summer deals for Natalie\",           " +
-                                "    \"html\": \"<b>Check out these deals Natalie!</b>\"  " +
-                                "  }                                                      " +
-                                "}                                                        ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "subject": "Summer deals for Natalie",
+                    "html": "<b>Check out these deals Natalie!</b>"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<PreviewTemplateResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

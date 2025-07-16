@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
-using System.Net.Http.Json;
+﻿using LanguageExt;
 using System;
+using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
-using LanguageExt;
 using static LanguageExt.Prelude;
+using static SparkPostFun.Infrastructure.JsonSerializerOptionsExtensions;
 
 namespace SparkPostFun
 {

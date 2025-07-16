@@ -45,11 +45,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void AddRequestToBeForgotten_response_returns_expected_result()
         {
-            var json = "{                  " +
-                       "  \"results\": {   " +
-                       "    \"message\": \"Request saved.\" " +
-                       "  }                " +
-                       "}                  ";
+            var json = 
+                """
+                {
+                  "results": {
+                    "message": "Request saved."
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<DataPrivacyResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

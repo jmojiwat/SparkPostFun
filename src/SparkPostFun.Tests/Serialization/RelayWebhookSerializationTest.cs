@@ -33,27 +33,6 @@ namespace SparkPostFun.Tests.Serialization
             };
 
             var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-            /* expected
-                {
-                  "name": "Replies Webhook",
-                  "target": "https://webhooks.customer.example/replies",
-                  "auth_token": "5ebe2294ecd0e0f08eab7690d2a6ee69",
-                  "auth_type": "oauth2",
-                  "auth_request_details": {
-                    "url": "http://client.example.com/tokens",
-                    "body": {
-                      "client_id": "CLIENT123",
-                      "client_secret": "9sdfj791d2bsbf"
-                    }
-                  },
-                  "custom_headers": {
-                    "x-api-key": "abcd"
-                  },
-                  "match": {
-                    "domain": "email.example.com"
-                  }
-                }
-            */
 
             var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -73,11 +52,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateRelayWebhook_response_returns_expected_result()
         {
-            const string json = "{                                 " +
-                                "  \"results\": {                  " +
-                                "    \"id\": \"12013026328707075\" " +
-                                "  }                               " +
-                                "}                                 ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "id": "12013026328707075"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateRelayWebhookResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -96,16 +78,19 @@ namespace SparkPostFun.Tests.Serialization
                 Match = new RelayWebhookMatch("example.com")
             };
 
-            const string json = "{                                                            " +
-                                "  \"id\": \"12013026328707075\",                             " +
-                                "  \"name\": \"Inbound Customer Replies\",                    " +
-                                "  \"target\": \"https://webhooks.customer.example/replies\", " +
-                                "  \"auth_token\": \"5ebe2294ecd0e0f08eab7690d2a6ee69\",      " +
-                                "  \"match\": {                                               " +
-                                "    \"protocol\": \"SMTP\",                                  " +
-                                "    \"domain\": \"example.com\"                              " +
-                                "  }                                                          " +
-                                "}                                                            ";
+            const string json =
+                """
+                {
+                  "id": "12013026328707075",
+                  "name": "Inbound Customer Replies",
+                  "target": "https://webhooks.customer.example/replies",
+                  "auth_token": "5ebe2294ecd0e0f08eab7690d2a6ee69",
+                  "match": {
+                    "protocol": "SMTP",
+                    "domain": "example.com"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RelayWebhook>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -165,57 +150,58 @@ namespace SparkPostFun.Tests.Serialization
             };
 
             const string
-                json = //"[                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        " +
-                    //"  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      " +
-                    //"    \"msys\": {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          " +
-                    //"      \"relay_message\": {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               " +
-                    "      {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               " +
-                    "        \"content\": {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   " +
-                    "          \"email_rfc822\": \"Return-Path: <me@here.com>\r\nMIME-Version: 1.0\r\nFrom: me@here.com\r\nReceived: by 10.114.82.10 with HTTP; Mon, 4 Jul 2016 07:53:14 -0700 (PDT)\r\nDate: Mon, 4 Jul 2016 15:53:14 +0100\r\nMessage-ID: <484810298443-112311-xqxbby@mail.there.com>\r\nSubject: Relay webhooks rawk!\r\nTo: you@there.com\r\nContent-Type: multipart/alternative; boundary=deaddeaffeedf00fall45dbhail980dhypnot0ad\r\n\r\n--deaddeaffeedf00fall45dbhail980dhypnot0ad\r\nContent-Type: text/plain; charset=UTF-8\r\nHi there SparkPostians.\r\n\r\n--deaddeaffeedf00fall45dbhail980dhypnot0ad\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n<p>Hi there <strong>SparkPostians</strong></p>\r\n\r\n--deaddeaffeedf00fall45dbhail980dhypnot0ad--\r\n\",  " +
-                    "          \"email_rfc822_is_base64\": false,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             " +
-                    "          \"headers\": [                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"Return-Path\": \"<me@here.com>\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"MIME-Version\": \"1.0\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"From\": \"me@here.com\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"Received\": \"by 10.114.82.10 with HTTP; Mon, 4 Jul 2016 07:53:14 -0700 (PDT)\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"Date\": \"Mon, 4 Jul 2016 15:53:14 +0100\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"Message-ID\": \"<484810298443-112311-xqxbby@mail.there.com>\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"Subject\": \"Relay webhooks rawk!\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      " +
-                    "            },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           " +
-                    "            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "              \"To\": \"you@there.com\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  " +
-                    "            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            " +
-                    "          ],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             " +
-                    "          \"html\": \"<p>Hi there <strong>SparkPostians</strong>.</p>\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 " +
-                    "          \"subject\": \"We come in peace\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             " +
-                    "          \"text\": \"Hi there SparkPostians.\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         " +
-                    "          \"to\": [                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      " +
-                    "            \"your@yourdomain.com\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      " +
-                    "          ]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              " +
-                    "        },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               " +
-                    "        \"customer_id\": \"1337\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       " +
-                    "        \"friendly_from\": \"me@here.com\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              " +
-                    "        \"msg_from\": \"me@here.com\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   " +
-                    "        \"rcpt_to\": \"you@there.com\",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  " +
-                    "        \"webhook_id\": \"4839201967643219\"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             " +
-                    "      }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  " +
-                    "    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    " +
-                    "  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ";
-//                            "  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      " +
-//                            "]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ";
+                json =
+                    """
+                    [
+                      {
+                        "msys": {
+                          "relay_message": {
+                            "content": {
+                              "email_rfc822": "Return-Path: <me@here.com>\r\nMIME-Version: 1.0\r\nFrom: me@here.com\r\nReceived: by 10.114.82.10 with HTTP; Mon, 4 Jul 2016 07:53:14 -0700 (PDT)\r\nDate: Mon, 4 Jul 2016 15:53:14 +0100\r\nMessage-ID: <484810298443-112311-xqxbby@mail.there.com>\r\nSubject: Relay webhooks rawk!\r\nTo: you@there.com\r\nContent-Type: multipart/alternative; boundary=deaddeaffeedf00fall45dbhail980dhypnot0ad\r\n\r\n--deaddeaffeedf00fall45dbhail980dhypnot0ad\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\nHi there SparkPostians.\r\n\r\n--deaddeaffeedf00fall45dbhail980dhypnot0ad\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n<p>Hi there <strong>SparkPostians</strong></p>\r\n\r\n--deaddeaffeedf00fall45dbhail980dhypnot0ad--\r\n",
+                              "email_rfc822_is_base64": false,
+                              "headers": [
+                                {
+                                  "Return-Path": "<me@here.com>"
+                                },
+                                {
+                                  "MIME-Version": "1.0"
+                                },
+                                {
+                                  "From": "me@here.com"
+                                },
+                                {
+                                  "Received": "by 10.114.82.10 with HTTP; Mon, 4 Jul 2016 07:53:14 -0700 (PDT)"
+                                },
+                                {
+                                  "Date": "Mon, 4 Jul 2016 15:53:14 +0100"
+                                },
+                                {
+                                  "Message-ID": "<484810298443-112311-xqxbby@mail.there.com>"
+                                },
+                                {
+                                  "Subject": "Relay webhooks rawk!"
+                                },
+                                {
+                                  "To": "you@there.com"
+                                }
+                              ],
+                              "html": "<p>Hi there <strong>SparkPostians</strong>.</p>",
+                              "subject": "We come in peace",
+                              "text": "Hi there SparkPostians.",
+                              "to": [
+                                "your@yourdomain.com"
+                              ]
+                            },
+                            "customer_id": "1337",
+                            "friendly_from": "me@here.com",
+                            "msg_from": "me@here.com",
+                            "rcpt_to": "you@there.com",
+                            "webhook_id": "4839201967643219"
+                          }
+                        }
+                      }
+                    ]
+                    """;
 
             var response = JsonSerializer.Deserialize<RelayWebhookPayload>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -225,31 +211,34 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ListTrackingDomains_response_returns_expected_result()
         {
-            const string json = "{                                                                " +
-                                "  \"results\": [                                                 " +
-                                "    {                                                            " +
-                                "      \"id\": \"12013026328707075\",                             " +
-                                "      \"name\": \"Replies Webhook\",                             " +
-                                "      \"target\": \"https://webhooks.customer.example/replies\", " +
-                                "      \"auth_token\": \"5ebe2294ecd0e0f08eab7690d2a6ee69\",      " +
-                                "      \"auth_type\": \"oauth2\",                                 " +
-                                "      \"auth_request_details\": {                                " +
-                                "        \"url\": \"https://oauth.myurl.com/tokens\",             " +
-                                "        \"body\": {                                              " +
-                                "          \"client_id\": \"<oauth client id>\",                  " +
-                                "          \"client_secret\": \"<oauth client secret>\"           " +
-                                "        }                                                        " +
-                                "      },                                                         " +
-                                "      \"custom_headers\": {                                      " +
-                                "        \"x-webhook-source\": \"sparkpost\"                      " +
-                                "      },                                                         " +
-                                "      \"match\": {                                               " +
-                                "        \"protocol\": \"SMTP\",                                  " +
-                                "        \"domain\": \"email.example.com\"                        " +
-                                "      }                                                          " +
-                                "    }                                                            " +
-                                "  ]                                                              " +
-                                "}                                                                ";
+            const string json = 
+                """
+                {
+                  "results": [
+                    {
+                      "id": "12013026328707075",
+                      "name": "Replies Webhook",
+                      "target": "https://webhooks.customer.example/replies",
+                      "auth_token": "5ebe2294ecd0e0f08eab7690d2a6ee69",
+                      "auth_type": "oauth2",
+                      "auth_request_details": {
+                        "url": "https://oauth.myurl.com/tokens",
+                        "body": {
+                          "client_id": "<oauth client id>",
+                          "client_secret": "<oauth client secret>"
+                        }
+                      },
+                      "custom_headers": {
+                        "x-webhook-source": "sparkpost"
+                      },
+                      "match": {
+                        "protocol": "SMTP",
+                        "domain": "email.example.com"
+                      }
+                    }
+                  ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ListRelayWebhooksResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -259,28 +248,31 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveRelayWebhook_response_returns_expected_result()
         {
-            const string json = "{                                                              " +
-                                "  \"results\": {                                               " +
-                                "    \"name\": \"Replies Webhook\",                             " +
-                                "    \"target\": \"https://webhooks.customer.example/replies\", " +
-                                "    \"auth_token\": \"5ebe2294ecd0e0f08eab7690d2a6ee69\",      " +
-                                "    \"auth_type\": \"oauth2\",                                 " +
-                                "    \"auth_request_details\": {                                " +
-                                "      \"url\": \"https://oauth.myurl.com/tokens\",             " +
-                                "      \"body\": {                                              " +
-                                "        \"client_id\": \"<oauth client id>\",                  " +
-                                "        \"client_secret\": \"<oauth client secret>\"           " +
-                                "      }                                                        " +
-                                "    },                                                         " +
-                                "    \"custom_headers\": {                                      " +
-                                "      \"x-api-key\": \"abcd\"                                  " +
-                                "    },                                                         " +
-                                "    \"match\": {                                               " +
-                                "      \"protocol\": \"SMTP\",                                  " +
-                                "      \"domain\": \"email.example.com\"                        " +
-                                "    }                                                          " +
-                                "  }                                                            " +
-                                "}                                                              ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "name": "Replies Webhook",
+                    "target": "https://webhooks.customer.example/replies",
+                    "auth_token": "5ebe2294ecd0e0f08eab7690d2a6ee69",
+                    "auth_type": "oauth2",
+                    "auth_request_details": {
+                      "url": "https://oauth.myurl.com/tokens",
+                      "body": {
+                        "client_id": "<oauth client id>",
+                        "client_secret": "<oauth client secret>"
+                      }
+                    },
+                    "custom_headers": {
+                      "x-api-key": "abcd"
+                    },
+                    "match": {
+                      "protocol": "SMTP",
+                      "domain": "email.example.com"
+                    }
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveRelayWebhookResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -304,20 +296,6 @@ namespace SparkPostFun.Tests.Serialization
             };
 
             var json = JsonSerializer.Serialize(request, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
-            /* expected
-                {
-                  "name": "New Replies Webhook",
-                  "target": "https://webhook.customer.example/replies",
-                  "auth_token": "A different auth token",
-                  "auth_type": "none",
-                  "custom_headers": {
-                    "x-api-key": "abcd"
-                  },
-                  "match": {
-                    "domain": "email.a-different-domain.com"
-                  }
-                }
-            */
 
             var obj = JsonSerializer.Deserialize<JsonElement>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -333,11 +311,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void UpdateRelayWebhook_response_returns_expected_result()
         {
-            var json = "{                                 " +
-                       "  \"results\": {                  " +
-                       "    \"id\": \"12013026328707075\" " +
-                       "  }                               " +
-                       "}                                 ";
+            var json = 
+                """
+                {
+                  "results": {
+                    "id": "12013026328707075"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<UpdateRelayWebhookResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -359,18 +340,21 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ValidateRelayWebhook_response_returns_expected_result()
         {
-            const string json = "{                                                 " +
-                                "  \"results\": {                                  " +
-                                "    \"msg\": \"Test POST to endpoint succeeded\", " +
-                                "    \"response\": {                               " +
-                                "      \"status\": 200,                            " +
-                                "      \"headers\": {                              " +
-                                "        \"Content-Type\": \"text/plain\"          " +
-                                "      },                                          " +
-                                "      \"body\": \"OK\"                            " +
-                                "    }                                             " +
-                                "  }                                               " +
-                                "}                                                 ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "msg": "Test POST to endpoint succeeded",
+                    "response": {
+                      "status": 200,
+                      "headers": {
+                        "Content-Type": "text/plain"
+                      },
+                      "body": "OK"
+                    }
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ValidateRelayWebhookResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

@@ -1,49 +1,44 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
-using AutoFixture.Xunit2;
+using AutoFixture.Xunit3;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
 using SparkPostFun.Sending;
 using Xunit;
 using static System.Reflection.Assembly;
 
-namespace SparkPostFun.Tests
+namespace SparkPostFun.Tests;
+
+public class AbTestingTest
 {
-    public class AbTestingTest
+    [Theory, AbTestingAutoData]
+    public async Task ListAbTests_returns_expected_result(SparkPostEnvironment env)
     {
-        [Theory, AbTestingAutoData]
-        public async Task ListAbTests_returns_expected_result(Client client)
-        {
-            var response = await client.ListAbTests();
+        var response = await AbTestingExtensions.ListAbTests()(env).IfFailThrow();
 
-            response.Should().BeRight();
-        }
+        response.Should().BeRight();
+    }
 
-        private class AbTestingAutoDataAttribute : AutoDataAttribute
+    private class AbTestingAutoDataAttribute()
+        : AutoDataAttribute(() => new Fixture().Customize(new Customization()));
+
+    private class Customization : ICustomization
+    {
+        public void Customize(IFixture fixture)
         {
-            public AbTestingAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+            fixture.Register(() =>
             {
-            }
-        }
+                var configuration = new ConfigurationBuilder()
+                    .AddUserSecrets(GetExecutingAssembly())
+                    .Build();
 
-        private class Customization : ICustomization
-        {
-            public void Customize(IFixture fixture)
-            {
-                fixture.Register(() =>
-                {
-                    var configuration = new ConfigurationBuilder()
-                        .AddUserSecrets(GetExecutingAssembly())
-                        .Build();
+                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                var httpClient = new HttpClient();
 
-                    var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                    var httpClient = new HttpClient();
-                    var client = new Client(httpClient, apiKey);
-                    return client;
-                });
-            }
+                var env = SparkPostEnvironmentExtension.InitializeEnvironment(httpClient, apiKey);
+                return env;
+            });
         }
     }
 }
-

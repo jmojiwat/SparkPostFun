@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
-using AutoFixture.Xunit2;
+using AutoFixture.Xunit3;
 using FluentAssertions;
 using FluentAssertions.LanguageExt;
 using Microsoft.Extensions.Configuration;
@@ -9,69 +9,67 @@ using SparkPostFun.Sending;
 using Xunit;
 using static System.Reflection.Assembly;
 
-namespace SparkPostFun.Tests
+namespace SparkPostFun.Tests;
+
+public class TemplateTest
 {
-    public class TemplateTest
+    [Fact]
+    public void ParseTemplateContentFrom_with_SenderAddress_returns_expected_result()
     {
-        [Fact]
-        public void ParseTemplateContentFrom_with_SenderAddress_returns_expected_result()
+        var sender = new SenderAddress("abc@example.com");
+        var template = new TemplateContent
         {
-            var sender = new SenderAddress("abc@example.com");
-            var template = new TemplateContent
-            {
-                From = sender
-            };
+            From = sender
+        };
         
-            var result = TemplateExtensions.ParseTemplateContentFrom(template);
+        var result = TemplateExtensions.ParseTemplateContentFrom(template);
         
-            result.Should().Be(new SenderAddress("abc@example.com"));
-        }
+        result.Should().Be(new SenderAddress("abc@example.com"));
+    }
     
-        [Fact]
-        public void ParseTemplateContentFrom_with_string_returns_expected_result()
+    [Fact]
+    public void ParseTemplateContentFrom_with_string_returns_expected_result()
+    {
+        var template = new TemplateContent
         {
-            var template = new TemplateContent
-            {
-                From = "abc@example.com"
-            };
+            From = "abc@example.com"
+        };
         
-            var result = TemplateExtensions.ParseTemplateContentFrom(template);
+        var result = TemplateExtensions.ParseTemplateContentFrom(template);
         
-            result.Should().Be(new SenderAddress("abc@example.com"));
-        }
+        result.Should().Be(new SenderAddress("abc@example.com"));
+    }
     
-        [Theory, TemplateAutoData]
-        public async Task ListTemplates_returns_expected_result(Client client)
-        {
-            var response = await client.ListTemplates();
+    [Theory, TemplateAutoData]
+    public async Task ListTemplates_returns_expected_result(SparkPostEnvironment env)
+    {
+        var response = await TemplateExtensions.ListTemplates()(env).IfFailThrow();
 
-            response.Should().BeRight();
+        response.Should().BeRight();
+    }
+
+    private class TemplateAutoDataAttribute : AutoDataAttribute
+    {
+        public TemplateAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+        {
         }
+    }
 
-        private class TemplateAutoDataAttribute : AutoDataAttribute
+    private class Customization : ICustomization
+    {
+        public void Customize(IFixture fixture)
         {
-            public TemplateAutoDataAttribute() : base(() => new Fixture().Customize(new Customization()))
+            fixture.Register(() =>
             {
-            }
+                var configuration = new ConfigurationBuilder()
+                    .AddUserSecrets(GetExecutingAssembly())
+                    .Build();
+
+                var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
+                var httpClient = new HttpClient();
+                var env = SparkPostEnvironmentExtension.InitializeEnvironment(httpClient, apiKey);
+                return env;
+            });
         }
-
-        private class Customization : ICustomization
-        {
-            public void Customize(IFixture fixture)
-            {
-                fixture.Register(() =>
-                {
-                    var configuration = new ConfigurationBuilder()
-                        .AddUserSecrets(GetExecutingAssembly())
-                        .Build();
-
-                    var apiKey = configuration.GetSection("SparkPost:ApiKey").Value;
-                    var httpClient = new HttpClient();
-                    var client = new Client(httpClient, apiKey);
-                    return client;
-                });
-            }
-        }
-
     }
 }

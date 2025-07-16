@@ -34,7 +34,7 @@ namespace SparkPostFun.Tests.Serialization
             };
 
             var content = new InlineContent(new SenderAddress(string.Empty), string.Empty);
-            var transmission = TransmissionExtensions.CreateTransmission(recipients, content)
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipients, content)
                 .WithOptions(new TransmissionOptions
                 {
                     ClickTracking = false,
@@ -103,7 +103,7 @@ namespace SparkPostFun.Tests.Serialization
 
             var storedRecipientList = new StoredRecipientList("christmas_sales_2013");
         
-            var transmission = TransmissionExtensions.CreateTransmission(storedRecipientList, content);
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(storedRecipientList, content);
 
             var json = JsonSerializer.Serialize(transmission,
                 JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
@@ -141,7 +141,7 @@ namespace SparkPostFun.Tests.Serialization
                 Html = "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get a {{discount}}% discount\n</p><p>Hurry, this offer is only to {{user_type}}\n</p>" 
             };
         
-            var request = TransmissionExtensions.CreateTransmission(recipient, content)
+            var request = TransmissionExtensions.CreateTransmissionRequest(recipient, content)
                 .WithOptions(new TransmissionOptions
                 {
                     OpenTracking = true,
@@ -223,13 +223,16 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void SendInlineContent_response_returns_expected_result()
         {
-            const string json = "{                                     " +
-                                "  \"results\": {                      " +
-                                "    \"total_rejected_recipients\": 0, " +
-                                "    \"total_accepted_recipients\": 1, " +
-                                "    \"id\": \"11668787484950529\"     " +
-                                "  }                                   " +
-                                "}                                     ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "total_rejected_recipients": 0,
+                    "total_accepted_recipients": 1,
+                    "id": "11668787484950529"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTransmissionResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -251,7 +254,7 @@ namespace SparkPostFun.Tests.Serialization
                 }
             };
             var content = new StoredTemplateContent("black_friday") { UseDraftTemplate = true };
-            var transmission = TransmissionExtensions.CreateTransmission(recipient, content)
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipient, content)
                 .WithSubstitutionData(new Dictionary<string, object>
                 {
                     { "discount", "25%" }
@@ -299,26 +302,29 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void SendTemplateContent_response_returns_expected_result()
         {
-            const string json = "{                                                                          " +
-                                "  \"errors\": [                                                            " +
-                                "    {                                                                      " +
-                                "      \"message\": \"transmission created, but with validation errors\",   " +
-                                "      \"code\": \"2000\"                                                   " +
-                                "    }                                                                      " +
-                                "  ],                                                                       " +
-                                "  \"results\": {                                                           " +
-                                "    \"rcpt_to_errors\": [                                                  " +
-                                "      {                                                                    " +
-                                "        \"message\": \"required field is missing\",                        " +
-                                "        \"description\": \"address.email is required for each recipient\", " +
-                                "        \"code\": \"1400\"                                                 " +
-                                "      }                                                                    " +
-                                "    ],                                                                     " +
-                                "    \"total_rejected_recipients\": 1,                                      " +
-                                "    \"total_accepted_recipients\": 1,                                      " +
-                                "    \"id\": \"11668787484950530\"                                          " +
-                                "  }                                                                        " +
-                                "}                                                                          ";
+            const string json = 
+                """
+                {
+                  "errors": [
+                    {
+                      "message": "transmission created, but with validation errors",
+                      "code": "2000"
+                    }
+                  ],
+                  "results": {
+                    "rcpt_to_errors": [
+                      {
+                        "message": "required field is missing",
+                        "description": "address.email is required for each recipient",
+                        "code": "1400"
+                      }
+                    ],
+                    "total_rejected_recipients": 1,
+                    "total_accepted_recipients": 1,
+                    "id": "11668787484950530"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTransmissionResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -336,15 +342,18 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void SendTemplateContent_error_response_returns_expected_result()
         {
-            const string json = "{                                                                      " +
-                                "  \"errors\": [                                                        " +
-                                "    {                                                                  " +
-                                "      \"message\": \"Subresource not found\",                          " +
-                                "      \"description\": \"template 'christmas_offer' does not exist\",  " +
-                                "      \"code\": \"1603\"                                               " +
-                                "    }                                                                  " +
-                                "  ]                                                                    " +
-                                "}                                                                      ";
+            const string json = 
+                """
+                {
+                  "errors": [
+                    {
+                      "message": "Subresource not found",
+                      "description": "template 'christmas_offer' does not exist",
+                      "code": "1603"
+                    }
+                  ]
+                }
+                """;
         
             var response = JsonSerializer.Deserialize<ErrorResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -366,7 +375,7 @@ namespace SparkPostFun.Tests.Serialization
                     { "last_name", "Flintstone" }
                 }
             };
-            var transmission = TransmissionExtensions.CreateTransmission(recipient, content);
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipient, content);
         
             var json = JsonSerializer.Serialize(transmission, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
             /* expected:
@@ -402,13 +411,16 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void SendAbTestContent_response_returns_expected_result()
         {
-            const string json = "{                                     " +
-                                "  \"results\": {                      " +
-                                "    \"total_rejected_recipients\": 0, " +
-                                "    \"total_accepted_recipients\": 1, " +
-                                "    \"id\": \"11668787493850529\"     " +
-                                "  }                                   " +
-                                "}                                     ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "total_rejected_recipients": 0,
+                    "total_accepted_recipients": 1,
+                    "id": "11668787493850529"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTransmissionResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -434,7 +446,7 @@ namespace SparkPostFun.Tests.Serialization
             {
                 EmailRfc822 = "Content-Type: text/plain\r\nTo: \"{{address.name}}\" <{{address.email}}>\r\n\r\n Hi {{first_name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}\r\n" 
             };
-            var transmission = TransmissionExtensions.CreateTransmission(recipient, content)
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipient, content)
                 .WithDescription("Christmas Campaign Email");
         
             var json = JsonSerializer.Serialize(transmission, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
@@ -477,13 +489,16 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void SendRfc822Content_response_returns_expected_result()
         {
-            const string json = "{                                     " +
-                                "  \"results\": {                      " +
-                                "    \"total_rejected_recipients\": 0, " +
-                                "    \"total_accepted_recipients\": 1, " +
-                                "    \"id\": \"11668787493850529\"     " +
-                                "  }                                   " +
-                                "}                                     ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "total_rejected_recipients": 0,
+                    "total_accepted_recipients": 1,
+                    "id": "11668787493850529"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTransmissionResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -498,7 +513,7 @@ namespace SparkPostFun.Tests.Serialization
         {
             var recipient = new StoredRecipientList("all_subscribers");
             var content = new StoredTemplateContent("fall_deals");
-            var transmission = TransmissionExtensions.CreateTransmission(recipient, content)
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipient, content)
                 .WithName("Fall Sale")
                 .WithCampaignId("fall")
                 .WithOptions(new TransmissionOptions
@@ -537,20 +552,23 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ScheduleTransmission_response_returns_expected_result()
         {
-            const string json = "{                                        " +
-                                "  \"results\": {                         " +
-                                "    \"total_rejected_recipients\": 1000, " +
-                                "    \"total_accepted_recipients\": 0,    " +
-                                "    \"id\": \"11668787493850529\"        " +
-                                "  }                                      " +
-                                "}                                        ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "total_rejected_recipients": 1000,
+                    "total_accepted_recipients": 0,
+                    "id": "11668787484950529"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTransmissionResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
             using var scope = new AssertionScope();
             response!.Results.TotalRejectedRecipients.Should().Be(1000);
             response.Results.TotalAcceptedRecipients.Should().Be(0);
-            response.Results.Id.Should().Be("11668787493850529");
+            response.Results.Id.Should().Be("11668787484950529");
         }
 
         [Fact]
@@ -565,7 +583,7 @@ namespace SparkPostFun.Tests.Serialization
             {
                 Text = "This mail was sent to to@thisperson.com while CCing cc@thatperson.com."
             };
-            var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipients, content);
             var handledTransmission = TransmissionExtensions.HandleCcAndBccRecipients(transmission);
             var json = JsonSerializer.Serialize(handledTransmission,
                 JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
@@ -594,7 +612,7 @@ namespace SparkPostFun.Tests.Serialization
             {
                 Text = "This mail was sent To to@thisperson.com while BCCing an unnamed recipient. Sneaky."
             };
-            var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipients, content);
             var handledTransmission = TransmissionExtensions.HandleCcAndBccRecipients(transmission);
             var json = JsonSerializer.Serialize(handledTransmission,
                 JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
@@ -623,7 +641,7 @@ namespace SparkPostFun.Tests.Serialization
             {
                 Text = "This mail was sent To to@thisperson.com while CCing cc@thatperson.com and BCCing an unnamed recipient. You know who you are."
             };
-            var transmission = TransmissionExtensions.CreateTransmission(recipients, content);
+            var transmission = TransmissionExtensions.CreateTransmissionRequest(recipients, content);
             var handledTransmission = TransmissionExtensions.HandleCcAndBccRecipients(transmission);
             var json = JsonSerializer.Serialize(handledTransmission,
                 JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());

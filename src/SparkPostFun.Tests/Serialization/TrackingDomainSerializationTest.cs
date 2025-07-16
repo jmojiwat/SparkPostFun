@@ -37,11 +37,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void CreateTrackingDomain_response_returns_expected_result()
         {
-            const string json = "{                      " +
-                                "  \"results\": {       " +
-                                "    \"domain\": \"example.domain.com\" " +
-                                "  }                    " +
-                                "}                      ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "domain": "example.domain.com"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<CreateTrackingDomainResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -51,13 +54,16 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void VerifyTrackingDomain_response_returns_expected_result()
         {
-            const string json = "{                                    " +
-                                "  \"results\": {                     " +
-                                "    \"verified\": true,              " +
-                                "    \"cname_status\": \"pending\",          " +
-                                "    \"compliance_status\": \"valid\" " +
-                                "  }                                  " +
-                                "}                                    ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "verified": true,
+                    "cname_status": "pending",
+                    "compliance_status": "valid"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<VerifyTrackingDomainResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -67,19 +73,22 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveTrackingDomain_response_returns_expected_result()
         {
-            var json = "{                                        " +
-                       "  \"results\": {                         " +
-                       "    \"port\": 443,                       " +
-                       "    \"domain\": \"example.domain.com\",  " +
-                       "    \"secure\": true,                    " +
-                       "    \"default\": true,                   " +
-                       "    \"status\": {                        " +
-                       "      \"verified\": false,               " +
-                       "      \"cname_status\": \"pending\",     " +
-                       "      \"compliance_status\": \"pending\" " +
-                       "    }                                    " +
-                       "  }                                      " +
-                       "}                                        ";
+            var json = 
+                """
+                {
+                  "results": {
+                    "port": 443,
+                    "domain": "example.domain.com",
+                    "secure": true,
+                    "default": true,
+                    "status": {
+                      "verified": false,
+                      "cname_status": "pending",
+                      "compliance_status": "pending"
+                    }
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveTrackingDomainResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -115,11 +124,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void UpdateTrackingDomain_response_returns_expected_result()
         {
-            var json = "{                      " +
-                       "  \"results\": {       " +
-                       "    \"domain\": \"example.domain.com\" " +
-                       "  }                    " +
-                       "}                      ";
+            var json = 
+                """
+                {
+                  "results": {
+                    "domain": "example.domain.com"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<UpdateTrackingDomainResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -129,33 +141,36 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void ListTrackingDomains_response_returns_expected_result()
         {
-            var json = "{                                          " +
-                       "  \"results\": [                           " +
-                       "    {                                      " +
-                       "      \"port\": 443,                       " +
-                       "      \"domain\": \"example.domain.com\",  " +
-                       "      \"secure\": true,                    " +
-                       "      \"default\": true,                   " +
-                       "      \"status\": {                        " +
-                       "        \"verified\": false,               " +
-                       "        \"cname_status\": \"pending\",     " +
-                       "        \"compliance_status\": \"pending\" " +
-                       "      }                                    " +
-                       "    },                                     " +
-                       "    {                                      " +
-                       "      \"port\": 80,                        " +
-                       "      \"domain\": \"example2.domain.com\", " +
-                       "      \"secure\": false,                   " +
-                       "      \"default\": false,                  " +
-                       "      \"status\": {                        " +
-                       "        \"verified\": true,                " +
-                       "        \"cname_status\": \"valid\",       " +
-                       "        \"compliance_status\": \"valid\"   " +
-                       "      },                                   " +
-                       "      \"subaccount_id\": 215               " +
-                       "    }                                      " +
-                       "  ]                                        " +
-                       "}                                          ";
+            var json = 
+                """
+                {
+                  "results": [
+                    {
+                      "port": 443,
+                      "domain": "example.domain.com",
+                      "secure": true,
+                      "default": true,
+                      "status": {
+                        "verified": false,
+                        "cname_status": "pending",
+                        "compliance_status": "pending"
+                      }
+                    },
+                    {
+                      "port": 80,
+                      "domain": "example2.domain.com",
+                      "secure": false,
+                      "default": false,
+                      "status": {
+                        "verified": true,
+                        "cname_status": "valid",
+                        "compliance_status": "valid"
+                      },
+                      "subaccount_id": 215
+                    }
+                  ]
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<ListTrackingDomainsResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

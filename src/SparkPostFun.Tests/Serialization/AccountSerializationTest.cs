@@ -64,49 +64,52 @@ namespace SparkPostFun.Tests.Serialization
                 }
             };
 
-            const string json = "{                                                     " +
-                                "  \"customer_id\": 102938,                            " +
-                                "  \"company_name\": \"Example, Inc.\",                " +
-                                "  \"country_code\": \"US\",                           " +
-                                "  \"anniversary_date\": \"2019-01-11T08:00:00.000Z\", " +
-                                "  \"created\": \"2015-01-11T08:00:00.000Z\",          " +
-                                "  \"updated\": \"2018-04-11T08:00:00.000Z\",          " +
-                                "  \"status\": \"active\",                             " +
-                                "  \"status_updated\": \"2018-04-11T08:00:00.000Z\",   " +
-                                "  \"status_reason_category\": \"\",                   " +
-                                "  \"tfa_required\": false,                            " +
-                                "  \"service_level\": \"standard\",                    " +
-                                "  \"subscription\": {                                 " +
-                                "    \"name\": \"500K\",                               " +
-                                "    \"code\": \"500K-0817\",                          " +
-                                "    \"plan_volume\": 500000,                          " +
-                                "    \"effective_date\": \"2018-04-11T08:00:00.000Z\", " +
-                                "    \"self_serve\": true,                             " +
-                                "    \"type\": \"default\"                             " +
-                                "  },                                                  " +
-                                "  \"options\": {                                      " +
-                                "    \"smtp_tracking_default\": true                   " +
-                                "  },                                                  " +
-                                "  \"usage\": {                                        " +
-                                "    \"timestamp\": \"2018-06-26T14:48:00.000Z\",      " +
-                                "    \"day\": {                                        " +
-                                "      \"limit\": 50000,                               " +
-                                "      \"used\": 8367,                                 " +
-                                "      \"start\": \"2018-06-25T15:00:00.000Z\",        " +
-                                "      \"end\": \"2018-06-26T15:00:00.000Z\"           " +
-                                "    },                                                " +
-                                "    \"month\": {                                      " +
-                                "      \"limit\": 500000,                              " +
-                                "      \"used\": 40321,                                " +
-                                "      \"start\": \"2018-06-03T08:00:00.000Z\",        " +
-                                "      \"end\": \"2018-07-03T08:00:00.000Z\"           " +
-                                "    }                                                 " +
-                                "  },                                                  " +
-                                "  \"support\": {                                      " +
-                                "    \"phone\": false,                                 " +
-                                "    \"online\": true                                  " +
-                                "  }                                                   " +
-                                "}                                                     ";
+            const string json =
+                """
+                {
+                  "customer_id": 102938,
+                  "company_name": "Example, Inc.",
+                  "country_code": "US",
+                  "anniversary_date": "2019-01-11T08:00:00.000Z",
+                  "created": "2015-01-11T08:00:00.000Z",
+                  "updated": "2018-04-11T08:00:00.000Z",
+                  "status": "active",
+                  "status_updated": "2018-04-11T08:00:00.000Z",
+                  "status_reason_category": "",
+                  "tfa_required": false,
+                  "service_level": "standard",
+                  "subscription": {
+                    "name": "500K",
+                    "code": "500K-0817",
+                    "plan_volume": 500000,
+                    "effective_date": "2018-04-11T08:00:00.000Z",
+                    "self_serve": true,
+                    "type": "default"
+                  },
+                  "options": {
+                    "smtp_tracking_default": true
+                  },
+                  "usage": {
+                    "timestamp": "2018-06-26T14:48:00.000Z",
+                    "day": {
+                      "limit": 50000,
+                      "used": 8367,
+                      "start": "2018-06-25T15:00:00.000Z",
+                      "end": "2018-06-26T15:00:00.000Z"
+                    },
+                    "month": {
+                      "limit": 500000,
+                      "used": 40321,
+                      "start": "2018-06-03T08:00:00.000Z",
+                      "end": "2018-07-03T08:00:00.000Z"
+                    }
+                  },
+                  "support": {
+                    "phone": false,
+                    "online": true
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<Account>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -146,58 +149,61 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void RetrieveAccount_response_returns_expected_result()
         {
-            const string json = "{                                                       " +
-                                "  \"results\": {                                        " +
-                                "    \"customer_id\": 102938,                            " +
-                                "    \"company_name\": \"Example Inc\",                  " +
-                                "    \"country_code\": \"US\",                           " +
-                                "    \"anniversary_date\": \"2019-01-11T08:00:00.000Z\", " +
-                                "    \"created\": \"2018-01-11T08:00:00.000Z\",          " +
-                                "    \"updated\": \"2018-02-11T08:00:00.000Z\",          " +
-                                "    \"status\": \"active\",                             " +
-                                "    \"tfa_required\": false,                            " +
-                                "    \"status_updated\": \"2018-12-21T13:21:41.442Z\",   " +
-                                "    \"status_reason_category\": \"\",                   " +
-                                "    \"subscription\": {                                 " +
-                                "      \"code\": \"150K-0817\",                          " +
-                                "      \"name\": \"150K\",                               " +
-                                "      \"plan_volume\": 150000,                          " +
-                                "      \"self_serve\": true,                             " +
-                                "      \"type\": \"manual\"                              " +
-                                "    },                                                  " +
-                                "    \"support\": {                                      " +
-                                "      \"online\": true,                                 " +
-                                "      \"phone\": false                                  " +
-                                "    },                                                  " +
-                                "    \"pending_subscription\": {                         " +
-                                "      \"code\": \"2.5M-0817\",                          " +
-                                "      \"name\": \"2.5M\",                               " +
-                                "      \"effective_date\": \"2017-04-11T00:00:00.000Z\"  " +
-                                "    },                                                  " +
-                                "    \"options\": {                                      " +
-                                "      \"smtp_tracking_default\": false                  " +
-                                "    },                                                  " +
-                                "    \"usage\": {                                        " +
-                                "      \"timestamp\": \"2016-03-17T05:19:00.932Z\",      " +
-                                "      \"day\": {                                        " +
-                                "        \"used\": 22003,                                " +
-                                "        \"limit\": 50000,                               " +
-                                "        \"start\": \"2016-03-16T05:30:00.932Z\",        " +
-                                "        \"end\": \"2016-03-17T05:30:00.932Z\"           " +
-                                "      },                                                " +
-                                "      \"month\": {                                      " +
-                                "        \"used\": 122596,                               " +
-                                "        \"limit\": 1500000,                             " +
-                                "        \"start\": \"2018-03-11T08:00:00.000Z\",        " +
-                                "        \"end\": \"2016-04-11T08:00:00.000Z\"           " +
-                                "      },                                                " +
-                                "      \"sandbox\": {                                    " +
-                                "        \"used\": 3,                                    " +
-                                "        \"limit\": 5                                    " +
-                                "      }                                                 " +
-                                "    }                                                   " +
-                                "  }                                                     " +
-                                "}                                                       ";
+            const string json = 
+                """
+                {
+                  "results": {
+                    "customer_id": 102938,
+                    "company_name": "Example Inc",
+                    "country_code": "US",
+                    "anniversary_date": "2019-01-11T08:00:00.000Z",
+                    "created": "2018-01-11T08:00:00.000Z",
+                    "updated": "2018-02-11T08:00:00.000Z",
+                    "status": "active",
+                    "tfa_required": false,
+                    "status_updated": "2018-12-21T13:21:41.442Z",
+                    "status_reason_category": "",
+                    "subscription": {
+                      "code": "150K-0817",
+                      "name": "150K",
+                      "plan_volume": 150000,
+                      "self_serve": true,
+                      "type": "manual"
+                    },
+                    "support": {
+                      "online": true,
+                      "phone": false
+                    },
+                    "pending_subscription": {
+                      "code": "2.5M-0817",
+                      "name": "2.5M",
+                      "effective_date": "2017-04-11T00:00:00.000Z"
+                    },
+                    "options": {
+                      "smtp_tracking_default": false
+                    },
+                    "usage": {
+                      "timestamp": "2016-03-17T05:19:00.932Z",
+                      "day": {
+                        "used": 22003,
+                        "limit": 50000,
+                        "start": "2016-03-16T05:30:00.932Z",
+                        "end": "2016-03-17T05:30:00.932Z"
+                      },
+                      "month": {
+                        "used": 122596,
+                        "limit": 1500000,
+                        "start": "2018-03-11T08:00:00.000Z",
+                        "end": "2016-04-11T08:00:00.000Z"
+                      },
+                      "sandbox": {
+                        "used": 3,
+                        "limit": 5
+                      }
+                    }
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<RetrieveAccountResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 
@@ -244,11 +250,14 @@ namespace SparkPostFun.Tests.Serialization
         [Fact]
         public void UpdateAccount_response_returns_expected_result()
         {
-            const string json = "{                  " +
-                                "  \"results\": {   " +
-                                "    \"message\": \"Account has been updated\" " +
-                                "  }                " +
-                                "}                  ";
+            const string json =
+                """
+                {
+                  "results": {
+                    "message": "Account has been updated"
+                  }
+                }
+                """;
 
             var response = JsonSerializer.Deserialize<UpdateAccountResponse>(json, JsonSerializerOptionsExtensions.DefaultJsonSerializerOptions());
 

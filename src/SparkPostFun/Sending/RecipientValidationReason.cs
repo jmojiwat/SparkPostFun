@@ -1,4 +1,6 @@
-﻿namespace SparkPostFun.Sending
+﻿using System;
+
+namespace SparkPostFun.Sending
 {
     public enum RecipientValidationReason
     {

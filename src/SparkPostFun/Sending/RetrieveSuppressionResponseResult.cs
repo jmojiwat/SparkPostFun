@@ -8,7 +8,6 @@ namespace SparkPostFun.Sending
     {
         public string Recipient { get; init; }
 
-        [JsonConverter(typeof(JsonPascalCaseConverter<SuppressionType>))]
         public SuppressionType Type { get; init; }
 
         public string Source { get; init; }
